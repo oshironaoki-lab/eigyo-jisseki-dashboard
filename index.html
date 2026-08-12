@@ -225,6 +225,12 @@
   .pl-name { font-size: 12.5px; font-weight: 700; min-width: 0; }
   .pl-val { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; flex: none; }
   .pl-val.neg { color: var(--bad); }
+  .pl-val.good { color: var(--good); }
+  .pl-val.warn { color: var(--warn); }
+  .pl-val.bad { color: var(--bad); }
+  .pl-list.compact .pl-row { padding: 10px 14px; }
+  .pl-list.compact .pl-name { font-size: 11.5px; }
+  .pl-list.compact .pl-val { font-size: 15px; }
   .pl-sub { font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; line-height: 1.7; }
 
   /* ---- Callout / topics ---- */
@@ -317,31 +323,37 @@
 
     <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>8月度（本日8/12時点・実績＋見込み）</h2>
     <div class="asof" style="margin-top:-4px;">第1〜3営業グループ管理台帳（第1G:2026/8/10、第2G:2026/8/11、第3G:2026/8/7 各更新）より、管理台帳に入力済みの実績と営業担当の積上げ（パイプライン）を集計。コンテンツビジネスの8月データは管理台帳に未登録のため、この3グループ合計にはコンテンツ分を含みません。単位:千円。</div>
-    <div class="kpi-grid">
-      <div class="kpi profit-emph" style="--k-c:var(--all)">
-        <div class="lbl">利益・達成率（実績のみ）</div>
-        <div class="val">46.5<small>%</small></div>
-        <div class="delta bad">実績14,360 ／ 計画30,908</div>
+    <div class="pl-list">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">利益（粗利）・着地見込</div><div class="pl-val">28,051</div></div>
+        <div class="pl-sub">実績14,360（8/12時点）・見込み込みで計画の90.8%まで到達見通し</div>
       </div>
-      <div class="kpi profit-emph" style="--k-c:var(--all)">
-        <div class="lbl">利益・達成率（見込み込み）</div>
-        <div class="val">90.8<small>%</small></div>
-        <div class="delta warn">着地見込28,051 ／ 計画30,908</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val warn">90.8%</div></div>
+        <div class="pl-sub">計画30,908</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（実績のみ）</div>
-        <div class="val">50.5<small>%</small></div>
-        <div class="delta bad">実績62,413 ／ 計画123,501</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val good">113.5%</div></div>
+        <div class="pl-sub">前年同月実績24,712（2025年8月・第1〜3G合算、未調整）</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（見込み込み）</div>
-        <div class="val">78.7<small>%</small></div>
-        <div class="delta warn">着地見込97,188 ／ 計画123,501</div>
+    </div>
+    <div class="pl-list" style="margin-top:10px;">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">参考：売上・着地見込</div><div class="pl-val">97,188</div></div>
+        <div class="pl-sub">実績62,413（8/12時点）</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val warn">78.7%</div></div>
+        <div class="pl-sub">計画123,501</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val warn">97.3%</div></div>
+        <div class="pl-sub">前年同月実績99,862（2025年8月・第1〜3G合算、未調整）</div>
       </div>
     </div>
     <div class="callout">
       <div class="ct">🔍 「実績＋見込み」の見方</div>
-      「実績」は本日8/12時点で管理台帳に入力済みの金額。「見込み」は営業担当が管理台帳に積上げているパイプライン（受注確度の高い商談）で、月末までに確定が見込まれる金額。3グループ合計では、実績ベースの利益達成率は46.5%まで伸び、積上げを含めると90.8%まで届く見通し。ただし積上げが計画どおり確定するとは限らない点に留意。
+      「実績」は本日8/12時点で管理台帳に入力済みの金額。「見込み」は営業担当が管理台帳に積上げているパイプライン（受注確度の高い商談）で、月末までに確定が見込まれる金額。3グループ合計では、実績ベースの利益達成率は46.5%まで伸び、積上げを含めると90.8%まで届く見通し。ただし積上げが計画どおり確定するとは限らない点に留意。前年同月比は久田氏・小串氏の担当変更を反映していない未調整の生数値（コンテンツ除く3グループ合算）。
     </div>
 
     <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>4〜7月累計サマリー</h2>
@@ -507,32 +519,37 @@
 
     <h2 class="sec" style="--sec-c:var(--g1)"><span class="bar"></span>8月度（本日8/12時点・実績＋見込み）</h2>
     <div class="asof" style="margin-top:-4px;">第1営業グループ管理台帳（2026/8/10更新）より。単位:千円。</div>
-    <div class="kpi-grid">
-      <div class="kpi profit-emph" style="--k-c:var(--g1)">
-        <div class="lbl">利益・達成率（実績のみ）</div>
-        <div class="val" style="color:var(--g1)">64.9<small>%</small></div>
-        <div class="delta bad">実績6,423 ／ 計画9,898</div>
+    <div class="pl-list">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">利益（粗利）・着地見込</div><div class="pl-val" style="color:var(--g1)">11,622</div></div>
+        <div class="pl-sub">実績6,423（8/12時点）・見込み込みで計画を上回る見通し</div>
       </div>
-      <div class="kpi profit-emph" style="--k-c:var(--g1)">
-        <div class="lbl">利益・達成率（見込み込み）</div>
-        <div class="val" style="color:var(--g1)">117.4<small>%</small></div>
-        <div class="delta good">着地見込11,622 ／ 計画9,898</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val good">117.4%</div></div>
+        <div class="pl-sub">計画9,898</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（実績のみ）</div>
-        <div class="val" style="color:var(--g1)">73.5<small>%</small></div>
-        <div class="delta bad">実績27,038 ／ 計画36,807</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val good">146.1%</div></div>
+        <div class="pl-sub">前年同月実績7,958（2025年8月・未調整）</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（見込み込み）</div>
-        <div class="val" style="color:var(--g1)">108.3<small>%</small></div>
-        <div class="delta good">着地見込39,846 ／ 計画36,807</div>
+    </div>
+    <div class="pl-list" style="margin-top:10px;">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">参考：売上・着地見込</div><div class="pl-val" style="color:var(--g1)">39,846</div></div>
+        <div class="pl-sub">実績27,038（8/12時点）</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val good">108.3%</div></div>
+        <div class="pl-sub">計画36,807</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val good">119.6%</div></div>
+        <div class="pl-sub">前年同月実績33,305（2025年8月・未調整）</div>
       </div>
     </div>
     <div class="callout">
       <div class="ct">🔍 見方</div>
-      積み上げ（パイプライン粗利5,199千円）を含めると、利益は8月計画を上回る見通し（117.4%）。実績のみでも64.9%まで進み、月初時点より確定分が積み上がっている。
-    </div>
+      積み上げ（パイプライン粗利5,199千円）を含めると、利益は8月計画を上回る見通し（117.4%）。実績のみでも64.9%まで進み、月初時点より確定分が積み上がっている。前年同月比も利益146.1%・売上119.6%と大きく上回っており、8月は好調な立ち上がり。前年同月比は久田氏・小串氏の担当変更を反映していない未調整の生数値（当時は該当案件が第1Gに計上されていた）。</div>
 
     <h2 class="sec" style="--sec-c:var(--g1)"><span class="bar"></span>4〜7月累計サマリー</h2>
     <div class="kpi-grid">
@@ -615,32 +632,37 @@
 
     <h2 class="sec" style="--sec-c:var(--g2)"><span class="bar"></span>8月度（本日8/12時点・実績＋見込み）</h2>
     <div class="asof" style="margin-top:-4px;">第2営業グループ管理台帳（2026/8/11更新）より。単位:千円。</div>
-    <div class="kpi-grid">
-      <div class="kpi profit-emph" style="--k-c:var(--g2)">
-        <div class="lbl">利益・達成率（実績のみ）</div>
-        <div class="val" style="color:var(--g2)">47.8<small>%</small></div>
-        <div class="delta bad">実績5,449 ／ 計画11,391</div>
+    <div class="pl-list">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">利益（粗利）・着地見込</div><div class="pl-val" style="color:var(--g2)">8,663</div></div>
+        <div class="pl-sub">実績5,449（8/12時点）・見込み込みでも計画未達の見通し</div>
       </div>
-      <div class="kpi profit-emph" style="--k-c:var(--g2)">
-        <div class="lbl">利益・達成率（見込み込み）</div>
-        <div class="val" style="color:var(--g2)">76.1<small>%</small></div>
-        <div class="delta warn">着地見込8,663 ／ 計画11,391</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val warn">76.1%</div></div>
+        <div class="pl-sub">計画11,391</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（実績のみ）</div>
-        <div class="val" style="color:var(--g2)">46.5<small>%</small></div>
-        <div class="delta bad">実績21,215 ／ 計画45,619</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val good">100.8%</div></div>
+        <div class="pl-sub">前年同月実績8,596（2025年8月・未調整）</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（見込み込み）</div>
-        <div class="val" style="color:var(--g2)">71.8<small>%</small></div>
-        <div class="delta bad">着地見込32,737 ／ 計画45,619</div>
+    </div>
+    <div class="pl-list" style="margin-top:10px;">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">参考：売上・着地見込</div><div class="pl-val" style="color:var(--g2)">32,737</div></div>
+        <div class="pl-sub">実績21,215（8/12時点）</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val bad">71.8%</div></div>
+        <div class="pl-sub">計画45,619</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val good">102.0%</div></div>
+        <div class="pl-sub">前年同月実績32,088（2025年8月・未調整）</div>
       </div>
     </div>
     <div class="callout">
       <div class="ct">🔍 見方</div>
-      積み上げ（パイプライン粗利3,214千円）を含めても、利益は8月計画には届かない見通し（76.1%）。4グループの中では8月の立ち上がりが最も遅い。
-    </div>
+      積み上げ（パイプライン粗利3,214千円）を含めても、利益は8月計画には届かない見通し（76.1%）。4グループの中では8月の立ち上がりが最も遅い。ただし前年同月比では利益100.8%・売上102.0%と前年並みは確保しており、計画自体が高めに設定されている可能性もある。</div>
 
     <h2 class="sec" style="--sec-c:var(--g2)"><span class="bar"></span>4〜7月累計サマリー</h2>
     <div class="kpi-grid">
@@ -723,32 +745,37 @@
 
     <h2 class="sec" style="--sec-c:var(--g3)"><span class="bar"></span>8月度（本日8/12時点・実績＋見込み）</h2>
     <div class="asof" style="margin-top:-4px;">第3営業グループ管理台帳（2026/8/7更新）より。単位:千円。</div>
-    <div class="kpi-grid">
-      <div class="kpi profit-emph" style="--k-c:var(--g3)">
-        <div class="lbl">利益・達成率（実績のみ）</div>
-        <div class="val" style="color:var(--g3)">25.9<small>%</small></div>
-        <div class="delta bad">実績2,488 ／ 計画9,619</div>
+    <div class="pl-list">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">利益（粗利）・着地見込</div><div class="pl-val" style="color:var(--g3)">7,765</div></div>
+        <div class="pl-sub">実績2,488（8/12時点）・見込み込みで計画の8割程度の見通し</div>
       </div>
-      <div class="kpi profit-emph" style="--k-c:var(--g3)">
-        <div class="lbl">利益・達成率（見込み込み）</div>
-        <div class="val" style="color:var(--g3)">80.7<small>%</small></div>
-        <div class="delta warn">着地見込7,765 ／ 計画9,619</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val warn">80.7%</div></div>
+        <div class="pl-sub">計画9,619</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（実績のみ）</div>
-        <div class="val" style="color:var(--g3)">34.5<small>%</small></div>
-        <div class="delta bad">実績14,160 ／ 計画41,075</div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val warn">95.2%</div></div>
+        <div class="pl-sub">前年同月実績8,158（2025年8月・未調整）</div>
       </div>
-      <div class="kpi sales-muted">
-        <div class="lbl">参考：売上・達成率（見込み込み）</div>
-        <div class="val" style="color:var(--g3)">59.9<small>%</small></div>
-        <div class="delta warn">着地見込24,605 ／ 計画41,075</div>
+    </div>
+    <div class="pl-list" style="margin-top:10px;">
+      <div class="pl-row hi">
+        <div class="pl-row-top"><div class="pl-name">参考：売上・着地見込</div><div class="pl-val" style="color:var(--g3)">24,605</div></div>
+        <div class="pl-sub">実績14,160（8/12時点）</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対計画</div><div class="pl-val warn">59.9%</div></div>
+        <div class="pl-sub">計画41,075</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-row-top"><div class="pl-name">対前年同月</div><div class="pl-val bad">71.4%</div></div>
+        <div class="pl-sub">前年同月実績34,469（2025年8月・未調整）</div>
       </div>
     </div>
     <div class="callout">
       <div class="ct">🔍 見方</div>
-      積み上げ（パイプライン粗利5,277千円）を含めると利益は8月計画の8割程度まで到達する見通し（80.7%）。実績のみでは25.9%とやや後退したが、7月同様に案件計上が月後半へ偏る傾向があり、積上げの厚みで挽回を狙う構成。
-    </div>
+      積み上げ（パイプライン粗利5,277千円）を含めると利益は8月計画の8割程度まで到達する見通し（80.7%）。実績のみでは25.9%とやや後退したが、7月同様に案件計上が月後半へ偏る傾向があり、積上げの厚みで挽回を狙う構成。前年同月比は利益95.2%とほぼ横ばいだが、売上は71.4%と3グループ中もっとも前年を下回っている。</div>
 
     <h2 class="sec" style="--sec-c:var(--g3)"><span class="bar"></span>4〜7月累計サマリー</h2>
     <div class="kpi-grid">
