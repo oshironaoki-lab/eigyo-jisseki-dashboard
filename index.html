@@ -121,6 +121,17 @@
   .tab-btn[data-tab="g3"] { --tab-c: var(--g3); }
   .tab-btn[data-tab="content"] { --tab-c: var(--content); }
 
+  .report-link-row { padding-bottom: 12px; }
+  .report-link {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; appearance: none; border: 1px dashed var(--border-strong);
+    background: transparent; color: var(--text-secondary);
+    font: inherit; font-size: 12px; font-weight: 700;
+    padding: 9px 10px; border-radius: 9px; text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .report-link:active { background: var(--surface-2); }
+
   main { max-width: 640px; margin: 0 auto; padding: 18px 16px 0; }
   .panel { display: none; }
   .panel.active { display: block; animation: fade .25s ease; }
@@ -286,6 +297,12 @@
       <button class="tab-btn" data-tab="g2" role="tab" aria-selected="false">第2G</button>
       <button class="tab-btn" data-tab="g3" role="tab" aria-selected="false">第3G</button>
       <button class="tab-btn" data-tab="content" role="tab" aria-selected="false">コンテンツ</button>
+    </div>
+    <div class="report-link-row">
+      <a class="report-link" href="./report-fy2025.html">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        <span>2025年度 実績分析報告を見る</span>
+      </a>
     </div>
   </div>
 </header>
