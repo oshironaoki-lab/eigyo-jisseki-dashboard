@@ -7,6 +7,8 @@
     --text: #17160f; --text-secondary: #57554c; --text-muted: #8c897d;
     --border: rgba(23,22,15,0.11); --border-strong: rgba(23,22,15,0.22);
     --shadow: 0 1px 2px rgba(23,22,15,0.04), 0 8px 20px -14px rgba(23,22,15,0.22);
+    --shadow-hero: 0 2px 4px rgba(23,22,15,0.06), 0 14px 32px -16px rgba(23,22,15,0.30);
+    --shadow-sm: 0 1px 1px rgba(23,22,15,0.03);
 
     /* categorical (dataviz skill default palette, slots 1/2/3/4 + violet-7 for company) */
     --g1: #2a78d6; --g2: #eb6834; --g3: #1baf7a; --content: #eda100; --all: #4a3aa7;
@@ -20,6 +22,8 @@
       --text: #f1efe6; --text-secondary: #c2bfb2; --text-muted: #948f80;
       --border: rgba(241,239,230,0.13); --border-strong: rgba(241,239,230,0.24);
       --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 20px -14px rgba(0,0,0,0.6);
+      --shadow-hero: 0 2px 4px rgba(0,0,0,0.4), 0 16px 36px -16px rgba(0,0,0,0.7);
+      --shadow-sm: 0 1px 1px rgba(0,0,0,0.3);
       --g1: #3987e5; --g2: #d95926; --g3: #199e70; --content: #c98500; --all: #9085e9;
       --good: #1fbf3d; --warn: #e0ab4a; --bad: #e66767;
     }
@@ -30,6 +34,8 @@
     --text: #f1efe6; --text-secondary: #c2bfb2; --text-muted: #948f80;
     --border: rgba(241,239,230,0.13); --border-strong: rgba(241,239,230,0.24);
     --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 20px -14px rgba(0,0,0,0.6);
+    --shadow-hero: 0 2px 4px rgba(0,0,0,0.4), 0 16px 36px -16px rgba(0,0,0,0.7);
+    --shadow-sm: 0 1px 1px rgba(0,0,0,0.3);
     --g1: #3987e5; --g2: #d95926; --g3: #199e70; --content: #c98500; --all: #9085e9;
     --good: #1fbf3d; --warn: #e0ab4a; --bad: #e66767;
   }
@@ -123,7 +129,7 @@
   /* ---- Hero card (this month landing estimate) ---- */
   .hero {
     background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
-    padding: 18px; box-shadow: var(--shadow); margin-bottom: 10px;
+    padding: 20px 18px; box-shadow: var(--shadow-hero); margin-bottom: 10px;
     border-top: 3px solid var(--hero-c, var(--good));
   }
   .hero-lbl { font-size: 12.5px; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
@@ -159,7 +165,7 @@
   .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .kpi {
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-    padding: 13px 14px; box-shadow: var(--shadow);
+    padding: 13px 14px; box-shadow: var(--shadow-sm);
   }
   .kpi .lbl { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 7px; }
   .kpi .delta { font-size: 12px; margin-top: 6px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-muted); }
@@ -174,7 +180,7 @@
     font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text); z-index: 2; }
 
   /* ---- Sparkline ---- */
-  .spark-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .spark-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
   .spark-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .spark-top .t { font-size: 13px; font-weight: 800; }
   .spark-top .v { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
@@ -219,7 +225,7 @@
   .grow-plan { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); opacity: .55; }
 
   /* ---- YoY compare rows ---- */
-  .yoy-block { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px; box-shadow: var(--shadow); margin-bottom: 10px; }
+  .yoy-block { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px; box-shadow: var(--shadow-sm); margin-bottom: 10px; }
   .yoy-row { margin-bottom: 14px; } .yoy-row:last-child { margin-bottom: 0; }
   .yoy-row .yr-label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; font-weight: 800; margin-bottom: 7px; gap: 8px; }
   .yoy-row .yr-delta { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 13px; }
@@ -231,8 +237,11 @@
   .yoy-bar-row .amt { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; width: 64px; text-align: right; flex: none; }
   .yoy-note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  /* ---- Topics ---- */
-  .topic-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 13px 14px; margin-bottom: 9px; box-shadow: var(--shadow); }
+  /* ---- Topics (quieter than the numeric cards: flat, left accent, no shadow) ---- */
+  .topic-card {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--topic-c, var(--border-strong));
+    border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+  }
   .topic-card .cli { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 3px; }
   .topic-card .desc { font-size: 14px; line-height: 1.7; }
   .topic-card .who { font-size: 12px; color: var(--text-muted); margin-left: 3px; }
@@ -725,7 +734,7 @@ const DATA = {
       (scope.mainClients ? '<div class="guide">主要顧客：' + esc(scope.mainClients) + '</div>' : '') +
       (scope.topicsNote ? '<div class="guide">' + esc(scope.topicsNote) + '</div>' : '') +
       scope.topics.map(function (t) {
-        return '<div class="topic-card"><div class="cli">' + esc(t.cli) + (t.tag ? '<span class="tag ' + t.tag + '">' + esc(t.tagLabel) + '</span>' : '') + '</div>' +
+        return '<div class="topic-card" style="--topic-c:var(--' + scope.color + ')"><div class="cli">' + esc(t.cli) + (t.tag ? '<span class="tag ' + t.tag + '">' + esc(t.tagLabel) + '</span>' : '') + '</div>' +
           '<div class="desc">' + t.desc + (t.who ? '<span class="who">（' + esc(t.who) + '）</span>' : '') + '</div></div>';
       }).join("");
   }
