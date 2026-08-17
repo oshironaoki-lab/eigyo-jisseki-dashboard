@@ -1,0 +1,11 @@
+{
+  "name": "eigyo-jisseki-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "refresh-data": "node scripts/refresh-data.mjs"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
