@@ -77,16 +77,17 @@
 
   /* ---- Tabs (horizontal scroll, no cut-off) ---- */
   .tabs {
-    display: flex; gap: 6px; overflow-x: auto; scroll-snap-type: x proximity;
-    padding-bottom: 10px; margin: 0 -16px; padding-left: 16px; padding-right: 16px;
+    display: flex; gap: 5px; overflow-x: auto; scroll-snap-type: x proximity;
+    padding-bottom: 10px;
     -ms-overflow-style: none; scrollbar-width: none;
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
     appearance: none; border: 1px solid var(--border); background: var(--surface);
-    color: var(--text-secondary); font: inherit; font-size: 13px; font-weight: 700;
-    padding: 9px 14px; border-radius: 999px; cursor: pointer; flex: none; min-height: 40px;
-    scroll-snap-align: start; white-space: nowrap;
+    color: var(--text-secondary); font: inherit; font-size: 12.5px; font-weight: 700;
+    padding: 9px 4px; border-radius: 999px; cursor: pointer; flex: 1 1 0; min-width: 0; min-height: 40px;
+    scroll-snap-align: start; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-align: center;
     transition: background .15s, color .15s, border-color .15s;
   }
   .tab-btn[aria-selected="true"] { background: var(--tab-c, var(--all)); border-color: var(--tab-c, var(--all)); color: #fff; }
@@ -129,7 +130,9 @@
   .hero-num { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--hero-c, var(--good)); }
   .hero-num .unit { font-size: 15px; font-weight: 700; margin-left: 2px; color: var(--text-secondary); }
   .hero-sub { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
-  .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .chip-col { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .chip-note { font-size: 10px; color: var(--text-muted); padding-left: 2px; font-variant-numeric: tabular-nums; }
   .chip {
     display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700;
     padding: 6px 11px; border-radius: 999px; background: var(--surface-2); color: var(--text-secondary);
@@ -185,6 +188,9 @@
   .mbar-track { position: relative; height: 14px; background: var(--surface-2); border-radius: 4px; }
   .mbar-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 4px; background: var(--mc, var(--all)); }
   .mbar-plan { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); opacity: .5; }
+  .mbar-row.forecast .mbar-fill { background: repeating-linear-gradient(135deg, var(--mc, var(--all)) 0 4px, color-mix(in srgb, var(--mc, var(--all)) 55%, transparent) 4px 8px); }
+  .mbar-row.forecast .mbar-track { border: 1px dashed var(--border-strong); }
+  .fc-tag { display: inline-block; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 999px; margin-left: 5px; background: var(--surface-2); color: var(--text-muted); vertical-align: middle; }
 
   /* ---- Table (inside details) ---- */
   .tblwrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
@@ -292,39 +298,43 @@ const DATA = {
         detail: "「実績」は本日（8/17）時点で管理台帳に入力済みの金額。「見込み」は営業担当が積上げているパイプラインで、月末までに確定が見込まれる金額。3グループ合計では実績ベースの利益達成率は53.2%、積上げを含めると90.7%まで届く見通し（積上げが計画どおり確定するとは限らない点に留意）。前年同月実績は久田氏・小串氏の担当変更を引き継ぎ先グループへ振り替え済み（コンテンツ除く3グループ合算。グループ間の付け替えのため合計額は不変）。"
       },
       ytd: {
-        title: "4〜7月累計",
-        profit: { actual: 147607, plan: 148886, achievePct: 99.1, yoyPct: 106.9, yoyPrior: 138095 },
-        sales:  { actual: 668022, plan: 728360, achievePct: 91.7, yoyPct: 97.8, yoyPrior: 682745 },
+        title: "4〜8月累計（8月は着地予測）",
+        forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測を含みます（コンテンツの8月分は台帳未登録のため4〜7月実績のみ他グループに合算）。",
+        profit: { actual: 175635, plan: 179794, achievePct: 97.7, yoyPct: 107.9, yoyPrior: 162807 },
+        sales:  { actual: 766523, plan: 851861, achievePct: 90.0, yoyPct: 97.9, yoyPrior: 782607 },
         monthlyTrend: [
           { m: "4月", actual: 32352, plan: 31795, pct: 101.8 },
           { m: "5月", actual: 28307, plan: 34872, pct: 81.2 },
           { m: "6月", actual: 40607, plan: 34810, pct: 116.7 },
-          { m: "7月", actual: 46341, plan: 47409, pct: 97.7 }
+          { m: "7月", actual: 46341, plan: 47409, pct: 97.7 },
+          { m: "8月", actual: 28028, plan: 30908, pct: 90.7, forecast: true }
         ]
       },
       groups: [
-        { key: "g1", name: "第1営業グループ", profitActual: 36251, profitPlan: 45925, pct: 78.9 },
-        { key: "g2", name: "第2営業グループ", profitActual: 66226, profitPlan: 55559, pct: 119.2 },
-        { key: "g3", name: "第3営業グループ", profitActual: 34774, profitPlan: 35898, pct: 96.9 },
-        { key: "content", name: "コンテンツビジネス", profitActual: 10356, profitPlan: 11504, pct: 90.0 }
+        { key: "g1", name: "第1営業グループ", profitActual: 46275, profitPlan: 55823, pct: 82.9 },
+        { key: "g2", name: "第2営業グループ", profitActual: 75639, profitPlan: 66950, pct: 113.0 },
+        { key: "g3", name: "第3営業グループ", profitActual: 43365, profitPlan: 45517, pct: 95.3 },
+        { key: "content", name: "コンテンツビジネス", profitActual: 10356, profitPlan: 11504, pct: 90.0, note: "4〜7月実績" }
       ],
-      groupsNote: "バー・数値は「利益（粗利）」の計画達成率。第2営業Gは唯一計画を超過（119.2%）。第1営業Gは78.9%と4グループ中もっとも計画から遅れており、第3G(96.9%)・コンテンツ(90.0%)はほぼ計画水準で推移している。",
+      groupsTitle: "グループ別進捗（4〜8月累計・利益ベース／8月は予測）",
+      groupsNote: "バー・数値は「利益（粗利）」の計画達成率（8月は着地予測を含む。コンテンツのみ8月データ未登録のため4〜7月実績）。第2営業Gが唯一計画を超過（113.0%）。第1営業Gは82.9%と4グループ中もっとも計画から遅れており、第3G(95.3%)・コンテンツ(90.0%)はほぼ計画水準で推移している。",
       yoyCompare: {
-        note: "薄い帯＝2025年度実績（前年・同期間）、濃い帯＝2026年度実績（今年・4〜7月累計）。単位:千円。第1〜3営業Gの前年実績は、久田氏（BOATRACE振興会案件・第1G→第2G）、小串氏（退職。南都・沖縄長正薬草本社・イーアス沖縄は第1G→第3G、佐久本工機は第1G→第2G）の担当変更をそれぞれの引き継ぎ先グループへ振り替えた調整後の数字。",
+        title: "今年度実績 vs 前年実績（グループ別・利益）",
+        note: "薄い帯＝2025年度実績（前年・同期間）、濃い帯＝2026年度実績（今年）。全社・第1〜3営業Gは4〜8月累計（8月は着地予測含む）、コンテンツは8月データ未登録のため4〜7月累計。単位:千円。第1〜3営業Gの前年実績は、久田氏（BOATRACE振興会案件・第1G→第2G）、小串氏（退職。南都・沖縄長正薬草本社・イーアス沖縄は第1G→第3G、佐久本工機は第1G→第2G）の担当変更をそれぞれの引き継ぎ先グループへ振り替えた調整後の数字（8月分もそれぞれの月次調整を反映済み）。",
         rows: [
-          { key: "all",     name: "全社",                thisYear: 147607, lastYear: 138095, pct: 106.9 },
-          { key: "g1", name: "第1営業G", note: "※調整後", thisYear: 36251,  lastYear: 41236,  pct: 87.9 },
-          { key: "g2", name: "第2営業G", note: "※調整後", thisYear: 66226,  lastYear: 50388,  pct: 131.4 },
-          { key: "g3", name: "第3営業G", note: "※調整後", thisYear: 34774,  lastYear: 42282,  pct: 82.2 },
-          { key: "content", name: "コンテンツ",           thisYear: 10356,  lastYear: 9548,   pct: 108.5 }
+          { key: "all",     name: "全社",                thisYear: 175635, lastYear: 162807, pct: 107.9 },
+          { key: "g1", name: "第1営業G", note: "※調整後", thisYear: 46275,  lastYear: 48828,  pct: 94.8 },
+          { key: "g2", name: "第2営業G", note: "※調整後", thisYear: 75639,  lastYear: 59305,  pct: 127.5 },
+          { key: "g3", name: "第3営業G", note: "※調整後", thisYear: 43365,  lastYear: 50485,  pct: 85.9 },
+          { key: "content", name: "コンテンツ", note: "4〜7月実績", thisYear: 10356,  lastYear: 9548,   pct: 108.5 }
         ],
         table: {
           headers: ["区分", "今年度実績・利益", "前年実績・利益", "対前年", "今年度粗利率"],
           rows: [
-            ["全社", "147,607", "138,095", "106.9%", "22.1%"],
-            ["第1営業G※", "36,251", "41,236", "87.9%", "25.3%"],
-            ["第2営業G※", "66,226", "50,388", "131.4%", "23.9%"],
-            ["第3営業G※", "34,774", "42,282", "82.2%", "17.7%"],
+            ["全社", "175,635", "162,807", "107.9%", "22.9%"],
+            ["第1営業G※", "46,275", "48,828", "94.8%", "25.5%"],
+            ["第2営業G※", "75,639", "59,305", "127.5%", "24.3%"],
+            ["第3営業G※", "43,365", "50,485", "85.9%", "19.4%"],
             ["コンテンツ", "10,356", "9,548", "108.5%", "20.3%"]
           ]
         }
@@ -347,14 +357,16 @@ const DATA = {
         detail: "積み上げ（パイプライン粗利3,616千円）を含めると、利益は8月計画を上回る見通し（101.3%）。実績のみでも64.7%まで進み、確定分が積み上がっている。前年同月比も利益132.0%・売上124.2%と大きく上回っており、8月は好調な立ち上がりが続いている。前年同月実績は久田氏（BOATRACE）・小串氏（沖縄長正薬草本社・佐久本工機）担当分を引き継ぎ先グループへ振り替えた調整後の数値（2025年8月：BOATRACE売上1,020千円/利益1.8千円、沖縄長正薬草本社250千円/45千円、佐久本工機1,446千円/319千円を控除）。"
       },
       ytd: {
-        title: "4〜7月累計",
-        profit: { actual: 36251, plan: 45925, achievePct: 78.9, planFull: 153491, marginPct: 28.9 },
-        sales:  { actual: 143555, plan: 165111, achievePct: 86.9, planFull: 530836 },
+        title: "4〜8月累計（8月は着地予測）",
+        forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測です。",
+        profit: { actual: 46275, plan: 55823, achievePct: 82.9, planFull: 153491, marginPct: 28.9 },
+        sales:  { actual: 181554, plan: 201918, achievePct: 89.9, planFull: 530836 },
         monthlyTrend: [
           { m: "4月", actual: 11311, plan: 10813, pct: 104.6 },
           { m: "5月", actual: 7078,  plan: 12855, pct: 55.1 },
           { m: "6月", actual: 7506,  plan: 10441, pct: 71.9 },
-          { m: "7月", actual: 10356, plan: 11816, pct: 87.6 }
+          { m: "7月", actual: 10356, plan: 11816, pct: 87.6 },
+          { m: "8月", actual: 10024, plan: 9898, pct: 101.3, forecast: true }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -362,16 +374,18 @@ const DATA = {
             ["4月","49,712","41,164","120.8%","11,311","10,813","104.6%"],
             ["5月","27,966","40,620","68.8%","7,078","12,855","55.1%"],
             ["6月","28,001","38,014","73.7%","7,506","10,441","71.9%"],
-            ["7月","37,876","45,313","83.6%","10,356","11,816","87.6%"]
+            ["7月","37,876","45,313","83.6%","10,356","11,816","87.6%"],
+            ["8月（予測）","37,999","36,807","103.2%","10,024","9,898","101.3%"]
           ],
-          total: ["4〜7月計","143,555","165,111","86.9%","36,251","45,925","78.9%"]
+          total: ["4〜8月計","181,554","201,918","89.9%","46,275","55,823","82.9%"]
         },
-        trendNote: "4月は売上・粗利とも計画超過（120.8%／104.6%）だったが、5月に大きく落ち込み（68.8％／55.1%）、以降も計画未達が続いている。7月は粗利達成率87.6%まで戻しつつあり、粗利率も27.3%と4グループ中最も高い水準を維持している。"
+        trendNote: "4月は売上・粗利とも計画超過（120.8%／104.6%）だったが、5月に大きく落ち込み（68.8％／55.1%）、その後は持ち直し傾向。8月は積上げ込みの着地予測で売上・粗利とも計画を上回る見通し（103.2%／101.3%）。"
       },
       yoy: {
-        thisYear: 36251, lastYear: 41236, pct: 87.9,
-        thisYearSales: 143555, lastYearSales: 153705, pctSales: 93.4,
-        detail: "前年（2025年度）4〜7月累計の未調整実績は売上189,736・粗利49,286。ここから、①<b>第2営業Gへ移管されたBOATRACE振興会案件分</b>（久田氏計上、売上30,885・粗利6,425）、②<b>第3営業Gが引き継いだ南都・沖縄長正薬草本社・イーアス沖縄</b>（小串氏の旧担当分、売上2,305・粗利763）、③<b>第2営業Gが引き継いだ佐久本工機</b>（小串氏の旧担当分、売上2,841・粗利862）を控除し、前年実績を売上153,705・粗利41,236とした。この調整後ベースでは、第1営業Gは前年同期比で<b>売上93.4%・粗利87.9%</b>（未調整では75.7%／73.6%）。小串氏は退職のため、上記以外の同氏クライアント分（りゅうせき都市ガス、沖縄県労働金庫、大米建設TVCM等）は第1営業Gの実績としてそのまま残している。"
+        title: "対前年（4〜8月累計・8月は予測）",
+        thisYear: 46275, lastYear: 48828, pct: 94.8,
+        thisYearSales: 181554, lastYearSales: 184294, pctSales: 98.5,
+        detail: "前年（2025年度）4〜7月累計の未調整実績は売上189,736・粗利49,286。ここから、①<b>第2営業Gへ移管されたBOATRACE振興会案件分</b>（久田氏計上、売上30,885・粗利6,425）、②<b>第3営業Gが引き継いだ南都・沖縄長正薬草本社・イーアス沖縄</b>（小串氏の旧担当分、売上2,305・粗利763）、③<b>第2営業Gが引き継いだ佐久本工機</b>（小串氏の旧担当分、売上2,841・粗利862）を控除し、前年実績を売上153,705・粗利41,236とした（4〜7月ベース、この調整後では前年同期比売上93.4%・粗利87.9%）。8月分はさらに月次の前年同月実績（BOATRACE・沖縄長正薬草本社・佐久本工機の引き継ぎ分を控除した調整後7,592千円）を加算しており、8月単体では前年同月比132.0%と大きく上回っている。小串氏は退職のため、上記以外の同氏クライアント分（りゅうせき都市ガス、沖縄県労働金庫、大米建設TVCM等）は第1営業Gの実績としてそのまま残している。"
       },
       topics: [
         { cli: "琉球リース", tag: "compe", tagLabel: "コンペ", desc: "MVV策定企画 ― 役員説明を終え5社中2社に絞込み。予算規模は今年度内で約500万円と見えてきており、規模に合わせた内容で来週再提案予定", who: "大城次長・野原" },
@@ -392,14 +406,16 @@ const DATA = {
         detail: "積み上げ（パイプライン粗利2,188千円）を含めると、利益は8月計画にほぼ届く見通し（82.6%）。実績のみでは63.4%まで進んでおり、4グループの中では8月の立ち上がりがやや緩やか。前年同月比（調整後）は利益105.6%・売上98.8%とほぼ前年並みで推移している。前年同月実績はBOATRACE・佐久本工機の引き継ぎ分（2025年8月：売上計2,466千円/利益計320.8千円）を加算した調整後の数値。"
       },
       ytd: {
-        title: "4〜7月累計",
-        profit: { actual: 66226, plan: 55559, achievePct: 119.2, planFull: 189125, marginPct: 22.6 },
-        sales:  { actual: 276608, plan: 281603, achievePct: 98.2, planFull: 836120 },
+        title: "4〜8月累計（8月は着地予測）",
+        forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測です。",
+        profit: { actual: 75639, plan: 66950, achievePct: 113.0, planFull: 189125, marginPct: 22.6 },
+        sales:  { actual: 310747, plan: 327222, achievePct: 95.0, planFull: 836120 },
         monthlyTrend: [
           { m: "4月", actual: 12841, plan: 12215, pct: 105.1 },
           { m: "5月", actual: 13658, plan: 12131, pct: 112.6 },
           { m: "6月", actual: 23222, plan: 12892, pct: 180.1 },
-          { m: "7月", actual: 16505, plan: 18321, pct: 90.1 }
+          { m: "7月", actual: 16505, plan: 18321, pct: 90.1 },
+          { m: "8月", actual: 9413, plan: 11391, pct: 82.6, forecast: true }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -407,16 +423,18 @@ const DATA = {
             ["4月","66,367","65,939","100.6%","12,841","12,215","105.1%"],
             ["5月","51,771","82,403","62.8%","13,658","12,131","112.6%"],
             ["6月","97,692","49,817","196.1%","23,222","12,892","180.1%"],
-            ["7月","60,778","83,444","72.8%","16,505","18,321","90.1%"]
+            ["7月","60,778","83,444","72.8%","16,505","18,321","90.1%"],
+            ["8月（予測）","34,139","45,619","74.8%","9,413","11,391","82.6%"]
           ],
-          total: ["4〜7月計","276,608","281,603","98.2%","66,226","55,559","119.2%"]
+          total: ["4〜8月計","310,747","327,222","95.0%","75,639","66,950","113.0%"]
         },
-        trendNote: "6月は売上196.1%・粗利180.1%と大幅な計画超過（ボートレース振興会関連の大型案件が寄与）。7月は反動でやや計画未達となったが、4グループの中で唯一、累計粗利が計画を大きく上回っている（119.2%）。"
+        trendNote: "6月は売上196.1%・粗利180.1%と大幅な計画超過（ボートレース振興会関連の大型案件が寄与）。7月は反動でやや計画未達となり、8月も着地予測ベースで82.6%とやや控えめだが、4グループの中で唯一、累計粗利は計画を大きく上回っている（113.0%）。"
       },
       yoy: {
-        thisYear: 66226, lastYear: 50388, pct: 131.4,
-        thisYearSales: 276608, lastYearSales: 214238, pctSales: 129.1,
-        detail: "前年（2025年度）4〜7月累計の未調整実績は売上180,512・粗利43,101。ここに、①<b>第1営業Gから移管されたBOATRACE振興会案件分</b>（前年は久田氏計上、売上30,885・粗利6,425）、②<b>第1営業Gが引き継いだ佐久本工機</b>（前年は小串氏計上、売上2,841・粗利862）を加算し、前年実績を売上214,238・粗利50,388とした。この調整後ベースでは、第2営業Gは前年同期比で<b>売上129.1%・粗利131.4%</b>（未調整では153.2%／153.7%）。それでも4グループの中で最も高い伸び率を維持しており、BOATRACE案件の受け皿としてだけでなく、既存事業も含めて成長している。"
+        title: "対前年（4〜8月累計・8月は予測）",
+        thisYear: 75639, lastYear: 59305, pct: 127.5,
+        thisYearSales: 310747, lastYearSales: 248792, pctSales: 124.9,
+        detail: "前年（2025年度）4〜7月累計の未調整実績は売上180,512・粗利43,101。ここに、①<b>第1営業Gから移管されたBOATRACE振興会案件分</b>（前年は久田氏計上、売上30,885・粗利6,425）、②<b>第1営業Gが引き継いだ佐久本工機</b>（前年は小串氏計上、売上2,841・粗利862）を加算し、前年実績を売上214,238・粗利50,388とした（4〜7月ベース、この調整後では前年同期比売上129.1%・粗利131.4%）。8月分はさらに月次の前年同月実績（BOATRACE・佐久本工機の引き継ぎ分を加算した調整後8,917千円）を加算しており、8月単体では前年同月比105.6%とほぼ前年並みで推移している。それでも4グループの中で最も高い伸び率を維持しており、BOATRACE案件の受け皿としてだけでなく、既存事業も含めて成長している。"
       },
       topics: [
         { cli: "BOATRACE振興会", desc: "全島エイサー2026 ― 金額含む実施内容が確定、開催まで1か月を切りツール制作・各所調整を急ぎ進行中", who: "久田" },
@@ -437,14 +455,16 @@ const DATA = {
         detail: "積み上げ（パイプライン粗利5,781千円）を含めると利益は8月計画にほぼ届く見通し（89.3%）。実績のみでは29.2%とまだ低いが、7月同様に案件計上が月後半へ偏る傾向があり、積上げの厚みで挽回を狙う構成。前年同月比（調整後）は利益104.7%と前年を上回ってきたが、売上は75.9%と3グループ中もっとも前年を下回っている。前年同月実績は小串氏の沖縄長正薬草本社分（2025年8月：売上250千円/利益45千円）を加算した調整後の数値。"
       },
       ytd: {
-        title: "4〜7月累計",
-        profit: { actual: 34774, plan: 35898, achievePct: 96.9, planFull: 116696, marginPct: 21.2 },
-        sales:  { actual: 196723, plan: 227339, achievePct: 86.5, planFull: 550329 },
+        title: "4〜8月累計（8月は着地予測）",
+        forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測です。",
+        profit: { actual: 43365, plan: 45517, achievePct: 95.3, planFull: 116696, marginPct: 21.2 },
+        sales:  { actual: 223086, plan: 268414, achievePct: 83.1, planFull: 550329 },
         monthlyTrend: [
           { m: "4月", actual: 6488, plan: 6268, pct: 103.5 },
           { m: "5月", actual: 5984, plan: 7535, pct: 79.4 },
           { m: "6月", actual: 6297, plan: 8939, pct: 70.4 },
-          { m: "7月", actual: 16005, plan: 13156, pct: 121.7 }
+          { m: "7月", actual: 16005, plan: 13156, pct: 121.7 },
+          { m: "8月", actual: 8591, plan: 9619, pct: 89.3, forecast: true }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -452,16 +472,18 @@ const DATA = {
             ["4月","28,944","29,109","99.4%","6,488","6,268","103.5%"],
             ["5月","28,295","32,219","87.8%","5,984","7,535","79.4%"],
             ["6月","24,908","43,577","57.2%","6,297","8,939","70.4%"],
-            ["7月","114,576","122,434","93.6%","16,005","13,156","121.7%"]
+            ["7月","114,576","122,434","93.6%","16,005","13,156","121.7%"],
+            ["8月（予測）","26,363","41,075","64.2%","8,591","9,619","89.3%"]
           ],
-          total: ["4〜7月計","196,723","227,339","86.5%","34,774","35,898","96.9%"]
+          total: ["4〜8月計","223,086","268,414","83.1%","43,365","45,517","95.3%"]
         },
-        trendNote: "4〜6月は計画未達が続いたが（特に6月は57.2%）、7月に大型案件が計上され粗利達成率121.7%まで急回復。単月の変動が大きく、大型スポット案件の有無に左右されやすい構成になっている。"
+        trendNote: "4〜6月は計画未達が続いたが（特に6月は57.2%）、7月に大型案件が計上され粗利達成率121.7%まで急回復。8月は着地予測ベースで89.3%まで戻す見通し。単月の変動が大きく、大型スポット案件の有無に左右されやすい構成になっている。"
       },
       yoy: {
-        thisYear: 34774, lastYear: 42282, pct: 82.2,
-        thisYearSales: 196723, lastYearSales: 241351, pctSales: 81.5,
-        detail: "前年（2025年度）4〜7月累計の未調整実績は売上239,046・粗利41,519。ここに、2026年度に第1営業Gから引き継いだ<b>南都・沖縄長正薬草本社・イーアス沖縄</b>（前年は小串氏計上、売上2,305・粗利763）を加算し、前年実績を売上241,351・粗利42,282とした。この調整後ベースでは、第3営業Gは前年同期比で<b>売上81.5%・粗利82.2%</b>（未調整では82.3%／83.8%）。差はわずかだが、第3営業Gは前年同期比で4グループの中でもっとも低い水準にとどまる。前年7月は大型案件（海洋博花火大会関連など）の計上があり、その反動が影響している可能性がある。"
+        title: "対前年（4〜8月累計・8月は予測）",
+        thisYear: 43365, lastYear: 50485, pct: 85.9,
+        thisYearSales: 223086, lastYearSales: 276070, pctSales: 80.8,
+        detail: "前年（2025年度）4〜7月累計の未調整実績は売上239,046・粗利41,519。ここに、2026年度に第1営業Gから引き継いだ<b>南都・沖縄長正薬草本社・イーアス沖縄</b>（前年は小串氏計上、売上2,305・粗利763）を加算し、前年実績を売上241,351・粗利42,282とした（4〜7月ベース、この調整後では前年同期比売上81.5%・粗利82.2%）。8月分はさらに月次の前年同月実績（小串氏の沖縄長正薬草本社分を加算した調整後8,203千円）を加算しており、8月単体では前年同月比104.7%と前年を上回ってきている。前年7月は大型案件（海洋博花火大会関連など）の計上があり、その反動が影響している可能性がある。"
       },
       topics: [
         { cli: "沖縄パナソニック特機", desc: "現場ソリューション ― 沖縄施工チーム・宣伝グラフィック担当者を交え東京視察の情報共有MTGを実施。今後は定期MTGでスケジュール・リスク管理を徹底", who: "金城" },
@@ -478,6 +500,7 @@ const DATA = {
       monthlyUnavailableNote: "売上・粗利：販管システム出力（2026/7/31作成、4〜7月実績）。単位:千円。8月分の管理台帳シートは本日時点でも未作成のため、8月の実績＋見込みは未掲載。トピックスは月次報告会資料（2026年6月度）による。",
       ytd: {
         title: "4〜7月累計",
+        forecastNote: "8月分は管理台帳が未整備のため、他グループと異なり4〜7月の確定実績のみです。",
         profit: { actual: 10356, plan: 11504, achievePct: 90.0, planFull: 40685, marginPct: 16.1 },
         sales:  { actual: 51136, plan: 54307, achievePct: 94.2, planFull: 252717 },
         monthlyTrend: [
@@ -526,6 +549,8 @@ const DATA = {
   var toneAchieve = function (pct) { return pct >= 100 ? "good" : pct >= 80 ? "warn" : "bad"; };
   var toneYoy = function (pct) { return pct >= 100 ? "good" : pct >= 94 ? "warn" : "bad"; };
   var ringColorVar = function (t) { return t === "good" ? "var(--good)" : t === "warn" ? "var(--warn)" : "var(--bad)"; };
+  // バーの塗り幅はmin(達成率,100)%。計画の目印線は「実績を基準にしたときの計画の相対位置」＝達成率>=100%なら10000/達成率、未満なら右端(100%)。
+  var planMarkerPos = function (pct) { return pct >= 100 ? Math.min(100, 10000 / pct) : 100; };
 
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
 
@@ -540,8 +565,8 @@ const DATA = {
         '<div class="hero-num">' + fmt(m.profit.landing) + '<span class="unit">千円</span></div>' +
         '<div class="hero-sub">実績 ' + fmt(m.profit.actual) + '千円（本日時点）</div>' +
         '<div class="hero-chips">' +
-          '<span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span>' +
-          '<span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span>' +
+          '<div class="chip-col"><span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span><span class="chip-note">計画' + fmt(m.profit.plan) + '千円</span></div>' +
+          '<div class="chip-col"><span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span><span class="chip-note">前年' + fmt(m.profit.yoyPrior) + '千円</span></div>' +
         '</div>' +
       '</div>' +
       '<details class="more"><summary>参考：売上ベースの数字・詳しい内訳を見る</summary><div class="more-body">' +
@@ -566,6 +591,7 @@ const DATA = {
     }
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(y.title) + '</h2>' +
+      (y.forecastNote ? '<div class="guide" style="margin-top:-6px;">' + esc(y.forecastNote) + '</div>' : '') +
       '<div class="kpi-grid">' +
         '<div class="kpi"><div class="lbl">利益・計画達成率</div><div class="ring-wrap">' +
           '<div class="ring" style="--pct:' + y.profit.achievePct + ';--ring-c:' + ringColorVar(pt) + '"><div class="ring-label">' + y.profit.achievePct + '%</div></div>' +
@@ -589,12 +615,20 @@ const DATA = {
     var pts = trend.map(function (d, i) {
       var x = pad + (i / (trend.length - 1)) * (w - pad * 2);
       var y = h - pad - ((d.actual - min) / (max - min || 1)) * (h - pad * 2);
-      return [x, y];
+      return [x, y, !!d.forecast];
     });
-    var path = pts.map(function (p, i) { return (i === 0 ? "M" : "L") + p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ");
-    var dots = pts.map(function (p) { return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="' + color + '"/>'; }).join("");
+    var segs = [];
+    for (var i = 1; i < pts.length; i++) {
+      var isFc = pts[i][2];
+      segs.push('<line x1="' + pts[i-1][0].toFixed(1) + '" y1="' + pts[i-1][1].toFixed(1) + '" x2="' + pts[i][0].toFixed(1) + '" y2="' + pts[i][1].toFixed(1) + '" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round" ' + (isFc ? 'stroke-dasharray="4 3"' : '') + '/>');
+    }
+    var dots = pts.map(function (p) {
+      return p[2]
+        ? '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3.5" fill="var(--surface)" stroke="' + color + '" stroke-width="2"/>'
+        : '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="' + color + '"/>';
+    }).join("");
     return '<svg class="spark-svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" role="img" aria-label="月次粗利の推移">' +
-      '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' + dots + '</svg>';
+      segs.join("") + dots + '</svg>';
   }
 
   function trendSection(scope) {
@@ -604,15 +638,16 @@ const DATA = {
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>月次推移（粗利＝利益ベース）</h2>' +
       '<div class="spark-wrap">' +
-        '<div class="spark-top"><span class="t">直近' + y.monthlyTrend.length + 'カ月の粗利トレンド</span><span class="v">' + last.m + ' ' + fmt(last.actual) + '千円（達成率' + last.pct + '%）</span></div>' +
+        '<div class="spark-top"><span class="t">直近' + y.monthlyTrend.length + 'カ月の粗利トレンド</span><span class="v">' + last.m + ' ' + fmt(last.actual) + '千円（達成率' + last.pct + '%）' + (last.forecast ? '<span class="fc-tag">予測</span>' : '') + '</span></div>' +
         sparkline(y.monthlyTrend, color) +
-        '<div class="spark-ticks">' + y.monthlyTrend.map(function(d){return '<span>'+d.m+'</span>';}).join("") + '</div>' +
+        '<div class="spark-ticks">' + y.monthlyTrend.map(function(d){return '<span>'+d.m+(d.forecast?'※':'')+'</span>';}).join("") + '</div>' +
       '</div>' +
+      (y.monthlyTrend.some(function(d){return d.forecast;}) ? '<div class="guide" style="margin-top:-8px;">※は確定実績ではなく、台帳の実績＋積上げによる着地予測です。</div>' : '') +
       '<details class="more"><summary>月別の実績・計画を見る</summary><div class="more-body">' +
         '<div class="mbars">' + y.monthlyTrend.map(function (d) {
           var t = toneAchieve(d.pct);
-          return '<div class="mbar-row"><div class="mbar-label"><span>' + d.m + '</span><span class="v">実績' + fmt(d.actual) + '／計画' + fmt(d.plan) + '（' + d.pct + '%）</span></div>' +
-            '<div class="mbar-track"><div class="mbar-fill" style="width:' + Math.min(d.pct,100) + '%;--mc:' + ringColorVar(t) + '"></div><div class="mbar-plan" style="left:' + Math.min(100, 100/ (d.pct/100)) + '%"></div></div></div>';
+          return '<div class="mbar-row' + (d.forecast ? ' forecast' : '') + '"><div class="mbar-label"><span>' + d.m + (d.forecast ? '<span class="fc-tag">予測</span>' : '') + '</span><span class="v">' + (d.forecast ? '着地見込' : '実績') + fmt(d.actual) + '／計画' + fmt(d.plan) + '（' + d.pct + '%）</span></div>' +
+            '<div class="mbar-track"><div class="mbar-fill" style="width:' + Math.min(d.pct,100) + '%;--mc:' + ringColorVar(t) + '"></div><div class="mbar-plan" style="left:' + planMarkerPos(d.pct) + '%"></div></div></div>';
         }).join("") + '</div>' +
         (y.trendNote ? '<p style="margin-top:10px;">' + y.trendNote + '</p>' : '') +
         (y.monthlyTable ? tableHtml(y.monthlyTable) : '') +
@@ -631,12 +666,12 @@ const DATA = {
   function groupsSection(scope) {
     if (!scope.groups) return "";
     return '' +
-      '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>グループ別進捗（4〜7月累計・利益ベース）</h2>' +
+      '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>' + esc(scope.groupsTitle || "グループ別進捗（利益ベース）") + '</h2>' +
       scope.groups.map(function (g) {
         return '<button class="grow" style="--gc:var(--' + g.key + ')" data-jump="' + g.key + '">' +
-          '<div class="grow-top"><span class="grow-dot"></span><span class="grow-name">' + esc(g.name) + '</span><span class="grow-rate">' + g.pct + '%</span><span class="grow-arrow">›</span></div>' +
+          '<div class="grow-top"><span class="grow-dot"></span><span class="grow-name">' + esc(g.name) + (g.note ? '<span class="fc-tag">' + esc(g.note) + '</span>' : '') + '</span><span class="grow-rate">' + g.pct + '%</span><span class="grow-arrow">›</span></div>' +
           '<div class="grow-figs">利益 実績' + fmt(g.profitActual) + ' ／ 計画' + fmt(g.profitPlan) + '</div>' +
-          '<div class="grow-track"><div class="grow-fill" style="width:' + Math.min(g.pct,100) + '%"></div><div class="grow-plan" style="left:' + Math.min(g.pct,100) + '%"></div></div>' +
+          '<div class="grow-track"><div class="grow-fill" style="width:' + Math.min(g.pct,100) + '%"></div><div class="grow-plan" style="left:' + planMarkerPos(g.pct) + '%"></div></div>' +
         '</button>';
       }).join("") +
       '<div class="callout"><div class="ct">🔍 グループ別の見方</div>' + esc(scope.groupsNote) + '</div>';
@@ -645,7 +680,7 @@ const DATA = {
   function yoyCompareSection(scope) {
     var yc = scope.yoyCompare; if (!yc) return "";
     return '' +
-      '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>今年度実績 vs 前年実績（グループ別・利益）</h2>' +
+      '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>' + esc(yc.title || "今年度実績 vs 前年実績（グループ別・利益）") + '</h2>' +
       '<div class="guide">' + esc(yc.note) + '</div>' +
       '<div class="yoy-block">' + yc.rows.map(function (r) {
         var pctLast = Math.min(100, (r.lastYear / Math.max(r.thisYear, r.lastYear)) * 100);
@@ -673,7 +708,7 @@ const DATA = {
     var pctLast = Math.min(100, (y.lastYear / Math.max(y.thisYear, y.lastYear)) * 100);
     var pctThis = Math.min(100, (y.thisYear / Math.max(y.thisYear, y.lastYear)) * 100);
     return '' +
-      '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>対前年（4〜7月累計）</h2>' +
+      '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(y.title || "対前年（累計）") + '</h2>' +
       (y.note ? '<div class="guide">' + esc(y.note) + '</div>' : '') +
       '<div class="yoy-block"><div class="yoy-row"><div class="yr-label"><span>粗利（利益）</span><span class="yr-delta" style="color:' + ringColorVar(toneYoy(y.pct)) + '">対前年 ' + y.pct + '%</span></div>' +
         '<div class="yoy-track">' +
