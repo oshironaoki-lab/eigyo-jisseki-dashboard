@@ -252,6 +252,20 @@
   .callout { border-radius: 14px; padding: 13px 14px; background: var(--surface-2); font-size: 14px; line-height: 1.75; margin-bottom: 10px; }
   .callout .ct { font-weight: 800; font-size: 13.5px; margin-bottom: 6px; }
 
+  /* ---- Client trends (YoY ledger diff: grown / no-longer-seen clients) ---- */
+  .ctr-cols { display: flex; flex-direction: column; gap: 20px; }
+  .ctr-col-title { font-size: 12.5px; font-weight: 800; margin-bottom: 8px; }
+  .ctr-col-title.good { color: var(--good); }
+  .ctr-col-title.muted { color: var(--text-muted); }
+  .ctr-item { border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; margin-bottom: 8px; background: var(--surface); }
+  .ctr-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .ctr-name { font-size: 13.5px; font-weight: 800; }
+  .ctr-amt { font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; flex: none; }
+  .ctr-amt.good { color: var(--good); }
+  .ctr-amt.muted { color: var(--text-muted); font-weight: 700; }
+  .ctr-note { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
+  .ctr-desc { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+
   footer.pagefoot { max-width: 480px; margin: 30px auto 0; padding: 16px; font-size: 11.5px; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border);
     padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
 
@@ -300,7 +314,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-crosstopics, .blk-topics { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -351,6 +365,11 @@
     .topics-grid .topic-card { break-inside: avoid; margin-bottom: 14px; border-left-color: var(--border); }
     .topic-card .desc { font-size: 14.5px; }
     .topic-card .cli { font-size: 12.5px; }
+
+    .ctr-cols { flex-direction: row; gap: 28px; }
+    .ctr-col { flex: 1; }
+    .ctr-name { font-size: 14px; }
+    .ctr-desc { font-size: 13px; }
 
     table.dt { font-size: 13.5px; }
     table.dt th, table.dt td { padding: 10px 12px; }
@@ -498,6 +517,19 @@ const DATA = {
         thisYearSales: 181554, lastYearSales: 184894, pctSales: 98.2,
         detail: "前年（2025年度）4〜7月累計の第1営業グループ自体の実績（販管システム出力）は売上189,736・粗利49,286。ここから、担当者異動で引き継ぎ先グループへ移った案件分を、2025年度管理台帳から月別に抽出して控除した：①<b>第2営業Gへ移管されたBOATRACE振興会案件分</b>（久田氏計上、4〜7月合計 売上30,885・粗利6,525）、②<b>第2営業Gが引き継いだ佐久本工機</b>（小串氏の旧担当分、4〜7月合計 売上2,841・粗利862）、③<b>第3営業Gが引き継いだ南都・沖縄長正薬草本社・イーアス沖縄</b>（小串氏の旧担当分、4〜7月合計 売上2,305・粗利763）。控除後の前年実績は売上153,705・粗利41,136とした（4〜7月ベース、この調整後では前年同期比売上93.4%・粗利88.1%）。8月分はさらに月次の前年同月実績（BOATRACE・沖縄長正薬草本社・佐久本工機の引き継ぎ分を月別に控除した調整後7,712千円）を加算しており、8月単体では前年同月比130.0%と大きく上回っている。小串氏は退職のため、上記以外の同氏クライアント分（りゅうせき都市ガス、沖縄県労働金庫、大米建設TVCM等）は第1営業Gの実績としてそのまま残している。※2026.8.18に管理台帳の月別実績（BOATRACE・南都・沖縄長正薬草本社・佐久本工機・イーアス沖縄の4〜7月各月分）で再計算し、従来のクオーター単位の推計値から更新。"
       },
+      clientTrends: {
+        note: "2025年度・2026年度の管理台帳（4〜8月）をクライアント単位で突き合わせ。担当者異動によるBOATRACE・佐久本工機等の付け替え分は対象外。利益ベース・単位:千円。",
+        grown: [
+          { name: "三州観光開発", isNew: true, thisYear: 1470, lastYear: 0, delta: 1470, desc: "エムズガーデンニューポート2店合同新台折込 ほか" },
+          { name: "久米島オーシャンジェット", isNew: true, thisYear: 1120, lastYear: 0, delta: 1120, desc: "新聞広告15段FCキャンペーン掲載" },
+          { name: "山城時計店", thisYear: 3762, lastYear: 2694, delta: 1068, desc: "TVCM" }
+        ],
+        churned: [
+          { name: "沖縄県労働金庫", lastYear: 791, desc: "自動車ローン・教育ローン 3局スポット" },
+          { name: "JAおきなわSS", lastYear: 500, desc: "スポット放送料" },
+          { name: "㈱ぐしけん", lastYear: 450, desc: "3局フリースポット" }
+        ]
+      },
       topics: [
         { cli: "琉球リース", tag: "compe", tagLabel: "コンペ", desc: "MVV策定企画 ― 役員説明を終え5社中2社に絞込み。予算規模は今年度内で約500万円と見えてきており、規模に合わせた内容で来週再提案予定", who: "大城次長・野原" },
         { cli: "リウボウストア", desc: "ネットスーパーLP ― 校了、現在エブリー社にサブドメイン発行を依頼中。発行後は広告審査へ", who: "與那覇" },
@@ -547,6 +579,19 @@ const DATA = {
         thisYearSales: 310747, lastYearSales: 252566, pctSales: 123.0,
         detail: "前年（2025年度）4〜7月累計の第2営業グループ自体の実績（販管システム出力）は売上184,886・粗利36,514。ここに、担当者異動で引き継いだ案件分を2025年度管理台帳から月別に抽出して加算した：①<b>第1営業Gから移管されたBOATRACE振興会案件分</b>（前年は久田氏計上、4〜7月合計 売上30,885・粗利6,525）、②<b>第1営業Gが引き継いだ佐久本工機</b>（前年は小串氏計上、4〜7月合計 売上2,841・粗利862）。加算後の前年実績は売上218,612・粗利43,901とした（4〜7月ベース、この調整後では前年同期比売上126.5%・粗利150.9%）。8月分はさらに月次の前年同月実績（BOATRACE・佐久本工機の引き継ぎ分を加算した調整後8,797千円）を加算しており、8月単体では前年同月比107.0%とほぼ前年並みで推移している。それでも4グループの中で最も高い伸び率を維持しており、BOATRACE案件の受け皿としてだけでなく、既存事業も含めて成長している。※2026.8.18に管理台帳の月別実績で再計算した結果、従来「未調整実績・売上180,512、粗利43,101」としていた土台の数字がPDF実績（売上184,886、粗利36,514）と一致していなかったことが判明し、修正しています。"
       },
+      clientTrends: {
+        note: "2025年度・2026年度の管理台帳（4〜8月）をクライアント単位で突き合わせ。担当者異動によるBOATRACE・佐久本工機等の付け替え分は対象外。利益ベース・単位:千円。",
+        grown: [
+          { name: "沖縄エンタテインメント振興協会", isNew: true, thisYear: 5900, lastYear: 0, delta: 5900, desc: "文化祭2026運営" },
+          { name: "御菓子御殿", isNew: true, thisYear: 4600, lastYear: 0, delta: 4600, desc: "沖縄国際文化祭協賛" },
+          { name: "沖縄ファミリーマート（広報）", thisYear: 12348, lastYear: 9581, delta: 2767, desc: "地域ド密着名護市篇 ほか" }
+        ],
+        churned: [
+          { name: "ビッグワン", lastYear: 1686, desc: "新報60段「母の日 夏物 梅雨」" },
+          { name: "CBcloud", lastYear: 990, desc: "QAB「英雄会議」「ウチラン」提供" },
+          { name: "湖都コーポレーション", lastYear: 449, desc: "BBC「BBCニュース」提供" }
+        ]
+      },
       topics: [
         { cli: "BOATRACE振興会", desc: "全島エイサー2026 ― 金額含む実施内容が確定、開催まで1か月を切りツール制作・各所調整を急ぎ進行中", who: "久田" },
         { cli: "沖縄ファミリーマート", desc: "沖縄そば新CM ― 喜友名諒さん起用の「麺シズル」企画に決定、クオリティ確保のため東京の専門スタジオで撮影実施予定", who: "松永" },
@@ -595,6 +640,19 @@ const DATA = {
         thisYear: 43365, lastYear: 50426, pct: 86.0,
         thisYearSales: 223086, lastYearSales: 292420, pctSales: 76.3,
         detail: "前年（2025年度）4〜7月累計の第3営業グループ自体の実績（販管システム出力）は売上255,396・粗利41,460。ここに、担当者異動で引き継いだ案件分を2025年度管理台帳から月別に抽出して加算した：<b>南都・沖縄長正薬草本社・イーアス沖縄</b>（前年は小串氏計上、4〜7月合計 売上2,305・粗利763。うち南都は4月のみ売上330千円、イーアス沖縄は7月のみ売上975千円と、いずれもスポット計上）。加算後の前年実績は売上257,701・粗利42,223とした（4〜7月ベース、この調整後では前年同期比売上76.3%・粗利82.4%）。8月分はさらに月次の前年同月実績（小串氏の沖縄長正薬草本社分を加算した調整後8,203千円、8月は同氏分の他クライアントの動きがなく従来と変わらず）を加算しており、8月単体では前年同月比104.7%と前年を上回ってきている。前年7月は大型案件（海洋博花火大会関連など）の計上があり、その反動が影響している可能性がある。※2026.8.18に管理台帳の月別実績で再計算し、従来「未調整実績・粗利41,519」としていた数字を41,460に、加算後の前年実績（売上241,351・粗利42,282）を売上257,701・粗利42,223に修正しています（引き継ぎ分自体の金額は変わらず、土台の売上のみ従来の推計値とずれがありました）。"
+      },
+      clientTrends: {
+        note: "2025年度・2026年度の管理台帳（4〜8月）をクライアント単位で突き合わせ。担当者異動による南都・沖縄長正薬草本社・イーアス沖縄の付け替え分は対象外。利益ベース・単位:千円。",
+        grown: [
+          { name: "一財）沖縄美ら島財団", thisYear: 13019, lastYear: 7008, delta: 6011, desc: "海洋博美ら海花火大会2026" },
+          { name: "金武町長就任特集", isNew: true, thisYear: 1019, lastYear: 0, delta: 1019, desc: "全10段モノクロ" },
+          { name: "サウスゲートホテルオキナワ", isNew: true, thisYear: 1000, lastYear: 0, delta: 1000, desc: "新聞広告15段" }
+        ],
+        churned: [
+          { name: "フジアール", lastYear: 2919, desc: "館内リニューアル案件一式（DMMかりゆし水族館）" },
+          { name: "選挙管理委員会", lastYear: 2281, desc: "参議院選挙啓発企画" },
+          { name: "エールクリエイト", lastYear: 1731, desc: "首里石嶺B4チラシ" }
+        ]
       },
       topics: [
         { cli: "沖縄パナソニック特機", desc: "現場ソリューション ― 沖縄施工チーム・宣伝グラフィック担当者を交え東京視察の情報共有MTGを実施。今後は定期MTGでスケジュール・リスク管理を徹底", who: "金城" },
@@ -855,6 +913,31 @@ const DATA = {
       }).join("");
   }
 
+  function clientTrendsSection(scope) {
+    var ct = scope.clientTrends; if (!ct) return "";
+    function item(it, kind) {
+      var isGrown = kind === "grown";
+      var amt = isGrown
+        ? '<span class="ctr-amt good">' + fmtSigned(it.delta) + '千円</span>'
+        : '<span class="ctr-amt muted">前年実績のみ</span>';
+      var note = isGrown
+        ? '今年' + fmt(it.thisYear) + '千円（前年' + fmt(it.lastYear) + '千円）'
+        : '前年実績' + fmt(it.lastYear) + '千円（今年の実績は確認できず）';
+      return '<div class="ctr-item">' +
+          '<div class="ctr-top"><span class="ctr-name">' + esc(it.name) + (it.isNew ? '<span class="tag">新規</span>' : '') + '</span>' + amt + '</div>' +
+          '<div class="ctr-note">' + note + '</div>' +
+          '<div class="ctr-desc">' + esc(it.desc) + '</div>' +
+        '</div>';
+    }
+    return '' +
+      '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>取引動向（前年同期比較・4〜8月）</h2>' +
+      '<div class="guide">' + esc(ct.note) + '</div>' +
+      '<div class="ctr-cols">' +
+        '<div class="ctr-col"><div class="ctr-col-title good">↑ 伸びているクライアント</div>' + ct.grown.map(function (it) { return item(it, "grown"); }).join("") + '</div>' +
+        '<div class="ctr-col"><div class="ctr-col-title muted">今年は確認できないクライアント</div>' + ct.churned.map(function (it) { return item(it, "churned"); }).join("") + '</div>' +
+      '</div>';
+  }
+
   function topicsSection(scope) {
     if (!scope.topics) return "";
     return '' +
@@ -878,6 +961,7 @@ const DATA = {
     html += blk("trend", trendSection(scope));
     html += blk("groups", groupsSection(scope));
     html += blk("crosstopics", crossTopicsSection(scope));
+    html += blk("clienttrends", clientTrendsSection(scope));
     html += blk("topics", topicsSection(scope));
     return html;
   }
