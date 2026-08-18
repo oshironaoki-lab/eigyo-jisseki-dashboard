@@ -245,10 +245,9 @@
   .topic-card .cli { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 3px; }
   .topic-card .desc { font-size: 14px; line-height: 1.7; }
   .topic-card .who { font-size: 12px; color: var(--text-muted); margin-left: 3px; }
-  .tag { display: inline-block; font-size: 10.5px; padding: 2px 7px; border-radius: 999px; font-weight: 800; margin-left: 5px; vertical-align: middle; }
-  .tag.new { background: color-mix(in srgb, var(--good) 16%, var(--surface)); color: var(--good); }
-  .tag.compe { background: color-mix(in srgb, var(--warn) 18%, var(--surface)); color: var(--warn); }
-  .tag.watch { background: color-mix(in srgb, var(--bad) 16%, var(--surface)); color: var(--bad); }
+  /* Category labels, not status signals — deliberately neutral so they never read as good/warn/bad achievement colors do elsewhere on the page */
+  .tag { display: inline-block; font-size: 10.5px; padding: 2px 7px; border-radius: 999px; font-weight: 800; margin-left: 5px; vertical-align: middle;
+    background: var(--surface-2); color: var(--text-secondary); border: 1px solid var(--border-strong); }
 
   .callout { border-radius: 14px; padding: 13px 14px; background: var(--surface-2); font-size: 14px; line-height: 1.75; margin-bottom: 10px; }
   .callout .ct { font-weight: 800; font-size: 13.5px; margin-bottom: 6px; }
@@ -291,58 +290,81 @@
     .report-link:hover { color: var(--text-secondary); text-decoration: underline; }
 
     h2.sec { font-size: 16.5px; margin: 0 0 12px; }
-    .guide { font-size: 13px; margin-bottom: 16px; }
-    .callout, .more-body { max-width: 780px; }
+    .guide { font-size: 13.5px; margin-bottom: 16px; }
+    .callout, .more-body { max-width: 780px; font-size: 14.5px; }
 
-    /* Single dense column — no side-by-side pairing, so nothing can go ragged against a shorter neighbor */
-    .panel.active { display: block; }
-    .blk + .blk { margin-top: 32px; }
+    /* Headline row: hero + KPI strip share the top row — both are already flat, similarly-
+       short bands, so pairing them fills the width without the ragged-height mismatch the
+       old padded-card version had. Everything below stays one full-width column of rows/tables,
+       since taller, more variable sections are exactly where that mismatch used to show up. */
+    .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
+    .blk-hero  { grid-column: 1; }
+    .blk-ytd   { grid-column: 2; }
+    .blk-trend, .blk-groups, .blk-yoycompare, .blk-yoysolo, .blk-crosstopics, .blk-topics { grid-column: 1 / -1; }
 
-    /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card */
+    /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
+       Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
+       full even though the two clusters don't add up to the full row width. */
     .hero {
-      display: flex; flex-wrap: wrap; align-items: center; column-gap: 28px; row-gap: 8px;
-      padding: 18px 24px; border-radius: 12px; box-shadow: none;
+      display: flex; flex-wrap: wrap; align-items: center; column-gap: 24px; row-gap: 8px;
+      padding: 18px 22px; border-radius: 12px; box-shadow: none;
       border: 1px solid var(--border); border-left: 3px solid var(--hero-c, var(--good));
     }
-    .hero-lbl { flex: 0 0 100%; margin-bottom: 0; }
-    .hero-num { font-size: 32px; }
-    .hero-num .unit { font-size: 14px; }
-    .hero-sub { margin-top: 0; }
-    .hero-chips { margin-top: 0; gap: 20px; }
+    .hero-lbl { flex: 0 0 100%; margin-bottom: 0; font-size: 13px; }
+    .hero-num { font-size: 34px; }
+    .hero-num .unit { font-size: 14.5px; }
+    .hero-sub { margin-top: 0; font-size: 13.5px; }
+    .hero-chips { margin-top: 0; margin-left: auto; gap: 18px; }
+    .chip { font-size: 13px; padding: 6px 13px; }
+    .chip-note { font-size: 11.5px; }
 
     /* KPI strip: one flat bordered row (a divider between tiles) instead of two boxy shadow-cards */
-    .kpi-grid { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .kpi { flex: 1; border: none; border-radius: 0; box-shadow: none; padding: 14px 22px; }
+    .kpi-grid { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; height: 100%; }
+    .kpi { flex: 1; border: none; border-radius: 0; box-shadow: none; padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; }
     .kpi + .kpi { border-left: 1px solid var(--border); }
+    .kpi .lbl { font-size: 13px; margin-bottom: 8px; }
+    .kpi .delta { font-size: 13px; }
 
+    .spark-top .t { font-size: 14px; }
+    .spark-top .v { font-size: 13px; }
     .spark-wrap { padding: 18px 24px; box-shadow: none; }
     .spark-svg { height: 90px; }
+    .mbar-row .mbar-label { font-size: 13.5px; }
 
     /* Group rows: a flat table (bordered rows) instead of a card grid */
     .grows-grid { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     .grow {
       display: flex; align-items: center; gap: 20px;
       border: none; border-radius: 0; box-shadow: none; background: transparent;
-      padding: 12px 18px; margin-bottom: 0;
+      padding: 13px 18px; margin-bottom: 0;
     }
     .grow + .grow { border-top: 1px solid var(--border); }
     .grow:hover { background: var(--surface-2); }
     .grow-top { flex: 0 0 240px; margin-bottom: 0; }
-    .grow-figs { flex: 0 0 210px; margin-bottom: 0; }
+    .grow-name { font-size: 15px; }
+    .grow-figs { flex: 0 0 220px; margin-bottom: 0; font-size: 13px; }
     .grow-track { flex: 1; }
 
     /* YoY rows: flat, full-width bars instead of a narrow padded card */
     .yoy-block { border: 1px solid var(--border); border-radius: 12px; box-shadow: none; padding: 4px 20px; }
-    .yoy-row { display: flex; align-items: center; gap: 24px; padding: 14px 0; margin-bottom: 0; }
+    .yoy-row { display: flex; align-items: center; gap: 24px; padding: 15px 0; margin-bottom: 0; }
     .yoy-row + .yoy-row { border-top: 1px solid var(--border); }
-    .yoy-row .yr-label { flex: 0 0 190px; flex-direction: column; align-items: flex-start; gap: 3px; margin-bottom: 0; }
+    .yoy-row .yr-label { flex: 0 0 190px; flex-direction: column; align-items: flex-start; gap: 3px; margin-bottom: 0; font-size: 14px; }
+    .yoy-row .yr-delta { font-size: 13.5px; }
     .yoy-track { flex: 1; }
+    .yoy-bar-row .yr { width: 34px; font-size: 12px; }
+    .yoy-bar-row .amt { width: 74px; font-size: 12.5px; }
 
-    /* Topic cards: true masonry so a short card never leaves a gap beside a tall neighbor */
+    /* Topic cards: true masonry so a short card never leaves a gap beside a tall neighbor.
+       Left accent is dropped here — within a single-group tab it was always the same color,
+       i.e. decoration, not information (the "all" tab, where it would differ, has no topics). */
     .topics-grid { columns: 3; column-gap: 16px; }
-    .topics-grid .topic-card { break-inside: avoid; margin-bottom: 14px; }
+    .topics-grid .topic-card { break-inside: avoid; margin-bottom: 14px; border-left-color: var(--border); }
+    .topic-card .desc { font-size: 14.5px; }
+    .topic-card .cli { font-size: 12.5px; }
 
     table.dt { font-size: 13.5px; }
+    table.dt th, table.dt td { padding: 10px 12px; }
   }
 </style>
 
