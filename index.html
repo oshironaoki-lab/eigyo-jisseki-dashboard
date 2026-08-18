@@ -255,6 +255,66 @@
 
   footer.pagefoot { max-width: 480px; margin: 30px auto 0; padding: 16px; font-size: 11.5px; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border);
     padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+
+  /* ================= Desktop layout (PC) ================= */
+  @media (min-width: 1024px) {
+    .top-inner, main, footer.pagefoot { max-width: 1180px; }
+    .top-inner { padding: 18px 32px 0; }
+    main { padding: 30px 32px 0; }
+    footer.pagefoot { padding: 20px 32px; }
+
+    .top-h1 { font-size: 27px; margin: 5px 0 3px; }
+    .top-sub { font-size: 13.5px; }
+    .top-date { font-size: 13.5px; }
+    .top-datebar { margin-bottom: 14px; }
+    .tabs { padding-bottom: 14px; }
+    .tab-btn { font-size: 13.5px; padding: 11px 8px; min-height: 44px; }
+    .report-link-row { display: flex; justify-content: flex-end; padding-bottom: 18px; }
+    .report-link { width: auto; padding: 10px 20px; }
+
+    h2.sec { font-size: 17.5px; margin: 0 0 14px; }
+    .guide { font-size: 13px; margin-bottom: 18px; }
+    .callout, .more-body { max-width: 760px; }
+
+    /* Two-zone grid: primary narrative left, supporting summaries right */
+    .panel.active {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: 24px 28px;
+      align-items: start;
+    }
+    .blk-hero        { grid-column: 1; }
+    .blk-ytd         { grid-column: 2; }
+    .blk-trend       { grid-column: 1 / -1; }
+    .blk-groups      { grid-column: 1; }
+    .blk-yoycompare  { grid-column: 2; }
+    .blk-yoysolo     { grid-column: 1 / -1; }
+    .blk-crosstopics { grid-column: 1 / -1; }
+    .blk-topics      { grid-column: 1 / -1; }
+
+    .hero { padding: 28px 30px; border-radius: 20px; }
+    .hero-num { font-size: 46px; }
+    .hero-num .unit { font-size: 18px; }
+    .hero-chips { gap: 16px; }
+
+    .kpi-grid { gap: 14px; }
+    .kpi { padding: 18px 20px; }
+    .ring { width: 64px; height: 64px; }
+    .ring-label { font-size: 14.5px; }
+
+    .spark-wrap { padding: 20px 24px; }
+    .spark-svg { height: 96px; }
+
+    .grows-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grows-grid .grow { margin-bottom: 0; }
+
+    .yoy-block { padding: 18px 20px; }
+
+    .topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 14px; align-items: start; }
+    .topics-grid .topic-card { margin-bottom: 0; }
+
+    table.dt { font-size: 13.5px; }
+  }
 </style>
 
 <header class="top">
@@ -676,13 +736,13 @@ const DATA = {
     if (!scope.groups) return "";
     return '' +
       '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>' + esc(scope.groupsTitle || "グループ別進捗（利益ベース）") + '</h2>' +
-      scope.groups.map(function (g) {
+      '<div class="grows-grid">' + scope.groups.map(function (g) {
         return '<button class="grow" style="--gc:var(--' + g.key + ')" data-jump="' + g.key + '">' +
           '<div class="grow-top"><span class="grow-dot"></span><span class="grow-name">' + esc(g.name) + (g.note ? '<span class="fc-tag">' + esc(g.note) + '</span>' : '') + '</span><span class="grow-rate">' + g.pct + '%</span><span class="grow-arrow">›</span></div>' +
           '<div class="grow-figs">利益 実績' + fmt(g.profitActual) + ' ／ 計画' + fmt(g.profitPlan) + '</div>' +
           '<div class="grow-track"><div class="grow-fill" style="width:' + Math.min(g.pct,100) + '%"></div><div class="grow-plan" style="left:' + planMarkerPos(g.pct) + '%"></div></div>' +
         '</button>';
-      }).join("") +
+      }).join("") + '</div>' +
       '<div class="callout"><div class="ct">🔍 グループ別の見方</div>' + esc(scope.groupsNote) + '</div>';
   }
 
@@ -733,24 +793,26 @@ const DATA = {
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>主な動き</h2>' +
       (scope.mainClients ? '<div class="guide">主要顧客：' + esc(scope.mainClients) + '</div>' : '') +
       (scope.topicsNote ? '<div class="guide">' + esc(scope.topicsNote) + '</div>' : '') +
-      scope.topics.map(function (t) {
+      '<div class="topics-grid">' + scope.topics.map(function (t) {
         return '<div class="topic-card" style="--topic-c:var(--' + scope.color + ')"><div class="cli">' + esc(t.cli) + (t.tag ? '<span class="tag ' + t.tag + '">' + esc(t.tagLabel) + '</span>' : '') + '</div>' +
           '<div class="desc">' + t.desc + (t.who ? '<span class="who">（' + esc(t.who) + '）</span>' : '') + '</div></div>';
-      }).join("");
+      }).join("") + '</div>';
   }
+
+  function blk(name, html) { return html ? '<div class="blk blk-' + name + '">' + html + '</div>' : ""; }
 
   function renderPanel(key) {
     var scope = DATA.scopes[key];
+    var heroHtml = heroSection(scope) + (scope.monthlyUnavailableNote ? '<div class="guide">' + esc(scope.monthlyUnavailableNote) + '</div>' : "");
     var html = "";
-    html += heroSection(scope);
-    if (scope.monthlyUnavailableNote) html += '<div class="guide">' + esc(scope.monthlyUnavailableNote) + '</div>';
-    html += ytdKpis(scope);
-    html += trendSection(scope);
-    html += groupsSection(scope);
-    html += yoyCompareSection(scope);
-    html += yoySoloSection(scope);
-    html += crossTopicsSection(scope);
-    html += topicsSection(scope);
+    html += blk("hero", heroHtml);
+    html += blk("ytd", ytdKpis(scope));
+    html += blk("trend", trendSection(scope));
+    html += blk("groups", groupsSection(scope));
+    html += blk("yoycompare", yoyCompareSection(scope));
+    html += blk("yoysolo", yoySoloSection(scope));
+    html += blk("crosstopics", crossTopicsSection(scope));
+    html += blk("topics", topicsSection(scope));
     return html;
   }
 
