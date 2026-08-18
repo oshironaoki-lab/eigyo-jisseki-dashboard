@@ -139,6 +139,8 @@
   .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
   .chip-col { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
   .chip-note { font-size: 11px; color: var(--text-muted); padding-left: 2px; font-variant-numeric: tabular-nums; }
+  .chip-note b { font-weight: 800; }
+  .chip-note b.good { color: var(--good); } .chip-note b.warn { color: var(--warn); } .chip-note b.bad { color: var(--bad); }
   .chip {
     display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700;
     padding: 6px 12px; border-radius: 999px; background: var(--surface-2); color: var(--text-secondary);
@@ -161,31 +163,38 @@
   }
   .more-body b { color: var(--text); }
 
-  /* ---- KPI cards ---- */
-  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .kpi {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-    padding: 13px 14px; box-shadow: var(--shadow-sm);
-  }
-  .kpi .lbl { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 7px; }
-  .kpi .delta { font-size: 12px; margin-top: 6px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-muted); }
-  .kpi .delta.good { color: var(--good); } .kpi .delta.warn { color: var(--warn); } .kpi .delta.bad { color: var(--bad); }
-
-  /* ---- Ring gauge ---- */
-  .ring-wrap { display: flex; align-items: center; gap: 12px; }
-  .ring { position: relative; width: 56px; height: 56px; border-radius: 50%; flex: none;
-    background: conic-gradient(var(--ring-c, var(--all)) calc(min(var(--pct), 100) * 3.6deg), var(--surface-2) 0deg); }
-  .ring::after { content: ''; position: absolute; inset: 6px; border-radius: 50%; background: var(--surface); z-index: 1; }
-  .ring-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text); z-index: 2; }
+  /* ---- Metric row: bar + reference tick + big % + signed-delta note ----
+     Replaces ring gauges everywhere on the page (KPI cards, YoY, group
+     rows) with one consistent pattern: a single bar shows the primary
+     value, a tick mark shows where the reference point (plan / last
+     year) sits, and the note line always spells out the actual amount
+     and the signed yen difference so "better or worse" never depends
+     on reading a bar length. */
+  .metric-row { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+  .metric-row:first-of-type { margin-top: 16px; }
+  .metric-lbl { width: 46px; font-size: 11.5px; font-weight: 700; color: var(--text-muted); flex: none; }
+  .metric-track { flex: 1; min-width: 60px; position: relative; height: 9px; background: var(--surface-2); border-radius: 4px; }
+  .metric-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px; background: var(--mc, var(--all)); }
+  .metric-fill.alt { background: var(--text-muted); opacity: .55; }
+  .metric-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); opacity: .5; }
+  .metric-pct { width: 64px; text-align: right; font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums; flex: none; }
+  .metric-pct.good { color: var(--good); } .metric-pct.warn { color: var(--warn); } .metric-pct.bad { color: var(--bad); }
+  .metric-note { font-size: 11.5px; color: var(--text-muted); margin: 3px 0 0 58px; font-variant-numeric: tabular-nums; }
+  .metric-note b { font-weight: 800; }
+  .metric-note b.good { color: var(--good); } .metric-note b.warn { color: var(--warn); } .metric-note b.bad { color: var(--bad); }
 
   /* ---- Sparkline ---- */
   .spark-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
   .spark-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .spark-top .t { font-size: 13px; font-weight: 800; }
   .spark-top .v { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-  .spark-svg { width: 100%; height: 52px; display: block; }
+  .spark-svg { width: 100%; height: 60px; display: block; }
   .spark-ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .spark-legend { display: flex; gap: 16px; margin-top: 10px; font-size: 11px; color: var(--text-secondary); flex-wrap: wrap; }
+  .spark-legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .spark-legend i { width: 14px; height: 0; display: inline-block; border-top: 2.5px solid currentColor; }
+  .spark-legend .plan i { border-top: 2px dashed var(--text-muted); }
+  .spark-legend .prior i { border-top: 2px dotted var(--border-strong); }
 
   /* ---- Monthly bars (detail) ---- */
   .mbars { display: flex; flex-direction: column; gap: 12px; margin: 2px 0 4px; }
@@ -214,28 +223,15 @@
     cursor: pointer; min-height: 44px;
   }
   .grow:active { background: var(--surface-2); }
-  .grow-top { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+  .grow-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .grow-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; background: var(--gc); }
   .grow-name { font-size: 14.5px; font-weight: 800; color: var(--text); }
-  .grow-rate { margin-left: auto; font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--gc); }
-  .grow-arrow { font-size: 13px; color: var(--text-muted); }
-  .grow-figs { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-bottom: 7px; }
-  .grow-track { position: relative; height: 8px; background: var(--surface-2); border-radius: 4px; }
-  .grow-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 4px; background: var(--gc); }
-  .grow-plan { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); opacity: .55; }
+  .grow .metric-fill { background: var(--gc); }
+  .grow .metric-fill.alt { background: var(--text-muted); }
+  .grow .metric-row:first-of-type { margin-top: 10px; }
 
-  /* ---- YoY compare rows ---- */
+  /* ---- YoY block (solo, per-group panel) ---- */
   .yoy-block { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px; box-shadow: var(--shadow-sm); margin-bottom: 10px; }
-  .yoy-row { margin-bottom: 14px; } .yoy-row:last-child { margin-bottom: 0; }
-  .yoy-row .yr-label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; font-weight: 800; margin-bottom: 7px; gap: 8px; }
-  .yoy-row .yr-delta { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 13px; }
-  .yoy-track { display: flex; flex-direction: column; gap: 4px; }
-  .yoy-bar-row { display: flex; align-items: center; gap: 8px; }
-  .yoy-bar-row .yr { width: 30px; font-size: 11px; color: var(--text-muted); flex: none; }
-  .yoy-bar-row .track { flex: 1; height: 13px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-  .yoy-bar-row .fill { height: 100%; border-radius: 4px; }
-  .yoy-bar-row .amt { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; width: 64px; text-align: right; flex: none; }
-  .yoy-note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
   /* ---- Topics (quieter than the numeric cards: flat, left accent, no shadow) ---- */
   .topic-card {
@@ -300,7 +296,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-yoycompare, .blk-yoysolo, .blk-crosstopics, .blk-topics { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-yoysolo, .blk-crosstopics, .blk-topics { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -318,42 +314,31 @@
     .chip { font-size: 13px; padding: 6px 13px; }
     .chip-note { font-size: 11.5px; }
 
-    /* KPI strip: one flat bordered row (a divider between tiles) instead of two boxy shadow-cards */
-    .kpi-grid { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; height: 100%; }
-    .kpi { flex: 1; border: none; border-radius: 0; box-shadow: none; padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; }
-    .kpi + .kpi { border-left: 1px solid var(--border); }
-    .kpi .lbl { font-size: 13px; margin-bottom: 8px; }
-    .kpi .delta { font-size: 13px; }
+    /* Metric rows: bigger and roomier now that each has a whole desktop-width band to itself */
+    .metric-lbl { width: 56px; font-size: 12px; }
+    .metric-pct { width: 76px; font-size: 21px; }
+    .metric-note { font-size: 12.5px; margin-left: 68px; }
+    .metric-track { height: 9px; }
 
     .spark-top .t { font-size: 14px; }
     .spark-top .v { font-size: 13px; }
     .spark-wrap { padding: 18px 24px; box-shadow: none; }
-    .spark-svg { height: 90px; }
+    .spark-svg { height: 100px; }
+    .spark-legend { font-size: 12px; gap: 22px; }
     .mbar-row .mbar-label { font-size: 13.5px; }
 
     /* Group rows: a flat table (bordered rows) instead of a card grid */
     .grows-grid { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     .grow {
-      display: flex; align-items: center; gap: 20px;
-      border: none; border-radius: 0; box-shadow: none; background: transparent;
-      padding: 13px 18px; margin-bottom: 0;
+      display: block; border: none; border-radius: 0; box-shadow: none; background: transparent;
+      padding: 16px 20px; margin-bottom: 0;
     }
     .grow + .grow { border-top: 1px solid var(--border); }
     .grow:hover { background: var(--surface-2); }
-    .grow-top { flex: 0 0 240px; margin-bottom: 0; }
     .grow-name { font-size: 15px; }
-    .grow-figs { flex: 0 0 220px; margin-bottom: 0; font-size: 13px; }
-    .grow-track { flex: 1; }
 
-    /* YoY rows: flat, full-width bars instead of a narrow padded card */
-    .yoy-block { border: 1px solid var(--border); border-radius: 12px; box-shadow: none; padding: 4px 20px; }
-    .yoy-row { display: flex; align-items: center; gap: 24px; padding: 15px 0; margin-bottom: 0; }
-    .yoy-row + .yoy-row { border-top: 1px solid var(--border); }
-    .yoy-row .yr-label { flex: 0 0 190px; flex-direction: column; align-items: flex-start; gap: 3px; margin-bottom: 0; font-size: 14px; }
-    .yoy-row .yr-delta { font-size: 13.5px; }
-    .yoy-track { flex: 1; }
-    .yoy-bar-row .yr { width: 34px; font-size: 12px; }
-    .yoy-bar-row .amt { width: 74px; font-size: 12.5px; }
+    /* YoY block (solo panels): flat, no shadow, matches the metric-row treatment above */
+    .yoy-block { border: 1px solid var(--border); border-radius: 12px; box-shadow: none; padding: 6px 20px 18px; }
 
     /* Topic cards: true masonry so a short card never leaves a gap beside a tall neighbor.
        Left accent is dropped here — within a single-group tab it was always the same color,
@@ -425,11 +410,11 @@ const DATA = {
         profit: { actual: 175635, plan: 179794, achievePct: 97.7, yoyPct: 107.9, yoyPrior: 162807 },
         sales:  { actual: 766523, plan: 851861, achievePct: 90.0, yoyPct: 97.9, yoyPrior: 782607 },
         monthlyTrend: [
-          { m: "4月", actual: 32352, plan: 31795, pct: 101.8 },
-          { m: "5月", actual: 28307, plan: 34872, pct: 81.2 },
-          { m: "6月", actual: 40607, plan: 34810, pct: 116.7 },
-          { m: "7月", actual: 46341, plan: 47409, pct: 97.7 },
-          { m: "8月", actual: 28028, plan: 30908, pct: 90.7, forecast: true }
+          { m: "4月", actual: 32352, plan: 31795, pct: 101.8, prior: 25938 },
+          { m: "5月", actual: 28307, plan: 34872, pct: 81.2, prior: 31709 },
+          { m: "6月", actual: 40607, plan: 34810, pct: 116.7, prior: 30646 },
+          { m: "7月", actual: 46341, plan: 47409, pct: 97.7, prior: 49802 },
+          { m: "8月", actual: 28028, plan: 30908, pct: 90.7, forecast: true, prior: 24712 }
         ]
       },
       groups: [
@@ -484,11 +469,11 @@ const DATA = {
         profit: { actual: 46275, plan: 55823, achievePct: 82.9, planFull: 153491, marginPct: 28.9 },
         sales:  { actual: 181554, plan: 201918, achievePct: 89.9, planFull: 530836 },
         monthlyTrend: [
-          { m: "4月", actual: 11311, plan: 10813, pct: 104.6 },
-          { m: "5月", actual: 7078,  plan: 12855, pct: 55.1 },
-          { m: "6月", actual: 7506,  plan: 10441, pct: 71.9 },
-          { m: "7月", actual: 10356, plan: 11816, pct: 87.6 },
-          { m: "8月", actual: 10024, plan: 9898, pct: 101.3, forecast: true }
+          { m: "4月", actual: 11311, plan: 10813, pct: 104.6, prior: 9564 },
+          { m: "5月", actual: 7078,  plan: 12855, pct: 55.1, prior: 14309 },
+          { m: "6月", actual: 7506,  plan: 10441, pct: 71.9, prior: 9342 },
+          { m: "7月", actual: 10356, plan: 11816, pct: 87.6, prior: 16071 },
+          { m: "8月", actual: 10024, plan: 9898, pct: 101.3, forecast: true, prior: 7592 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -533,11 +518,11 @@ const DATA = {
         profit: { actual: 75639, plan: 66950, achievePct: 113.0, planFull: 189125, marginPct: 22.6 },
         sales:  { actual: 310747, plan: 327222, achievePct: 95.0, planFull: 836120 },
         monthlyTrend: [
-          { m: "4月", actual: 12841, plan: 12215, pct: 105.1 },
-          { m: "5月", actual: 13658, plan: 12131, pct: 112.6 },
-          { m: "6月", actual: 23222, plan: 12892, pct: 180.1 },
-          { m: "7月", actual: 16505, plan: 18321, pct: 90.1 },
-          { m: "8月", actual: 9413, plan: 11391, pct: 82.6, forecast: true }
+          { m: "4月", actual: 12841, plan: 12215, pct: 105.1, prior: 7983 },
+          { m: "5月", actual: 13658, plan: 12131, pct: 112.6, prior: 7628 },
+          { m: "6月", actual: 23222, plan: 12892, pct: 180.1, prior: 10143 },
+          { m: "7月", actual: 16505, plan: 18321, pct: 90.1, prior: 10760 },
+          { m: "8月", actual: 9413, plan: 11391, pct: 82.6, forecast: true, prior: 8917 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -582,11 +567,11 @@ const DATA = {
         profit: { actual: 43365, plan: 45517, achievePct: 95.3, planFull: 116696, marginPct: 21.2 },
         sales:  { actual: 223086, plan: 268414, achievePct: 83.1, planFull: 550329 },
         monthlyTrend: [
-          { m: "4月", actual: 6488, plan: 6268, pct: 103.5 },
-          { m: "5月", actual: 5984, plan: 7535, pct: 79.4 },
-          { m: "6月", actual: 6297, plan: 8939, pct: 70.4 },
-          { m: "7月", actual: 16005, plan: 13156, pct: 121.7 },
-          { m: "8月", actual: 8591, plan: 9619, pct: 89.3, forecast: true }
+          { m: "4月", actual: 6488, plan: 6268, pct: 103.5, prior: 7257 },
+          { m: "5月", actual: 5984, plan: 7535, pct: 79.4, prior: 7156 },
+          { m: "6月", actual: 6297, plan: 8939, pct: 70.4, prior: 8389 },
+          { m: "7月", actual: 16005, plan: 13156, pct: 121.7, prior: 18658 },
+          { m: "8月", actual: 8591, plan: 9619, pct: 89.3, forecast: true, prior: 8203 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -626,10 +611,10 @@ const DATA = {
         profit: { actual: 10356, plan: 11504, achievePct: 90.0, planFull: 40685, marginPct: 16.1 },
         sales:  { actual: 51136, plan: 54307, achievePct: 94.2, planFull: 252717 },
         monthlyTrend: [
-          { m: "4月", actual: 1712, plan: 2499, pct: 68.5 },
-          { m: "5月", actual: 1587, plan: 2351, pct: 67.5 },
-          { m: "6月", actual: 3582, plan: 2538, pct: 141.1 },
-          { m: "7月", actual: 3475, plan: 4116, pct: 84.4 }
+          { m: "4月", actual: 1712, plan: 2499, pct: 68.5, prior: 1134 },
+          { m: "5月", actual: 1587, plan: 2351, pct: 67.5, prior: 2616 },
+          { m: "6月", actual: 3582, plan: 2538, pct: 141.1, prior: 2772 },
+          { m: "7月", actual: 3475, plan: 4116, pct: 84.4, prior: 4313 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -667,6 +652,7 @@ const DATA = {
 (function () {
   "use strict";
   var fmt = function (n) { return (n < 0 ? "▲" : "") + Math.abs(n).toLocaleString("ja-JP"); };
+  var fmtSigned = function (n) { var r = Math.round(n); return (r < 0 ? "▲" : "+") + Math.abs(r).toLocaleString("ja-JP"); };
   // 対計画（進行中の予算消化率）はまだ月末までに動く数字なので甘め、対前年（確定した実績同士の比較）は厳しめに判定する。
   var toneAchieve = function (pct) { return pct >= 100 ? "good" : pct >= 80 ? "warn" : "bad"; };
   var toneYoy = function (pct) { return pct >= 100 ? "good" : pct >= 94 ? "warn" : "bad"; };
@@ -687,8 +673,8 @@ const DATA = {
         '<div class="hero-num">' + fmt(m.profit.landing) + '<span class="unit">千円</span></div>' +
         '<div class="hero-sub">実績 ' + fmt(m.profit.actual) + '千円（本日時点）</div>' +
         '<div class="hero-chips">' +
-          '<div class="chip-col"><span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span><span class="chip-note">計画' + fmt(m.profit.plan) + '千円</span></div>' +
-          '<div class="chip-col"><span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span><span class="chip-note">前年' + fmt(m.profit.yoyPrior) + '千円</span></div>' +
+          '<div class="chip-col"><span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span><span class="chip-note">計画' + fmt(m.profit.plan) + '千円（<b class="' + t + '">' + fmtSigned(m.profit.landing - m.profit.plan) + '</b>千円）</span></div>' +
+          '<div class="chip-col"><span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span><span class="chip-note">前年' + fmt(m.profit.yoyPrior) + '千円（<b class="' + toneYoy(m.profit.yoyPct) + '">' + fmtSigned(m.profit.landing - m.profit.yoyPrior) + '</b>千円）</span></div>' +
         '</div>' +
       '</div>' +
       '<details class="more"><summary>参考：売上ベースの数字・詳しい内訳を見る</summary><div class="more-body">' +
@@ -697,74 +683,110 @@ const DATA = {
       '</div></details>';
   }
 
+  function metricRow(label, pct, tone, color, alt, note) {
+    return '' +
+      '<div class="metric-row"><span class="metric-lbl">' + esc(label) + '</span>' +
+        '<div class="metric-track"><div class="metric-fill' + (alt ? ' alt' : '') + '" style="width:' + Math.min(pct,100) + '%' + (color ? ';--mc:' + color : '') + '"></div><div class="metric-tick" style="left:' + planMarkerPos(pct) + '%"></div></div>' +
+        '<span class="metric-pct ' + tone + '">' + pct + '%</span></div>' +
+      '<div class="metric-note">' + note + '</div>';
+  }
+
   function ytdKpis(scope) {
     var y = scope.ytd; if (!y) return "";
-    var pt = toneAchieve(y.profit.achievePct), yt = toneYoy(y.profit.yoyPct);
-    var secondCard;
+    var mc = "var(--" + scope.color + ")";
+    var pt = toneAchieve(y.profit.achievePct);
+    var planDelta = y.profit.actual - y.profit.plan;
+    var metricsHtml = metricRow("対計画", y.profit.achievePct, pt, mc, false,
+      "実績" + fmt(y.profit.actual) + "千円（計画比 <b class=\"" + pt + "\">" + fmtSigned(planDelta) + "</b>千円）");
+
+    var secondHtml;
     if (y.profit.yoyPct != null) {
-      secondCard = '<div class="kpi"><div class="lbl">利益・前年同期比</div><div class="ring-wrap">' +
-          '<div class="ring" style="--pct:' + Math.min(y.profit.yoyPct, 100) + ';--ring-c:' + ringColorVar(yt) + '"><div class="ring-label">' + y.profit.yoyPct + '%</div></div>' +
-          '<div class="delta ' + yt + '">今年' + fmt(y.profit.actual) + '<br>前年' + fmt(y.profit.yoyPrior || 0) + '</div></div></div>';
+      var yt = toneYoy(y.profit.yoyPct);
+      var yoyDelta = y.profit.actual - (y.profit.yoyPrior || 0);
+      secondHtml = metricRow("対前年", y.profit.yoyPct, yt, null, true,
+        "実績" + fmt(y.profit.actual) + "千円（前年比 <b class=\"" + yt + "\">" + fmtSigned(yoyDelta) + "</b>千円）");
     } else {
-      var diff = y.profit.actual - y.profit.plan;
-      secondCard = '<div class="kpi"><div class="lbl">利益差異（対計画）</div>' +
-          '<div class="hero-num" style="font-size:21px;color:' + (diff >= 0 ? 'var(--good)' : 'var(--bad)') + '">' + fmt(diff) + '<span class="unit" style="font-size:12px;">千円</span></div>' +
-          '<div class="delta">通期計画' + fmt(y.profit.planFull || 0) + (y.profit.marginPct != null ? '（粗利率' + y.profit.marginPct + '%）' : '') + '</div></div>';
+      secondHtml = '<div class="guide" style="margin:10px 0 0;">通期計画' + fmt(y.profit.planFull || 0) + (y.profit.marginPct != null ? '（粗利率' + y.profit.marginPct + '%）' : '') + '</div>';
     }
+
+    var salesRef = metricRow("対計画", y.sales.achievePct, toneAchieve(y.sales.achievePct), mc, false,
+      "実績" + fmt(y.sales.actual) + "千円／計画" + fmt(y.sales.plan) + "千円");
+    if (y.sales.yoyPct != null) {
+      salesRef += metricRow("対前年", y.sales.yoyPct, toneYoy(y.sales.yoyPct), null, true,
+        "実績" + fmt(y.sales.actual) + "千円／前年" + fmt(y.sales.yoyPrior || 0) + "千円");
+    }
+
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(y.title) + '</h2>' +
       (y.forecastNote ? '<div class="guide" style="margin-top:-6px;">' + esc(y.forecastNote) + '</div>' : '') +
-      '<div class="kpi-grid">' +
-        '<div class="kpi"><div class="lbl">利益・計画達成率</div><div class="ring-wrap">' +
-          '<div class="ring" style="--pct:' + y.profit.achievePct + ';--ring-c:' + ringColorVar(pt) + '"><div class="ring-label">' + y.profit.achievePct + '%</div></div>' +
-          '<div class="delta ' + pt + '">実績' + fmt(y.profit.actual) + '<br>計画' + fmt(y.profit.plan) + '</div></div></div>' +
-        secondCard +
-      '</div>' +
-      '<details class="more"><summary>参考：売上ベースの計画達成率・前年比を見る</summary><div class="more-body kpi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">' +
-        '<div class="kpi"><div class="lbl">参考：売上・計画達成率</div><div class="ring-wrap">' +
-          '<div class="ring" style="--pct:' + y.sales.achievePct + ';--ring-c:' + ringColorVar(toneAchieve(y.sales.achievePct)) + '"><div class="ring-label">' + y.sales.achievePct + '%</div></div>' +
-          '<div class="delta">実績' + fmt(y.sales.actual) + '<br>計画' + fmt(y.sales.plan) + '</div></div></div>' +
-        (y.sales.yoyPct != null ? '<div class="kpi"><div class="lbl">参考：売上・前年同期比</div><div class="ring-wrap">' +
-          '<div class="ring" style="--pct:' + Math.min(y.sales.yoyPct,100) + ';--ring-c:' + ringColorVar(toneYoy(y.sales.yoyPct)) + '"><div class="ring-label">' + y.sales.yoyPct + '%</div></div>' +
-          '<div class="delta">今年' + fmt(y.sales.actual) + '<br>前年' + fmt(y.sales.yoyPrior||0) + '</div></div></div>' : '') +
-      '</div></details>';
+      metricsHtml + secondHtml +
+      '<details class="more"><summary>参考：売上ベースの計画達成率・前年比を見る</summary><div class="more-body">' + salesRef + '</div></details>';
   }
 
   function sparkline(trend, color) {
-    var w = 300, h = 44, pad = 4;
-    var max = Math.max.apply(null, trend.map(function(d){return Math.max(d.actual, d.plan);}));
-    var min = 0;
-    var pts = trend.map(function (d, i) {
-      var x = pad + (i / (trend.length - 1)) * (w - pad * 2);
-      var y = h - pad - ((d.actual - min) / (max - min || 1)) * (h - pad * 2);
-      return [x, y, !!d.forecast];
+    var w = 300, h = 60, padTop = 4, padBottom = 6;
+    var allVals = [];
+    trend.forEach(function (d) {
+      allVals.push(d.actual);
+      if (d.plan != null) allVals.push(d.plan);
+      if (d.prior != null) allVals.push(d.prior);
     });
-    var segs = [];
-    for (var i = 1; i < pts.length; i++) {
-      var isFc = pts[i][2];
-      segs.push('<line x1="' + pts[i-1][0].toFixed(1) + '" y1="' + pts[i-1][1].toFixed(1) + '" x2="' + pts[i][0].toFixed(1) + '" y2="' + pts[i][1].toFixed(1) + '" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round" ' + (isFc ? 'stroke-dasharray="4 3"' : '') + '/>');
+    var max = Math.max.apply(null, allVals) * 1.08;
+    var min = Math.min.apply(null, allVals) * 0.85;
+    function toXY(v, i) {
+      var x = padTop + (i / (trend.length - 1)) * (w - padTop * 2);
+      var y = padTop + (1 - (v - min) / (max - min || 1)) * (h - padTop - padBottom);
+      return [Number(x.toFixed(1)), Number(y.toFixed(1))];
     }
-    var dots = pts.map(function (p) {
-      return p[2]
-        ? '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3.5" fill="var(--surface)" stroke="' + color + '" stroke-width="2"/>'
-        : '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="' + color + '"/>';
+    var aPts = trend.map(function (d, i) { var p = toXY(d.actual, i); return { x: p[0], y: p[1], forecast: !!d.forecast }; });
+    var lastForecast = aPts.length && aPts[aPts.length - 1].forecast;
+    var solidPts = lastForecast ? aPts.slice(0, -1) : aPts;
+    var segs = [];
+    for (var i = 1; i < solidPts.length; i++) {
+      segs.push('<line x1="' + solidPts[i-1].x + '" y1="' + solidPts[i-1].y + '" x2="' + solidPts[i].x + '" y2="' + solidPts[i].y + '" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round"/>');
+    }
+    if (lastForecast && aPts.length > 1) {
+      var a = aPts[aPts.length - 2], b = aPts[aPts.length - 1];
+      segs.push('<line x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 3"/>');
+    }
+    var dots = aPts.map(function (p) {
+      return p.forecast
+        ? '<circle cx="' + p.x + '" cy="' + p.y + '" r="3.5" fill="var(--surface)" stroke="' + color + '" stroke-width="2"/>'
+        : '<circle cx="' + p.x + '" cy="' + p.y + '" r="3" fill="' + color + '"/>';
     }).join("");
-    return '<svg class="spark-svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" role="img" aria-label="月次粗利の推移">' +
-      segs.join("") + dots + '</svg>';
+    function refLine(key, dash, strokeColor) {
+      var has = trend.every(function (d) { return d[key] != null; });
+      if (!has) return "";
+      var pts = trend.map(function (d, i) { var p = toXY(d[key], i); return p[0] + ',' + p[1]; }).join(" ");
+      return '<polyline points="' + pts + '" fill="none" stroke="' + strokeColor + '" stroke-width="2" stroke-dasharray="' + dash + '" stroke-linecap="round"/>';
+    }
+    var planLine = refLine("plan", "6 4", "var(--text-muted)");
+    var priorLine = refLine("prior", "1 4", "var(--border-strong)");
+    return '<svg class="spark-svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" role="img" aria-label="月次粗利の推移（実績・計画・前年実績）">' +
+      planLine + priorLine + segs.join("") + dots + '</svg>';
   }
 
   function trendSection(scope) {
     var y = scope.ytd; if (!y || !y.monthlyTrend) return "";
     var color = "var(--" + scope.color + ")";
     var last = y.monthlyTrend[y.monthlyTrend.length - 1];
+    var hasPlan = y.monthlyTrend.every(function (d) { return d.plan != null; });
+    var hasPrior = y.monthlyTrend.every(function (d) { return d.prior != null; });
+    var needsAdjustNote = scope.color === "g1" || scope.color === "g2" || scope.color === "g3";
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>月次推移（粗利＝利益ベース）</h2>' +
       '<div class="spark-wrap">' +
         '<div class="spark-top"><span class="t">直近' + y.monthlyTrend.length + 'カ月の粗利トレンド</span><span class="v">' + last.m + ' ' + fmt(last.actual) + '千円（達成率' + last.pct + '%）' + (last.forecast ? '<span class="fc-tag">予測</span>' : '') + '</span></div>' +
         sparkline(y.monthlyTrend, color) +
         '<div class="spark-ticks">' + y.monthlyTrend.map(function(d){return '<span>'+d.m+(d.forecast?'※':'')+'</span>';}).join("") + '</div>' +
+        '<div class="spark-legend">' +
+          '<span style="color:' + color + '"><i></i>実績</span>' +
+          (hasPlan ? '<span class="plan"><i></i>計画</span>' : '') +
+          (hasPrior ? '<span class="prior"><i></i>前年実績</span>' : '') +
+        '</div>' +
       '</div>' +
       (y.monthlyTrend.some(function(d){return d.forecast;}) ? '<div class="guide" style="margin-top:-8px;">※は確定実績ではなく、台帳の実績＋積上げによる着地予測です。</div>' : '') +
+      (needsAdjustNote ? '<div class="guide" style="margin-top:-8px;">前年実績線は4〜7月が担当者異動調整前、8月は調整後の数値です（調整の詳細は「対前年」セクション参照）。</div>' : '') +
       '<details class="more"><summary>月別の実績・計画を見る</summary><div class="more-body">' +
         '<div class="mbars">' + y.monthlyTrend.map(function (d) {
           var t = toneAchieve(d.pct);
@@ -787,33 +809,34 @@ const DATA = {
 
   function groupsSection(scope) {
     if (!scope.groups) return "";
+    var yc = scope.yoyCompare;
+    var yoyByKey = {};
+    if (yc) yc.rows.forEach(function (r) { yoyByKey[r.key] = r; });
+    var rowsHtml = scope.groups.map(function (g) {
+      var pt = toneAchieve(g.pct);
+      var planDelta = g.profitActual - g.profitPlan;
+      var yr = yoyByKey[g.key];
+      var yoyHtml = "";
+      if (yr) {
+        var yt = toneYoy(yr.pct);
+        var yoyDelta = yr.thisYear - yr.lastYear;
+        yoyHtml = metricRow("対前年", yr.pct, yt, null, true,
+          "実績" + fmt(yr.thisYear) + "千円（前年比 <b class=\"" + yt + "\">" + fmtSigned(yoyDelta) + "</b>千円）");
+      }
+      return '<button class="grow" style="--gc:var(--' + g.key + ')" data-jump="' + g.key + '">' +
+        '<div class="grow-top"><span class="grow-dot"></span><span class="grow-name">' + esc(g.name) + (g.note ? '<span class="fc-tag">' + esc(g.note) + '</span>' : '') + '</span></div>' +
+        metricRow("対計画", g.pct, pt, "var(--" + g.key + ")", false,
+          "実績" + fmt(g.profitActual) + "千円（計画比 <b class=\"" + pt + "\">" + fmtSigned(planDelta) + "</b>千円）") +
+        yoyHtml +
+      '</button>';
+    }).join("");
+    var detailTable = yc ? '<details class="more"><summary>グループ別の詳細な数値表を見る</summary><div class="more-body">' + tableHtml(yc.table) + '</div></details>' : "";
     return '' +
       '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>' + esc(scope.groupsTitle || "グループ別進捗（利益ベース）") + '</h2>' +
-      '<div class="grows-grid">' + scope.groups.map(function (g) {
-        return '<button class="grow" style="--gc:var(--' + g.key + ')" data-jump="' + g.key + '">' +
-          '<div class="grow-top"><span class="grow-dot"></span><span class="grow-name">' + esc(g.name) + (g.note ? '<span class="fc-tag">' + esc(g.note) + '</span>' : '') + '</span><span class="grow-rate">' + g.pct + '%</span><span class="grow-arrow">›</span></div>' +
-          '<div class="grow-figs">利益 実績' + fmt(g.profitActual) + ' ／ 計画' + fmt(g.profitPlan) + '</div>' +
-          '<div class="grow-track"><div class="grow-fill" style="width:' + Math.min(g.pct,100) + '%"></div><div class="grow-plan" style="left:' + planMarkerPos(g.pct) + '%"></div></div>' +
-        '</button>';
-      }).join("") + '</div>' +
-      '<div class="callout"><div class="ct">🔍 グループ別の見方</div>' + esc(scope.groupsNote) + '</div>';
-  }
-
-  function yoyCompareSection(scope) {
-    var yc = scope.yoyCompare; if (!yc) return "";
-    return '' +
-      '<h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>' + esc(yc.title || "今年度実績 vs 前年実績（グループ別・利益）") + '</h2>' +
-      '<div class="guide">' + esc(yc.note) + '</div>' +
-      '<div class="yoy-block">' + yc.rows.map(function (r) {
-        var pctLast = Math.min(100, (r.lastYear / Math.max(r.thisYear, r.lastYear)) * 100);
-        var pctThis = Math.min(100, (r.thisYear / Math.max(r.thisYear, r.lastYear)) * 100);
-        return '<div class="yoy-row"><div class="yr-label"><span>' + esc(r.name) + (r.note ? '<span style="opacity:.6;font-weight:600;"> ' + esc(r.note) + '</span>' : '') + '</span><span class="yr-delta" style="color:' + ringColorVar(toneYoy(r.pct)) + '">対前年 ' + r.pct + '%</span></div>' +
-          '<div class="yoy-track">' +
-            '<div class="yoy-bar-row"><span class="yr">今年</span><div class="track"><div class="fill" style="width:' + pctThis + '%;background:var(--' + r.key + ')"></div></div><span class="amt">' + fmt(r.thisYear) + '</span></div>' +
-            '<div class="yoy-bar-row"><span class="yr">前年</span><div class="track"><div class="fill" style="width:' + pctLast + '%;background:var(--text-muted);opacity:.4"></div></div><span class="amt">' + fmt(r.lastYear) + '</span></div>' +
-          '</div></div>';
-      }).join("") + '</div>' +
-      '<details class="more"><summary>グループ別の詳細な数値表を見る</summary><div class="more-body">' + tableHtml(yc.table) + '</div></details>';
+      (yc ? '<div class="guide" style="margin-top:-6px;">' + esc(yc.note) + '</div>' : '') +
+      '<div class="grows-grid">' + rowsHtml + '</div>' +
+      '<div class="callout"><div class="ct">🔍 グループ別の見方</div>' + esc(scope.groupsNote) + '</div>' +
+      detailTable;
   }
 
   function crossTopicsSection(scope) {
@@ -827,16 +850,15 @@ const DATA = {
 
   function yoySoloSection(scope) {
     var y = scope.yoy; if (!y) return "";
-    var pctLast = Math.min(100, (y.lastYear / Math.max(y.thisYear, y.lastYear)) * 100);
-    var pctThis = Math.min(100, (y.thisYear / Math.max(y.thisYear, y.lastYear)) * 100);
+    var t = toneYoy(y.pct);
+    var delta = y.thisYear - y.lastYear;
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(y.title || "対前年（累計）") + '</h2>' +
       (y.note ? '<div class="guide">' + esc(y.note) + '</div>' : '') +
-      '<div class="yoy-block"><div class="yoy-row"><div class="yr-label"><span>粗利（利益）</span><span class="yr-delta" style="color:' + ringColorVar(toneYoy(y.pct)) + '">対前年 ' + y.pct + '%</span></div>' +
-        '<div class="yoy-track">' +
-          '<div class="yoy-bar-row"><span class="yr">今年</span><div class="track"><div class="fill" style="width:' + pctThis + '%;background:var(--' + scope.color + ')"></div></div><span class="amt">' + fmt(y.thisYear) + '</span></div>' +
-          '<div class="yoy-bar-row"><span class="yr">前年</span><div class="track"><div class="fill" style="width:' + pctLast + '%;background:var(--text-muted);opacity:.4"></div></div><span class="amt">' + fmt(y.lastYear) + '</span></div>' +
-        '</div></div></div>' +
+      '<div class="yoy-block">' +
+        metricRow("対前年", y.pct, t, "var(--" + scope.color + ")", false,
+          "実績" + fmt(y.thisYear) + "千円（前年比 <b class=\"" + t + "\">" + fmtSigned(delta) + "</b>千円）") +
+      '</div>' +
       (y.detail ? '<details class="more"><summary>調整の内訳を見る</summary><div class="more-body"><p>' + y.detail + '</p></div></details>' : '');
   }
 
@@ -862,7 +884,6 @@ const DATA = {
     html += blk("ytd", ytdKpis(scope));
     html += blk("trend", trendSection(scope));
     html += blk("groups", groupsSection(scope));
-    html += blk("yoycompare", yoyCompareSection(scope));
     html += blk("yoysolo", yoySoloSection(scope));
     html += blk("crosstopics", crossTopicsSection(scope));
     html += blk("topics", topicsSection(scope));
