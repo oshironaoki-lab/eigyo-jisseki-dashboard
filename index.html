@@ -300,7 +300,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-yoysolo, .blk-crosstopics, .blk-topics { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-crosstopics, .blk-topics { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -470,7 +470,7 @@ const DATA = {
       ytd: {
         title: "4〜8月累計（8月は着地予測）",
         forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測です。",
-        profit: { actual: 46275, plan: 55823, achievePct: 82.9, planFull: 153491, marginPct: 28.9 },
+        profit: { actual: 46275, plan: 55823, achievePct: 82.9, yoyPct: 94.8, yoyPrior: 48828, planFull: 153491, marginPct: 28.9 },
         sales:  { actual: 181554, plan: 201918, achievePct: 89.9, planFull: 530836 },
         monthlyTrend: [
           { m: "4月", actual: 11311, plan: 10813, pct: 104.6, prior: 9564 },
@@ -519,7 +519,7 @@ const DATA = {
       ytd: {
         title: "4〜8月累計（8月は着地予測）",
         forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測です。",
-        profit: { actual: 75639, plan: 66950, achievePct: 113.0, planFull: 189125, marginPct: 22.6 },
+        profit: { actual: 75639, plan: 66950, achievePct: 113.0, yoyPct: 127.5, yoyPrior: 59305, planFull: 189125, marginPct: 22.6 },
         sales:  { actual: 310747, plan: 327222, achievePct: 95.0, planFull: 836120 },
         monthlyTrend: [
           { m: "4月", actual: 12841, plan: 12215, pct: 105.1, prior: 7983 },
@@ -568,7 +568,7 @@ const DATA = {
       ytd: {
         title: "4〜8月累計（8月は着地予測）",
         forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測です。",
-        profit: { actual: 43365, plan: 45517, achievePct: 95.3, planFull: 116696, marginPct: 21.2 },
+        profit: { actual: 43365, plan: 45517, achievePct: 95.3, yoyPct: 85.9, yoyPrior: 50485, planFull: 116696, marginPct: 21.2 },
         sales:  { actual: 223086, plan: 268414, achievePct: 83.1, planFull: 550329 },
         monthlyTrend: [
           { m: "4月", actual: 6488, plan: 6268, pct: 103.5, prior: 7257 },
@@ -612,7 +612,7 @@ const DATA = {
       ytd: {
         title: "4〜7月累計",
         forecastNote: "8月分は管理台帳が未整備のため、他グループと異なり4〜7月の確定実績のみです。",
-        profit: { actual: 10356, plan: 11504, achievePct: 90.0, planFull: 40685, marginPct: 16.1 },
+        profit: { actual: 10356, plan: 11504, achievePct: 90.0, yoyPct: 108.5, yoyPrior: 9548, planFull: 40685, marginPct: 16.1 },
         sales:  { actual: 51136, plan: 54307, achievePct: 94.2, planFull: 252717 },
         monthlyTrend: [
           { m: "4月", actual: 1712, plan: 2499, pct: 68.5, prior: 1134 },
@@ -703,14 +703,17 @@ const DATA = {
     var metricsHtml = metricRow("対計画", y.profit.achievePct, pt, mc, false,
       "実績" + fmt(y.profit.actual) + "千円（計画比 <b class=\"" + pt + "\">" + fmtSigned(planDelta) + "</b>千円）");
 
-    var secondHtml;
+    var secondHtml = "";
     if (y.profit.yoyPct != null) {
       var yt = toneYoy(y.profit.yoyPct);
       var yoyDelta = y.profit.actual - (y.profit.yoyPrior || 0);
       secondHtml = metricRow("対前年", y.profit.yoyPct, yt, null, true,
         "実績" + fmt(y.profit.actual) + "千円（前年比 <b class=\"" + yt + "\">" + fmtSigned(yoyDelta) + "</b>千円）");
-    } else {
-      secondHtml = '<div class="guide" style="margin:10px 0 0;">通期計画' + fmt(y.profit.planFull || 0) + (y.profit.marginPct != null ? '（粗利率' + y.profit.marginPct + '%）' : '') + '</div>';
+      if (scope.yoy && scope.yoy.note) secondHtml += '<div class="guide" style="margin:6px 0 0;">' + esc(scope.yoy.note) + '</div>';
+      if (scope.yoy && scope.yoy.detail) secondHtml += '<details class="more"><summary>調整の内訳を見る</summary><div class="more-body"><p>' + scope.yoy.detail + '</p></div></details>';
+    }
+    if (y.profit.planFull != null) {
+      secondHtml += '<div class="guide" style="margin:10px 0 0;">通期計画' + fmt(y.profit.planFull) + (y.profit.marginPct != null ? '（粗利率' + y.profit.marginPct + '%）' : '') + '</div>';
     }
 
     var salesRef = metricRow("対計画", y.sales.achievePct, toneAchieve(y.sales.achievePct), mc, false,
@@ -852,20 +855,6 @@ const DATA = {
       }).join("");
   }
 
-  function yoySoloSection(scope) {
-    var y = scope.yoy; if (!y) return "";
-    var t = toneYoy(y.pct);
-    var delta = y.thisYear - y.lastYear;
-    return '' +
-      '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(y.title || "対前年（累計）") + '</h2>' +
-      (y.note ? '<div class="guide">' + esc(y.note) + '</div>' : '') +
-      '<div class="yoy-block">' +
-        metricRow("対前年", y.pct, t, "var(--" + scope.color + ")", false,
-          "実績" + fmt(y.thisYear) + "千円（前年比 <b class=\"" + t + "\">" + fmtSigned(delta) + "</b>千円）") +
-      '</div>' +
-      (y.detail ? '<details class="more"><summary>調整の内訳を見る</summary><div class="more-body"><p>' + y.detail + '</p></div></details>' : '');
-  }
-
   function topicsSection(scope) {
     if (!scope.topics) return "";
     return '' +
@@ -888,7 +877,6 @@ const DATA = {
     html += blk("ytd", ytdKpis(scope));
     html += blk("trend", trendSection(scope));
     html += blk("groups", groupsSection(scope));
-    html += blk("yoysolo", yoySoloSection(scope));
     html += blk("crosstopics", crossTopicsSection(scope));
     html += blk("topics", topicsSection(scope));
     return html;
