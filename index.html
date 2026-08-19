@@ -135,6 +135,7 @@
   .hero-lbl { font-size: 12.5px; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
   .hero-num { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--hero-c, var(--good)); }
   .hero-num .unit { font-size: 16px; font-weight: 700; margin-left: 3px; color: var(--text-secondary); }
+  .hero-num-note { font-size: 13px; font-weight: 600; margin-left: 6px; color: var(--text-muted); letter-spacing: 0; }
   .hero-sub { font-size: 13px; color: var(--text-secondary); margin-top: 7px; }
   .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
   .chip-col { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -327,6 +328,7 @@
     .hero-lbl { flex: 0 0 100%; margin-bottom: 0; font-size: 13px; }
     .hero-num { font-size: 34px; }
     .hero-num .unit { font-size: 14.5px; }
+    .hero-num-note { font-size: 12px; }
     .hero-sub { margin-top: 0; font-size: 13.5px; }
     .hero-chips { margin-top: 0; margin-left: auto; gap: 18px; }
     .chip { font-size: 13px; padding: 6px 13px; }
@@ -423,7 +425,7 @@ const DATA = {
       name: "全社", color: "all",
       monthly: {
         title: "8月度（実績＋見込み）", note: "第1〜3営業グループ管理台帳より、実績と積上げ（パイプライン）を集計。コンテンツの8月データは台帳未登録のため3グループ合計に含みません。単位:千円。",
-        profit: { actual: 17664, landing: 28516, plan: 33256, achievePct: 85.8, yoyPct: 115.4, yoyPrior: 24712 },
+        profit: { actual: 17664, landing: 28516, plan: 33256, achievePct: 85.8, yoyPct: 115.4, yoyPrior: 24712, landingNote: "（コンテンツ未記載の為除く）" },
         sales:  { actual: 72694, landing: 100988, plan: 132742, achievePct: 76.1, yoyPct: 101.1, yoyPrior: 99862 },
         detail: "「実績」は本日（8/19）時点で管理台帳に入力済みの金額（コンテンツを除く3グループ）。「見込み」は営業担当が積上げているパイプラインで、月末までに確定が見込まれる金額。3グループ合計では実績ベースの利益達成率は57.2%、積上げを含めると85.8%まで届く見通し（積上げが計画どおり確定するとは限らない点に留意）。対計画の分母には販管システム出力の月報にあるコンテンツ部門の8月計画（粗利2,348千円・売上9,241千円）も合算しているが、コンテンツの8月実績・見込みは台帳未整備のため未計上のため、その分だけ見た目の達成率は低めに出る点に留意（4〜7月は各月ともコンテンツの計画・実績を含めた数字）。前年同月実績は久田氏・小串氏の担当変更を引き継ぎ先グループへ振り替え済み（コンテンツ除く3グループ合算。グループ間の付け替えのため合計額は不変）。"
       },
@@ -744,7 +746,7 @@ const DATA = {
       '<div class="guide">' + esc(m.note) + '</div>' +
       '<div class="hero" style="--hero-c:' + ringColorVar(t) + '">' +
         '<div class="hero-lbl">利益（粗利）・着地見込</div>' +
-        '<div class="hero-num">' + fmt(m.profit.landing) + '<span class="unit">千円</span></div>' +
+        '<div class="hero-num">' + fmt(m.profit.landing) + '<span class="unit">千円</span>' + (m.profit.landingNote ? '<span class="hero-num-note">' + esc(m.profit.landingNote) + '</span>' : '') + '</div>' +
         '<div class="hero-sub">実績 ' + fmt(m.profit.actual) + '千円（本日時点）</div>' +
         '<div class="hero-chips">' +
           '<div class="chip-col"><span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span><span class="chip-note">計画' + fmt(m.profit.plan) + '千円（<b class="' + t + '">' + fmtSigned(m.profit.landing - m.profit.plan) + '</b>千円）</span></div>' +
