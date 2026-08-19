@@ -425,7 +425,7 @@ const DATA = {
       name: "全社", color: "all",
       monthly: {
         title: "8月度（実績＋見込み）", note: "第1〜3営業グループ管理台帳より、実績と積上げ（パイプライン）を集計。コンテンツの8月データは台帳未登録のため3グループ合計に含みません。単位:千円。",
-        profit: { actual: 17664, landing: 28516, plan: 33256, achievePct: 85.8, yoyPct: 115.4, yoyPrior: 24712, landingNote: "（コンテンツ未記載の為除く）" },
+        profit: { actual: 17664, landing: 28516, plan: 33256, achievePct: 85.8, yoyPct: 115.4, yoyPrior: 24712 },
         sales:  { actual: 72694, landing: 100988, plan: 132742, achievePct: 76.1, yoyPct: 101.1, yoyPrior: 99862 },
         detail: "「実績」は本日（8/19）時点で管理台帳に入力済みの金額（コンテンツを除く3グループ）。「見込み」は営業担当が積上げているパイプラインで、月末までに確定が見込まれる金額。3グループ合計では実績ベースの利益達成率は57.2%、積上げを含めると85.8%まで届く見通し（積上げが計画どおり確定するとは限らない点に留意）。対計画の分母には販管システム出力の月報にあるコンテンツ部門の8月計画（粗利2,348千円・売上9,241千円）も合算しているが、コンテンツの8月実績・見込みは台帳未整備のため未計上のため、その分だけ見た目の達成率は低めに出る点に留意（4〜7月は各月ともコンテンツの計画・実績を含めた数字）。前年同月実績は久田氏・小串氏の担当変更を引き継ぎ先グループへ振り替え済み（コンテンツ除く3グループ合算。グループ間の付け替えのため合計額は不変）。"
       },
@@ -741,12 +741,14 @@ const DATA = {
   function heroSection(scope) {
     var m = scope.monthly; if (!m) return "";
     var t = toneAchieve(m.profit.achievePct);
+    // コンテンツの当月実績が台帳に反映され次第、この注記は自動的に表示されなくなる。
+    var landingNote = (scope === DATA.scopes.all && !DATA.scopes.content.monthly) ? "（コンテンツ未記載の為除く）" : "";
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(m.title) + '</h2>' +
       '<div class="guide">' + esc(m.note) + '</div>' +
       '<div class="hero" style="--hero-c:' + ringColorVar(t) + '">' +
         '<div class="hero-lbl">利益（粗利）・着地見込</div>' +
-        '<div class="hero-num">' + fmt(m.profit.landing) + '<span class="unit">千円</span>' + (m.profit.landingNote ? '<span class="hero-num-note">' + esc(m.profit.landingNote) + '</span>' : '') + '</div>' +
+        '<div class="hero-num">' + fmt(m.profit.landing) + '<span class="unit">千円</span>' + (landingNote ? '<span class="hero-num-note">' + esc(landingNote) + '</span>' : '') + '</div>' +
         '<div class="hero-sub">実績 ' + fmt(m.profit.actual) + '千円（本日時点）</div>' +
         '<div class="hero-chips">' +
           '<div class="chip-col"><span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span><span class="chip-note">計画' + fmt(m.profit.plan) + '千円（<b class="' + t + '">' + fmtSigned(m.profit.landing - m.profit.plan) + '</b>千円）</span></div>' +
