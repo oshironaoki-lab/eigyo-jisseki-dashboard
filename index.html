@@ -267,6 +267,25 @@
   .ctr-note { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
   .ctr-desc { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
 
+  /* ---- Swing factors (4-8月 YoY deal-level increase/decrease cards) ---- */
+  .swf-grid { display: flex; flex-direction: column; gap: 9px; }
+  .swf-item { border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 10px; padding: 11px 13px; background: var(--surface); }
+  .swf-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-bottom: 7px; }
+  .swf-month { font-size: 13.5px; font-weight: 800; white-space: nowrap; }
+  .swf-label { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); color: var(--text-secondary); border: 1px solid var(--border-strong); white-space: nowrap; }
+  .swf-deals { display: flex; flex-direction: column; }
+  .swf-deal { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; padding: 6px 0; }
+  .swf-deal + .swf-deal { border-top: 1px dashed var(--border); }
+  .swf-dir { flex: none; font-size: 13px; font-weight: 800; width: 14px; }
+  .swf-dir.up { color: var(--good); } .swf-dir.down { color: var(--bad); } .swf-dir.flat { color: var(--text-muted); }
+  .swf-deal-main { flex: 1 1 auto; min-width: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; }
+  .swf-deal-client { font-size: 12.5px; font-weight: 800; }
+  .swf-deal-desc { font-size: 11.5px; color: var(--text-muted); }
+  .swf-deal-amount { flex: none; font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .swf-deal-amount.up { color: var(--good); } .swf-deal-amount.down { color: var(--bad); } .swf-deal-amount.flat { color: var(--text-muted); }
+  .swf-note { font-size: 12px; line-height: 1.7; color: var(--text-secondary); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); }
+  .swf-note b { color: var(--text); font-weight: 700; }
+
   footer.pagefoot { max-width: 480px; margin: 30px auto 0; padding: 16px; font-size: 11.5px; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border);
     padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
 
@@ -315,7 +334,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -477,7 +496,54 @@ const DATA = {
           "<b>首里城関連の動きが複数グループに拡大</b>：第1G（沖縄セルラーの首里城企画は総務G管轄となり一旦預かり）、第2G（リウボウインダストリーが首里城再建お祝い施策を相談中）、第3G（沖縄県・首里城正殿供用開始の広報計画に着手、トランスコスモスの首里城応援企画、安室氏の首里城コラボ企画提案）。",
           "<b>台風接近の影響</b>：第1G（沖縄セルラー スマホサミットの開催可否判断）、第2G（沖縄ファミリーマート 沖縄そば新CM撮影の予備日設定、リウボウインダストリー 全国ぐるっとグルメフェスタ折込の延期懸念）と、日程調整に追われた週。"
         ]}
-      ]
+      ],
+      swingFactors: {
+        title: "特に注目すべき増減（4〜8月・前年同月比、金額の大きい順）",
+        note: "各グループの月次増減要因のうち、粗利金額が大きい案件・同一クライアントで金額に大きな差が出ている案件を、確認できた範囲でできるだけ幅広く掲載。人員異動による移管クライアント分は移管先グループの数字として扱っています。詳細は各グループタブ下部の「4〜8月の増減要因」を参照。",
+        items: [
+          { month: "第3営業G・7月", label: "同一クライアントで倍増", deals: [
+            { dir: "up", client: "沖縄美ら島財団", desc: "花火大会協賛が前年5,000千円→今年10,000千円に倍増", amount: 5000 },
+            { dir: "down", client: "DMM.com", desc: "館内リニューアル・吊下げ広告等3件（前年のみ）", amount: 5753 },
+            { dir: "down", client: "選挙管理委員会", desc: "参議院選挙啓発企画（前年のみの単年案件、今年は該当選挙なし）", amount: 2281 }
+          ], note: "花火大会の増額（+5,000千円）だけでは前年案件の消失（合計8,034千円）を補いきれず、7月全体では前年比▲14%という逆転現象に。" },
+          { month: "第2営業G・6月", label: "全グループ中最大の新規案件", deals: [
+            { dir: "up", client: "沖縄エンタテインメント振興協会", desc: "文化祭2026運営（前年になかった新規大型案件）", amount: 5899 }
+          ], note: "同月にはBOATRACE「オフィシャルパートナー契約」5,940千円も計上されているが、これは前年も計上されている継続契約のため増減要因には含めていない。" },
+          { month: "第1営業G・5月", label: "急落の主因", deals: [
+            { dir: "down", client: "沖縄セルラー", desc: "固定電話不利益告知DM（前年5月の単発施策、今年は見当たらず）", amount: 2264 }
+          ], note: "達成率55.1%まで落ち込んだ主因。" },
+          { month: "第2営業G", label: "要確認・契約消滅の可能性", deals: [
+            { dir: "down", client: "㈱RCワークス", desc: "「OTV提供」（月450千円の継続契約、前年4〜8月連続計上、今年度は見当たらず）", amount: 2250 }
+          ], note: "5ヶ月換算の概算。契約終了の可能性（要確認）。" },
+          { month: "第3営業G・4〜6月", label: "要確認・担当者離脱の可能性", deals: [
+            { dir: "down", client: "外間・吉川両氏の担当クライアント", desc: "MSコーポレーション折込・電波の日・エールクリエイト等が5〜6月に軒並み計上されなくなっている", amount: 1830 }
+          ], note: "両氏の退職・異動の有無を含め要確認。" },
+          { month: "第2営業G・7月", deals: [
+            { dir: "up", client: "沖縄ファミリーマート", desc: "「地域ド密着」が前年のうるま市篇2,947千円→名護市篇4,566千円に規模拡大", amount: 1619 }
+          ] },
+          { month: "第3営業G・8月", deals: [
+            { dir: "down", client: "国頭村", desc: "国頭村まつり（前年8月に計上、今年8月確定分にはまだなし）", amount: 1074 },
+            { dir: "down", client: "与那原町商工会", desc: "大綱曳まつり（同上）", amount: 561 }
+          ], note: "確定分だけでは前年を下回るが、着地見込みでの挽回状況を要注視。" },
+          { month: "第3営業G・6月", deals: [
+            { dir: "down", client: "DMM.com", desc: "空港媒体デザイン＋SNS運用（吉川氏担当、今年6月は見当たらず）", amount: 1070 }
+          ] },
+          { month: "第1営業G・4月", deals: [
+            { dir: "up", client: "ボートレース大村", desc: "WEB広告（與那覇氏、前年になかった新規案件）", amount: 1064 }
+          ] },
+          { month: "第3営業G・5月", deals: [
+            { dir: "down", client: "沖縄美ら島財団", desc: "「ジンベエザメバルーン」（前年5月の単年施策、今年は見当たらず）", amount: 1036 }
+          ] },
+          { month: "第2営業G・5月", deals: [
+            { dir: "up", client: "ジャパンエンターテイメント", desc: "ジャングリア運営（譜久村氏、新規案件）", amount: 1031 }
+          ] },
+          { month: "第3営業G・4月", deals: [
+            { dir: "up", client: "白石", desc: "北谷美浜複合施設グランドオープン（新規スポット）", amount: 853 },
+            { dir: "up", client: "沖縄トヨタ自動車", desc: "75周年記念懇親会（新規スポット）", amount: 609 },
+            { dir: "down", client: "野嵩商会・沖縄タイムス・残波岬駅伝", desc: "前年4月にあった3件（今年は見当たらず）", amount: 704 }
+          ] }
+        ]
+      }
     },
 
     g1: {
@@ -543,7 +609,31 @@ const DATA = {
         { cli: "リウボウストア", desc: "TVCM ― 修正絵コンテを営業企画部へ提出しほぼ方向性OK。旧盆明け9月初めに先方社長決裁、順調なら10月放映開始予定", who: "與那覇" },
         { cli: "沖縄セルラー（スマホサミット）", tag: "watch", tagLabel: "台風", desc: "8/28開催に向け実行メンバー最終定例会を実施。台風進路により開催有無を判断するオペレーションを確認、週明けも情報共有を継続", who: "知花" },
         { cli: "山城時計店", tag: "watch", tagLabel: "懸念", desc: "育成ターゲット向けTVCM ― ジュエリー篇はナレーション収録済み。時計篇はグランドセイコーCM放送NGの影響で制作可否が流動的", who: "知花" }
-      ]
+      ],
+      swingFactors: {
+        title: "4〜8月の増減要因（前年同月比）",
+        note: "台帳の確定実績（受注伝票ベース）を前年同月と突き合わせ、差額の要因となった案件を抽出。人員異動による移管クライアント（久田氏＝BOATRACE関連、第1G→第2G／小串氏＝退職、旧担当4社は第2G・第3Gへ移管）は移管先グループの実績として扱っています。",
+        items: [
+          { month: "4月", deals: [
+            { dir: "up", client: "ボートレース大村", desc: "WEB広告（與那覇氏、前年になかった新規案件）", amount: 1064 }
+          ] },
+          { month: "5月", label: "急落", deals: [
+            { dir: "down", client: "沖縄セルラー", desc: "固定電話不利益告知DM（前年5月の単発施策、今年は同種案件なし）", amount: 2264 }
+          ] },
+          { month: "6月", deals: [
+            { dir: "down", client: "沖縄セルラー", desc: "大型スポット案件が「タイム提供」639千円→「スポット」377千円に縮小", amount: 262 }
+          ] },
+          { month: "7月", deals: [
+            { dir: "up", client: "リウボウストア", desc: "夏ギフトが665千円→854千円に増加", amount: 189 },
+            { dir: "up", client: "ボートレース大村", desc: "WEB広告（與那覇氏、前年になかった新規案件）", amount: 490 }
+          ], note: "上記の増加はあったが、他の中小案件も含めた月合計では前年をやや下回った。" },
+          { month: "8月", label: "着地見込み", deals: [
+            { dir: "up", client: "明治乳業", desc: "CM制作（新規）", amount: 720 },
+            { dir: "up", client: "大米建設", desc: "テレビCM（臼井氏、新規）", amount: 600 },
+            { dir: "up", client: "沖縄セルラー", desc: "スマホサミット関連（新規）", amount: 587 }
+          ] }
+        ]
+      }
     },
 
     g2: {
@@ -609,7 +699,30 @@ const DATA = {
         { cli: "リウボウインダストリー", tag: "watch", tagLabel: "台風", desc: "全国ぐるっとグルメフェスタB4チラシ校了・入稿済み。8/27折込予定だが台風接近予報のため実施可否を注視", who: "宇根" },
         { cli: "沖縄コカ・コーラボトリング", tag: "new", tagLabel: "受注", desc: "QABタイム提供見直し ― 6月提案のコンペを受注（「ウチラン」15秒CM枠、月額25万円、2026年10月〜2027年12月）", who: "謝花" },
         { cli: "沖縄マツダ販売", desc: "決算プレミアムアウトレットフェア ― RDCM放送開始（〜9/4）。出演者交代（浦添店 新里さまへ変更）にも対応", who: "譜久村" }
-      ]
+      ],
+      swingFactors: {
+        title: "4〜8月の増減要因（前年同月比）",
+        note: "台帳の確定実績（受注伝票ベース）を前年同月と突き合わせ、差額の要因となった案件を抽出。人員異動による移管クライアント（BOATRACE振興会・JAおきなわSS・佐久本工機・㈱ぐしけん、2026年度から第2G計上）は移管先である第2Gの実績として扱っています。BOATRACE関連の継続契約（那覇ハーリー・オフィシャルパートナー契約）は前年も同時期に計上済みのため、増減要因には含めていません。",
+        items: [
+          { month: "4月", deals: [
+            { dir: "up", client: "ヨナタン", desc: "沖縄国際文化祭協賛（前年になかった新規）", amount: 820 },
+            { dir: "up", client: "三光ソフラン", desc: "沖縄国際文化祭協賛（前年になかった新規）", amount: 410 }
+          ] },
+          { month: "5月", deals: [
+            { dir: "up", client: "ジャパンエンターテイメント", desc: "ジャングリア運営（譜久村氏、新規案件）", amount: 1031 }
+          ] },
+          { month: "6月", label: "急伸", deals: [
+            { dir: "up", client: "沖縄エンタテインメント振興協会", desc: "文化祭2026運営（前年になかった新規大型案件）", amount: 5899 }
+          ] },
+          { month: "7月", deals: [
+            { dir: "up", client: "沖縄ファミリーマート", desc: "「地域ド密着」が前年のうるま市篇2,947千円→名護市篇4,566千円に規模拡大", amount: 1619 }
+          ], note: "沖縄マツダ「サマーフェスタ2026」953千円は中止案件のため、確定利益への算入方法は要確認。" },
+          { month: "8月", label: "低調", deals: [
+            { dir: "down", client: "㈱RCワークス", desc: "「OTV提供」（月450千円の継続契約）が今年度は見当たらず", amount: 450 },
+            { dir: "down", client: "ビッグワン", desc: "新聞広告（前年8月に計上）が今年は見当たらず", amount: 426 }
+          ], note: "いずれも契約終了・規模縮小の可能性（要確認）。" }
+        ]
+      }
     },
 
     g3: {
@@ -675,7 +788,34 @@ const DATA = {
         { cli: "沖縄トヨタ自動車", desc: "キッズカーニバル ― 週末開催、浦添店へ挨拶。首里城コラボ企画も金城次長・鈴木課長と提案済みでスピード感を重視して進行", who: "安室" },
         { cli: "一財）沖縄美ら島財団", tag: "new", tagLabel: "新規", desc: "海洋博公園エンジョイマラソン2027 ― 8/19に第1回打合せ。先方の予算削減意向を踏まえ、相見積りも視野に見積り作成を進める", who: "伊藝" },
         { cli: "沖縄県工業連合会", desc: "沖縄の産業まつり50回記念パネル展 ― パネル枚数を当初予定より減らす方向で調整。ガラポン抽選会の場所・時間も決定", who: "新里" }
-      ]
+      ],
+      swingFactors: {
+        title: "4〜8月の増減要因（前年同月比）",
+        note: "台帳の確定実績（受注伝票ベース）を前年同月と突き合わせ、差額の要因となった案件を抽出。人員異動による移管クライアント（南都・沖縄長正薬草本社・イーアス沖縄＝今年度から第3G計上／三州観光開発グループ＝逆に今年度から第1G計上）はそれぞれの移管先グループの実績として扱っています。",
+        items: [
+          { month: "4月", deals: [
+            { dir: "up", client: "白石", desc: "北谷美浜複合施設グランドオープン（新規スポット）", amount: 853 },
+            { dir: "up", client: "沖縄トヨタ自動車", desc: "75周年記念懇親会（新規スポット）", amount: 609 },
+            { dir: "down", client: "野嵩商会・沖縄タイムス・残波岬駅伝", desc: "前年4月にあった3件（今年は見当たらず）", amount: 704 }
+          ] },
+          { month: "5月", deals: [
+            { dir: "down", client: "沖縄美ら島財団", desc: "「ジンベエザメバルーン」（前年5月の単年施策、今年は見当たらず）", amount: 1036 }
+          ], note: "行政系レギュラー案件（税務課・国保連合会）は前年並みを維持。" },
+          { month: "6月", label: "5ヶ月で最低", deals: [
+            { dir: "down", client: "DMM.com", desc: "空港媒体デザイン＋SNS運用（吉川氏担当、今年6月は見当たらず）", amount: 1070 },
+            { dir: "down", client: "エールクリエイト", desc: "首里石嶺チラシ（吉川氏担当、今年は見当たらず）", amount: 374 }
+          ], note: "担当者の案件喪失の可能性（要確認）。" },
+          { month: "7月", label: "急伸だが実は前年割れ", deals: [
+            { dir: "up", client: "沖縄美ら島財団", desc: "花火大会協賛が同一クライアントで前年5,000千円→今年10,000千円に倍増", amount: 5000 },
+            { dir: "down", client: "選挙管理委員会", desc: "参議院選挙啓発企画（前年のみの単年案件）", amount: 2281 },
+            { dir: "down", client: "DMM.com", desc: "館内リニューアル・吊下げ広告等3件（前年のみ）", amount: 5753 }
+          ], note: "花火大会の増額（+5,000千円）だけでは前年案件の消失（合計8,034千円）を補いきれず、月合計は前年割れ。" },
+          { month: "8月", deals: [
+            { dir: "down", client: "国頭村", desc: "国頭村まつり（前年8月に計上、今年8月確定分にはまだなし）", amount: 1074 },
+            { dir: "down", client: "与那原町商工会", desc: "大綱曳まつり（同上）", amount: 561 }
+          ], note: "確定分だけでは前年を下回るが、着地見込みでは前年超過。積み上げでの挽回状況を要注視。" }
+        ]
+      }
     },
 
     content: {
@@ -966,6 +1106,32 @@ const DATA = {
       }).join("") + '</div>';
   }
 
+  function swingFactorsSection(scope) {
+    if (!scope.swingFactors) return "";
+    var sf = scope.swingFactors;
+    var dirArrow = { up: "▲", down: "▼", flat: "―" };
+    var itemsHtml = sf.items.map(function (it) {
+      var dealsHtml = (it.deals || []).map(function (d) {
+        return '<div class="swf-deal">' +
+          '<span class="swf-dir ' + d.dir + '">' + dirArrow[d.dir] + '</span>' +
+          '<span class="swf-deal-main"><span class="swf-deal-client">' + esc(d.client) + '</span>' +
+            (d.desc ? '<span class="swf-deal-desc">' + esc(d.desc) + '</span>' : '') + '</span>' +
+          '<span class="swf-deal-amount ' + d.dir + '">' + (d.dir === "down" ? "▲" : d.dir === "up" ? "+" : "") + fmt(d.amount) + '千円</span>' +
+        '</div>';
+      }).join("");
+      return '<div class="swf-item">' +
+        '<div class="swf-top"><span class="swf-month">' + esc(it.month) + '</span>' +
+          (it.label ? '<span class="swf-label">' + esc(it.label) + '</span>' : '') +
+        '</div>' +
+        '<div class="swf-deals">' + dealsHtml + '</div>' +
+        (it.note ? '<div class="swf-note">' + it.note + '</div>' : "") +
+      '</div>';
+    }).join("");
+    return '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(sf.title) + '</h2>' +
+      (sf.note ? '<div class="guide">' + esc(sf.note) + '</div>' : "") +
+      '<div class="swf-grid">' + itemsHtml + '</div>';
+  }
+
   function blk(name, html) { return html ? '<div class="blk blk-' + name + '">' + html + '</div>' : ""; }
 
   function renderPanel(key) {
@@ -979,6 +1145,7 @@ const DATA = {
     html += blk("crosstopics", crossTopicsSection(scope));
     html += blk("clienttrends", clientTrendsSection(scope));
     html += blk("topics", topicsSection(scope));
+    html += blk("swingfactors", swingFactorsSection(scope));
     return html;
   }
 
