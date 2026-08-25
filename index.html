@@ -272,6 +272,18 @@
   .ctr-note { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
   .ctr-desc { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
 
+  /* ---- Quarterly progress (Q1-Q4) ---- */
+  .qtr-grid { display: flex; flex-direction: column; gap: 16px; }
+  .qtr-row { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; background: var(--surface); }
+  .qtr-label { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 6px; }
+  .qtr-label .name { font-size: 14px; font-weight: 800; }
+  .qtr-tag { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); color: var(--text-secondary); border: 1px solid var(--border-strong); margin-left: 7px; vertical-align: middle; }
+  .qtr-label .v { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .qtr-sub { font-size: 11px; color: var(--text-muted); margin-top: 7px; line-height: 1.7; }
+  .qtr-row.upcoming { background: var(--surface-2); }
+  .qtr-plan-only { font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .qtr-plan-only.none { color: var(--text-muted); font-style: italic; }
+
   /* ---- Swing factors (4-8月 YoY deal-level increase/decrease cards) ---- */
   .swf-grid { display: flex; flex-direction: column; gap: 9px; }
   .swf-item { border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 10px; padding: 11px 13px; background: var(--surface); }
@@ -339,7 +351,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors, .blk-quarterly { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -466,6 +478,16 @@ const DATA = {
           { m: "8月", actual: 28191, plan: 33256, pct: 84.8, forecast: true, prior: 24712 }
         ]
       },
+      quarterly: {
+        title: "四半期進捗（利益ベース、コンテンツ除く3グループ合計）",
+        note: "Q1（4〜6月）は確定実績。Q2（7〜9月）は7〜8月の実績＋8月着地見込みのみで、9月分の計画はまだ含みません。Q3・Q4は(20260731)販管システム出力の年間計画表より（第1〜3営業グループ合計、コンテンツ除く）。",
+        quarters: [
+          { label: "Q1（4〜6月）", statusLabel: "確定", status: "done", profitActual: 94385, profitPlan: 94089, pct: 100.3, yoyPrior: 81771, yoyPct: 115.4, salesActual: 403656, salesPlan: 422862 },
+          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 71057, profitPlan: 74201, pct: 95.8, yoyPrior: 70201, yoyPct: 101.2, salesActual: 315394, salesPlan: 374692, subNote: "9月計画（3グループ合計：利益39,023千円・売上136,016千円）は上記に含みません。" },
+          { label: "Q3（10〜12月）", statusLabel: "計画", status: "upcoming", profitPlan: 116386, salesPlan: 425255 },
+          { label: "Q4（1〜3月）", statusLabel: "計画", status: "upcoming", profitPlan: 135613, salesPlan: 558460 }
+        ]
+      },
       groups: [
         { key: "g1", name: "第1営業グループ", profitActual: 46121, profitPlan: 55823, pct: 82.6 },
         { key: "g2", name: "第2営業グループ", profitActual: 75719, profitPlan: 66950, pct: 113.1 },
@@ -584,6 +606,16 @@ const DATA = {
         },
         trendNote: "4月は売上・粗利とも計画超過（120.8%／104.6%）だったが、5月に大きく落ち込み（68.8％／55.1%）、その後は持ち直し傾向。8月は積上げ込みの着地予測で売上・粗利ともほぼ計画どおりの見通し（102.0%／99.7%）。"
       },
+      quarterly: {
+        title: "四半期進捗（利益ベース）",
+        note: "Q1（4〜6月）は確定実績。Q2（7〜9月）は7〜8月の実績＋8月着地見込みのみで、9月分の計画はまだ含みません。Q3・Q4は(20260731)販管システム出力の年間計画表より。",
+        quarters: [
+          { label: "Q1（4〜6月）", statusLabel: "確定", status: "done", profitActual: 25895, profitPlan: 34109, pct: 75.9, yoyPrior: 31215, yoyPct: 83.0, salesActual: 105679, salesPlan: 119798 },
+          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 20226, profitPlan: 21714, pct: 93.1, yoyPrior: 19141, yoyPct: 105.7, salesActual: 75414, salesPlan: 82120, subNote: "9月計画（利益11,905千円・売上40,993千円）は上記に含みません。" },
+          { label: "Q3（10〜12月）", statusLabel: "計画", status: "upcoming", profitPlan: 36815, salesPlan: 127498 },
+          { label: "Q4（1〜3月）", statusLabel: "計画", status: "upcoming", profitPlan: 48948, salesPlan: 160427 }
+        ]
+      },
       yoy: {
         title: "対前年（4〜8月累計・8月は予測）",
         thisYear: 46121, lastYear: 50356, pct: 91.6,
@@ -674,6 +706,16 @@ const DATA = {
         },
         trendNote: "6月は売上196.1%・粗利180.1%と大幅な計画超過（ボートレース振興会関連の大型案件が寄与）。7月は反動でやや計画未達となり、8月も着地予測ベースで83.3%とやや控えめだが、4グループの中で唯一、累計粗利は計画を大きく上回っている（113.1%）。"
       },
+      quarterly: {
+        title: "四半期進捗（利益ベース）",
+        note: "Q1（4〜6月）は確定実績。Q2（7〜9月）は7〜8月の実績＋8月着地見込みのみで、9月分の計画はまだ含みません。Q3・Q4は台帳に入力済みの計画値です。",
+        quarters: [
+          { label: "Q1（4〜6月）", statusLabel: "確定", status: "done", profitActual: 49721, profitPlan: 37238, pct: 133.5, yoyPrior: 29209, yoyPct: 170.2, salesActual: 215830, salesPlan: 198159 },
+          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 25998, profitPlan: 29712, pct: 87.5, yoyPrior: 24842, yoyPct: 104.7, salesActual: 97581, salesPlan: 129063, subNote: "9月計画（利益16,122千円・売上61,624千円）は上記に含みません。" },
+          { label: "Q3（10〜12月）", statusLabel: "計画", status: "upcoming", profitPlan: 52796, salesPlan: 183730 },
+          { label: "Q4（1〜3月）", statusLabel: "計画", status: "upcoming", profitPlan: 53257, salesPlan: 263544 }
+        ]
+      },
       yoy: {
         title: "対前年（4〜8月累計・8月は予測）",
         thisYear: 75719, lastYear: 54051, pct: 140.1,
@@ -762,6 +804,16 @@ const DATA = {
           total: ["4〜8月計","224,546","268,414","83.7%","43,602","45,517","95.8%"]
         },
         trendNote: "4〜6月は計画未達が続いたが（特に6月は57.2%）、7月に大型案件が計上され粗利達成率121.7%まで急回復。8月は着地予測ベースで91.8%まで戻す見通し。単月の変動が大きく、大型スポット案件の有無に左右されやすい構成になっている。"
+      },
+      quarterly: {
+        title: "四半期進捗（利益ベース）",
+        note: "Q1（4〜6月）は確定実績。Q2（7〜9月）は7〜8月の実績＋8月着地見込みのみで、9月分の計画はまだ含みません。Q3・Q4は(20260731)販管システム出力の年間計画表より。",
+        quarters: [
+          { label: "Q1（4〜6月）", statusLabel: "確定", status: "done", profitActual: 18769, profitPlan: 22742, pct: 82.5, yoyPrior: 21347, yoyPct: 87.9, salesActual: 82147, salesPlan: 104905 },
+          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 24833, profitPlan: 22775, pct: 109.0, yoyPrior: 26218, yoyPct: 94.7, salesActual: 142399, salesPlan: 163509, subNote: "9月計画（利益10,996千円・売上33,399千円）は上記に含みません。" },
+          { label: "Q3（10〜12月）", statusLabel: "計画", status: "upcoming", profitPlan: 26775, salesPlan: 114027 },
+          { label: "Q4（1〜3月）", statusLabel: "計画", status: "upcoming", profitPlan: 33408, salesPlan: 134489 }
+        ]
       },
       yoy: {
         title: "対前年（4〜8月累計・8月は予測）",
@@ -1111,6 +1163,34 @@ const DATA = {
       }).join("") + '</div>';
   }
 
+  function quarterlySection(scope) {
+    if (!scope.quarterly) return "";
+    var q = scope.quarterly;
+    var rowsHtml = q.quarters.map(function (qq) {
+      if (qq.status === "upcoming") {
+        var planText = qq.profitPlan != null
+          ? '計画　利益' + fmt(qq.profitPlan) + '千円／売上' + fmt(qq.salesPlan) + '千円'
+          : '計画未設定';
+        return '<div class="qtr-row upcoming">' +
+          '<div class="qtr-label"><span class="name">' + esc(qq.label) + '<span class="qtr-tag">' + esc(qq.statusLabel) + '</span></span></div>' +
+          '<div class="qtr-plan-only' + (qq.profitPlan != null ? '' : ' none') + '">' + planText + '</div>' +
+          (qq.subNote ? '<div class="qtr-sub">' + qq.subNote + '</div>' : '') +
+        '</div>';
+      }
+      var t = toneAchieve(qq.pct);
+      return '<div class="qtr-row">' +
+        '<div class="qtr-label"><span class="name">' + esc(qq.label) + '<span class="qtr-tag">' + esc(qq.statusLabel) + '</span></span>' +
+          '<span class="v">実績' + fmt(qq.profitActual) + '／計画' + fmt(qq.profitPlan) + '千円（' + qq.pct + '%）</span></div>' +
+        '<div class="mbar-track"><div class="mbar-fill" style="width:' + Math.min(qq.pct, 100) + '%;--mc:' + ringColorVar(t) + '"></div><div class="mbar-plan" style="left:' + planMarkerPos(qq.pct) + '%"></div></div>' +
+        '<div class="qtr-sub">前年' + fmt(qq.yoyPrior) + '千円 → 前年比' + qq.yoyPct + '%　｜　売上　実績' + fmt(qq.salesActual) + '／計画' + fmt(qq.salesPlan) + '千円</div>' +
+        (qq.subNote ? '<div class="qtr-sub">' + qq.subNote + '</div>' : '') +
+      '</div>';
+    }).join("");
+    return '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(q.title) + '</h2>' +
+      (q.note ? '<div class="guide">' + esc(q.note) + '</div>' : "") +
+      '<div class="qtr-grid">' + rowsHtml + '</div>';
+  }
+
   function swingFactorsSection(scope) {
     if (!scope.swingFactors) return "";
     var sf = scope.swingFactors;
@@ -1145,6 +1225,7 @@ const DATA = {
     var html = "";
     html += blk("hero", heroHtml);
     html += blk("ytd", ytdKpis(scope));
+    html += blk("quarterly", quarterlySection(scope));
     html += blk("trend", trendSection(scope));
     html += blk("groups", groupsSection(scope));
     html += blk("crosstopics", crossTopicsSection(scope));
