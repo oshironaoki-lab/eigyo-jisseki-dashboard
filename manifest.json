@@ -4,7 +4,7 @@
   "description": "第1〜3営業グループ＋コンテンツビジネスの営業実績ダッシュボード",
   "start_url": "./index.html",
   "scope": "./",
-  "display": "standalone",
+  "display": "browser",
   "orientation": "portrait",
   "background_color": "#f5f5f2",
   "theme_color": "#4a3aa7",
