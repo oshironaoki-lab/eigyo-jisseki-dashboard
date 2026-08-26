@@ -464,14 +464,14 @@ const DATA = {
     all: {
       name: "全社", color: "all",
       monthly: {
-        title: "8月度（実績＋見込み）", note: "第1〜3営業グループ管理台帳より、実績と積上げ（パイプライン）を集計。コンテンツの8月データは台帳未登録のため3グループ合計に含みません。単位:千円。",
-        profit: { actual: 23705, landing: 29573, plan: 33256, achievePct: 88.9, yoyPct: 119.7, yoyPrior: 24712 },
-        sales:  { actual: 93610, landing: 104280, plan: 132742, achievePct: 78.6, yoyPct: 104.4, yoyPrior: 99862 },
-        detail: "「実績」は本日（8/26）時点で管理台帳に入力済みの金額（コンテンツを除く3グループ）。「見込み」は営業担当が積上げているパイプラインで、月末までに確定が見込まれる金額。3グループ合計では実績ベースの利益達成率は76.7%、積上げを含めると88.9%まで届く見通し（積上げが計画どおり確定するとは限らない点に留意）。対計画の分母には販管システム出力の月報にあるコンテンツ部門の8月計画（粗利2,348千円・売上9,241千円）も合算しているが、コンテンツの8月実績・見込みは台帳未整備のため未計上のため、その分だけ見た目の達成率は低めに出る点に留意（4〜7月は各月ともコンテンツの計画・実績を含めた数字）。前年同月実績は久田氏・小串氏の担当変更を引き継ぎ先グループへ振り替え済み（コンテンツ除く3グループ合算。グループ間の付け替えのため合計額は不変）。"
+        title: "8月度（実績＋見込み）", note: "第1〜3営業グループ管理台帳＋コンテンツ管理台帳（8月分、2026-08-26に台帳登録を確認）より、実績と積上げ（パイプライン）を集計。単位:千円。",
+        profit: { actual: 24347, landing: 30215, plan: 33256, achievePct: 90.9, yoyPct: 119.7, yoyPrior: 24712 },
+        sales:  { actual: 97854, landing: 108524, plan: 132742, achievePct: 81.8, yoyPct: 104.4, yoyPrior: 99862 },
+        detail: "「実績」は本日（8/26）時点で管理台帳に入力済みの金額（4グループ合計）。「見込み」は営業担当が積上げているパイプラインで、月末までに確定が見込まれる金額。コンテンツの8月実績（利益642千円・売上4,244千円、稲嶺氏担当分のみ計上、積上げ登録なし）を今回から合算。対前年同月（yoyPct/yoyPrior）は、コンテンツの前年同月（2025年8月）データが前年度台帳に存在しないため、引き続き第1〜3営業グループ3グループ合計同士の比較です（コンテンツ分だけ着地見込みの分子がやや大きくなるため、対前年の伸び率は実勢よりわずかに高めに出ます）。前年同月実績は久田氏・小串氏の担当変更を引き継ぎ先グループへ振り替え済み。"
       },
       ytd: {
         title: "4〜8月累計（8月は着地予測）",
-        forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測を含みます（コンテンツの8月実績は台帳未登録のため4〜7月実績のみ他グループに合算。計画はコンテンツの8月計画分も含めた4〜8月累計計画）。",
+        forecastNote: "8月は確定実績ではなく、台帳の実績＋積上げによる着地予測を含みます（コンテンツは前年同月データが無く対前年比較の整合性を保つため、この4〜8月累計には引き続き4〜7月実績のみを合算。コンテンツ8月単月の実績は「コンテンツ」タブの「8月度」欄をご覧ください。計画はコンテンツの8月計画分も含めた4〜8月累計計画）。",
         profit: { actual: 177180, plan: 182142, achievePct: 97.3, yoyPct: 108.8, yoyPrior: 162807 },
         sales:  { actual: 772302, plan: 861102, achievePct: 89.7, yoyPct: 98.7, yoyPrior: 782607 },
         monthlyTrend: [
@@ -499,7 +499,7 @@ const DATA = {
         { key: "content", name: "コンテンツビジネス", profitActual: 10356, profitPlan: 11504, pct: 90.0, note: "4〜7月実績" }
       ],
       groupsTitle: "グループ別進捗（4〜8月累計・利益ベース／8月は予測）",
-      groupsNote: "バー・数値は「利益（粗利）」の計画達成率（8月は着地予測を含む。コンテンツのみ8月データ未登録のため4〜7月実績）。第2営業Gが唯一計画を超過（113.9%）。第1営業Gは83.5%と4グループ中もっとも計画から遅れており、第3G(96.6%)・コンテンツ(90.0%)はほぼ計画水準で推移している。",
+      groupsNote: "バー・数値は「利益（粗利）」の計画達成率（8月は着地予測を含む。コンテンツは前年同月比較との整合性のため引き続き4〜7月実績）。第2営業Gが唯一計画を超過（113.9%）。第1営業Gは83.5%と4グループ中もっとも計画から遅れており、第3G(96.6%)・コンテンツ(90.0%)はほぼ計画水準で推移している。",
       yoyCompare: {
         title: "今年度実績 vs 前年実績（グループ別・利益）",
         note: "薄い帯＝2025年度実績（前年・同期間）、濃い帯＝2026年度実績（今年）。全社・第1〜3営業Gは4〜8月累計（8月は着地予測含む）、コンテンツは8月データ未登録のため4〜7月累計。単位:千円。第1〜3営業Gの前年実績は、久田氏（BOATRACE振興会案件・JAおきなわSS・第1G→第2G）、小串氏（退職。南都・沖縄長正薬草本社・イーアス沖縄は第1G→第3G、佐久本工機は第1G→第2G）の担当変更、㈱ぐしけん（第1G→第2G）、および三州観光開発グループ（MSコーポレーション・RSコーポレーション・NPコーポレーション名義分含む、第3G→第1G）の異動をそれぞれの引き継ぎ先グループへ振り替えた調整後の数字（8月分もそれぞれの月次調整を反映済み）。",
@@ -886,10 +886,16 @@ const DATA = {
 
     content: {
       name: "コンテンツビジネス", color: "content",
-      monthlyUnavailableNote: "売上・粗利：販管システム出力（2026/7/31作成、4〜7月実績）。単位:千円。8月分の管理台帳シートは本日時点でも未作成のため、8月の実績＋見込みは未掲載。8月計画（参考）は売上9,241千円・粗利2,348千円（同PDFより）で、「全社」タブの対計画集計にはこの計画分を合算済み。トピックスは月次報告会資料（2026年6月度）による。",
+      monthly: {
+        title: "8月度（実績）",
+        note: "コンテンツソリューション管理台帳（2026-08-26に8月分シート登録を確認）より。稲嶺氏担当分のみ計上、積上げ（パイプライン）の登録はまだありません。計画は年間計画表PDFの8月計画（参考値）。単位:千円。",
+        profit: { actual: 642, landing: 642, plan: 2348, achievePct: 27.3 },
+        sales:  { actual: 4244, landing: 4244, plan: 9241, achievePct: 45.9 },
+        detail: "8月は稲嶺氏担当分（テジタル・シンプル・東江メガネ・TVスポット枠・ヨナタン「リゾキン」）のみ確定計上で、他の担当者ブロックは本日時点で明細未入力。積上げの登録もなし。前年同月（2025年8月）は前年度台帳に該当月シートが存在せず、対前年比較はできません（このため対前年チップは非表示）。"
+      },
       ytd: {
         title: "4〜7月累計",
-        forecastNote: "8月分は管理台帳が未整備のため、他グループと異なり4〜7月の確定実績のみです。",
+        forecastNote: "8月度の単月実績は上部「8月度」欄をご覧ください。前年同月（2025年8月）データが前年度台帳に存在しないため、対前年比較の整合性を保つ目的でこの4〜7月累計には8月分を含めていません。",
         profit: { actual: 10356, plan: 11504, achievePct: 90.0, yoyPct: 95.6, yoyPrior: 10835, planFull: 40685, marginPct: 16.1 },
         sales:  { actual: 51136, plan: 54307, achievePct: 94.2, planFull: 252717 },
         monthlyTrend: [
@@ -949,6 +955,12 @@ const DATA = {
     var t = toneAchieve(m.profit.achievePct);
     // コンテンツの当月実績が台帳に反映され次第、この注記は自動的に表示されなくなる。
     var landingNote = (scope === DATA.scopes.all && !DATA.scopes.content.monthly) ? "（コンテンツ未記載の為除く）" : "";
+    var yoyChip = (m.profit.yoyPct != null)
+      ? '<div class="chip-col"><span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span><span class="chip-note">前年' + fmt(m.profit.yoyPrior) + '千円（<b class="' + toneYoy(m.profit.yoyPct) + '">' + fmtSigned(m.profit.landing - m.profit.yoyPrior) + '</b>千円）</span></div>'
+      : '';
+    var salesYoyText = (m.sales.yoyPct != null)
+      ? '／対前年同月 ' + m.sales.yoyPct + '%（前年' + fmt(m.sales.yoyPrior) + '）'
+      : '';
     return '' +
       '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>' + esc(m.title) + '</h2>' +
       '<div class="guide">' + esc(m.note) + '</div>' +
@@ -958,11 +970,11 @@ const DATA = {
         '<div class="hero-sub">実績 ' + fmt(m.profit.actual) + '千円（本日時点）</div>' +
         '<div class="hero-chips">' +
           '<div class="chip-col"><span class="chip ' + t + '">対計画 ' + m.profit.achievePct + '%</span><span class="chip-note">計画' + fmt(m.profit.plan) + '千円（<b class="' + t + '">' + fmtSigned(m.profit.landing - m.profit.plan) + '</b>千円）</span></div>' +
-          '<div class="chip-col"><span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span><span class="chip-note">前年' + fmt(m.profit.yoyPrior) + '千円（<b class="' + toneYoy(m.profit.yoyPct) + '">' + fmtSigned(m.profit.landing - m.profit.yoyPrior) + '</b>千円）</span></div>' +
+          yoyChip +
         '</div>' +
       '</div>' +
       '<details class="more"><summary>参考：売上ベースの数字・詳しい内訳を見る</summary><div class="more-body">' +
-        '<p><b>参考：売上・着地見込 ' + fmt(m.sales.landing) + '千円</b>（実績 ' + fmt(m.sales.actual) + '千円）／対計画 ' + m.sales.achievePct + '%（計画' + fmt(m.sales.plan) + '）／対前年同月 ' + m.sales.yoyPct + '%（前年' + fmt(m.sales.yoyPrior) + '）</p>' +
+        '<p><b>参考：売上・着地見込 ' + fmt(m.sales.landing) + '千円</b>（実績 ' + fmt(m.sales.actual) + '千円）／対計画 ' + m.sales.achievePct + '%（計画' + fmt(m.sales.plan) + '）' + salesYoyText + '</p>' +
         '<p>' + m.detail + '</p>' +
       '</div></details>';
   }
