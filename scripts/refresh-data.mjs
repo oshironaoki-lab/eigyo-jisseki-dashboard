@@ -34,7 +34,7 @@ const asOfArg = process.argv.find((a) => a.startsWith("--asof="));
 const asOf = asOfArg ? asOfArg.split("=")[1] : new Date().toISOString().slice(0, 10);
 const asOfDate = new Date(asOf + "T00:00:00+09:00");
 const currentMonth = asOfDate.getMonth() + 1; // JSTベース想定
-const YTD_MONTHS = [4, 5, 6, 7]; // 通期の4〜7月累計（本ダッシュボードの既定レンジ、確定値は販管システム出力を正とし更新しない）
+const YTD_MONTHS = [4, 5, 6, 7, 8]; // 通期の4〜8月累計（2026.8.31に8月が確定したため追加。確定値は販管システム出力を正とし更新しない）
 
 // --- 手動設定（台帳から自動導出しない値） -------------------------------
 const MANUAL_CONFIG = {
