@@ -1,0 +1,475 @@
+<title>2026年8月度 実績振り返り</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root {
+    --bg: #f5f5f2;
+    --surface: #ffffff;
+    --surface-2: #eeede6;
+    --text: #17160f;
+    --text-secondary: #57554c;
+    --text-muted: #8c897d;
+    --border: rgba(23,22,15,0.11);
+    --border-strong: rgba(23,22,15,0.22);
+    --shadow: 0 1px 2px rgba(23,22,15,0.04), 0 8px 20px -14px rgba(23,22,15,0.22);
+
+    --g1: #2a78d6; --g1-soft: #dde9fb;
+    --g2: #eb6834; --g2-soft: #fbe3d6;
+    --g3: #1baf7a; --g3-soft: #d7f3e7;
+    --all: #4a3aa7; --all-soft: #e6e0f7;
+    --content: #eda100; --content-soft: #fcecd0;
+
+    --good: #0ca30c; --good-soft: #dcefe0;
+    --warn: #c98500; --warn-soft: #faedc9;
+    --bad: #d03b3b;  --bad-soft: #fbe1dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16150f; --surface: #1f1e17; --surface-2: #28261d;
+      --text: #f1efe6; --text-secondary: #c2bfb2; --text-muted: #948f80;
+      --border: rgba(241,239,230,0.13); --border-strong: rgba(241,239,230,0.24);
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 20px -14px rgba(0,0,0,0.6);
+      --g1: #3987e5; --g1-soft: #23334a;
+      --g2: #d95926; --g2-soft: #452c1c;
+      --g3: #199e70; --g3-soft: #1c3d33;
+      --all: #9085e9; --all-soft: #332a4d;
+      --content: #c98500; --content-soft: #453a17;
+      --good: #1fbf3d; --good-soft: #1e3a26;
+      --warn: #e0ab4a; --warn-soft: #453a17;
+      --bad: #e66767;  --bad-soft: #45241e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16150f; --surface: #1f1e17; --surface-2: #28261d;
+    --text: #f1efe6; --text-secondary: #c2bfb2; --text-muted: #948f80;
+    --border: rgba(241,239,230,0.13); --border-strong: rgba(241,239,230,0.24);
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 20px -14px rgba(0,0,0,0.6);
+    --g1: #3987e5; --g1-soft: #23334a;
+    --g2: #d95926; --g2-soft: #452c1c;
+    --g3: #199e70; --g3-soft: #1c3d33;
+    --all: #9085e9; --all-soft: #332a4d;
+    --content: #c98500; --content-soft: #453a17;
+    --good: #1fbf3d; --good-soft: #1e3a26;
+    --warn: #e0ab4a; --warn-soft: #453a17;
+    --bad: #e66767;  --bad-soft: #45241e;
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f5f2; --surface: #ffffff; --surface-2: #eeede6;
+    --text: #17160f; --text-secondary: #57554c; --text-muted: #8c897d;
+    --border: rgba(23,22,15,0.11); --border-strong: rgba(23,22,15,0.22);
+    --shadow: 0 1px 2px rgba(23,22,15,0.04), 0 8px 20px -14px rgba(23,22,15,0.22);
+    --g1: #2a78d6; --g1-soft: #dde9fb;
+    --g2: #eb6834; --g2-soft: #fbe3d6;
+    --g3: #1baf7a; --g3-soft: #d7f3e7;
+    --all: #4a3aa7; --all-soft: #e6e0f7;
+    --content: #eda100; --content-soft: #fcecd0;
+    --good: #0ca30c; --good-soft: #dcefe0;
+    --warn: #c98500; --warn-soft: #faedc9;
+    --bad: #d03b3b;  --bad-soft: #fbe1dc;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6; font-feature-settings: "palt" 1;
+    padding-bottom: 48px;
+  }
+
+  header.top {
+    position: sticky; top: 0; z-index: 30;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-inner { max-width: 640px; margin: 0 auto; padding: 12px 16px; }
+  .top-title { font-size: 11px; letter-spacing: .1em; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+  .top-h1 { font-size: 17px; font-weight: 800; margin: 3px 0 2px; letter-spacing: -0.01em; }
+  .top-sub { font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px; }
+  .back-btn {
+    -webkit-appearance: none; appearance: none; border: none; background: var(--all);
+    color: #fff; font: inherit; font-size: 12.5px; font-weight: 800;
+    padding: 8px 16px 8px 12px; border-radius: 999px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    -webkit-tap-highlight-color: transparent; transition: transform .15s;
+  }
+  .back-btn:active { transform: scale(.96); }
+
+  main { max-width: 640px; margin: 0 auto; padding: 18px 16px 0; }
+
+  .asof {
+    font-size: 11px; color: var(--text-muted); background: var(--surface-2);
+    border-radius: 8px; padding: 8px 12px; margin-bottom: 16px; line-height: 1.7;
+  }
+
+  h2.sec { font-size: 13px; font-weight: 800; margin: 26px 0 10px; letter-spacing: .01em;
+    display: flex; align-items: center; gap: 7px; }
+  h2.sec .bar { width: 4px; height: 14px; border-radius: 2px; background: var(--sec-c, var(--text)); display: inline-block; }
+  h2.sec:first-child { margin-top: 0; }
+  h3.sub { font-size: 11.5px; font-weight: 800; margin: 16px 0 8px; color: var(--text-secondary); }
+
+  /* ---- KPI cards ---- */
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 13px;
+    padding: 13px 14px; box-shadow: var(--shadow);
+  }
+  .kpi .lbl { font-size: 10.5px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }
+  .kpi .val { font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .kpi .val small { font-size: 11.5px; font-weight: 700; }
+  .kpi .val.warn { color: var(--warn); } .kpi .val.bad { color: var(--bad); } .kpi .val.good { color: var(--good); }
+  .kpi .sub { font-size: 10.5px; color: var(--text-muted); margin-top: 5px; line-height: 1.6; }
+
+  /* ---- Callout ---- */
+  .callout {
+    border-radius: 13px; padding: 14px 15px; background: var(--surface-2); border: 1px solid var(--border);
+    font-size: 12.5px; line-height: 1.85; margin-bottom: 12px;
+  }
+  .callout .ct { font-weight: 800; font-size: 12.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .callout.good { background: var(--good-soft); border-color: color-mix(in srgb, var(--good) 35%, var(--border)); }
+  .callout.bad  { background: var(--bad-soft);  border-color: color-mix(in srgb, var(--bad) 35%, var(--border)); }
+  .callout.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 35%, var(--border)); }
+
+  /* ---- Table ---- */
+  .tblwrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); margin-bottom: 14px; }
+  table.dt { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 460px; }
+  table.dt th, table.dt td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.dt th:first-child, table.dt td:first-child { text-align: left; font-variant-numeric: normal; position: sticky; left: 0; background: var(--surface); }
+  table.dt thead th { color: var(--text-muted); font-weight: 700; font-size: 9.5px; background: var(--surface-2); }
+  table.dt tbody tr:last-child td { border-bottom: none; }
+  table.dt tr.tot td { font-weight: 800; background: var(--surface-2); }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; vertical-align: middle; }
+
+  /* ---- Bar rows (achievement rate) ---- */
+  .barwrap { margin: 4px 0 14px; }
+  .barrow { margin-bottom: 14px; }
+  .barrow .barlabel { font-size: 11.5px; font-weight: 700; margin-bottom: 4px; display:flex; flex-wrap:wrap; justify-content: space-between; row-gap:2px; column-gap:8px; }
+  .barrow .barlabel .num { font-weight: 600; color: var(--text-muted); font-size: 10px; }
+  .track { position: relative; height: 15px; background: var(--surface-2); border-radius: 4px; overflow: visible; }
+  .fill-actual { position:absolute; top:0; left:0; height:100%; border-radius: 4px; }
+  .plan-marker { position:absolute; top:-3px; bottom:-3px; width:2px; background: var(--text); opacity: .55; }
+  .plan-marker::after { content: '計画'; position: absolute; top: 100%; margin-top: 3px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--text-muted); font-weight: 700; white-space:nowrap; }
+
+  .legend { display:flex; gap:14px; font-size:10.5px; color: var(--text-muted); margin: 6px 0 2px; flex-wrap: wrap; }
+  .legend span { display:flex; align-items:center; gap:5px; }
+  .legend .sw { width:12px; height:8px; border-radius:2px; display:inline-block; }
+  .legend .sw.line { height:2px; width:16px; }
+  .legend .sw.dash { background: repeating-linear-gradient(to right, var(--text-muted) 0 4px, transparent 4px 7px); height:2px; width:16px; }
+
+  /* ---- Donut ---- */
+  .donut-wrap { display:flex; align-items:center; gap:16px; margin-bottom: 6px; }
+  .donut { width:96px; height:96px; border-radius:50%; position:relative; flex-shrink:0; }
+  .donut::after { content:''; position:absolute; inset:18px; background:var(--surface); border-radius:50%; }
+  .donut-legend { font-size:11px; line-height:2.0; }
+  .chartcap { font-size: 10.5px; color: var(--text-muted); margin: 2px 0 16px; }
+
+  /* ---- Quarterly bars ---- */
+  .qcols { display:flex; align-items:flex-end; gap:14px; height:170px; margin: 14px 0 8px; position:relative; }
+  .qcols .refline { position:absolute; left:0; right:0; border-top:2px dashed var(--border-strong); }
+  .qcols .refline::after { content:'計画100%'; position:absolute; right:0; top:-15px; font-size:9px; color:var(--text-muted); font-weight:700; }
+  .qgroup { display:flex; flex-direction:column; align-items:center; flex:1; height:100%; justify-content:flex-end; }
+  .qgroup .bars { display:flex; align-items:flex-end; gap:4px; height:130px; }
+  .qgroup .col { width:20px; border-radius: 3px 3px 0 0; position:relative; }
+  .qgroup .col .v { position:absolute; top:-15px; left:50%; transform:translateX(-50%); font-size:8px; font-weight:700; color:var(--text-secondary); white-space:nowrap; }
+  .qgroup .xlabel { margin-top:8px; height:14px; line-height:14px; font-size:10.5px; font-weight:700; color:var(--text); }
+
+  ol.points { margin: 4px 0 0; padding-left: 20px; font-size: 12.5px; line-height: 1.85; }
+  ol.points li { margin-bottom: 12px; }
+  ol.points b { font-weight: 800; }
+
+  .whotag { font-size: 10px; color: var(--text-muted); font-weight: 700; }
+
+  footer.pagefoot { max-width: 640px; margin: 30px auto 0; padding: 16px; font-size: 10.5px; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border); }
+</style>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="back-btn" href="./index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      <span>ダッシュボードに戻る</span>
+    </a>
+    <div class="top-title" style="margin-top:12px;">Monthly Review</div>
+    <h1 class="top-h1">2026年8月度　実績振り返り</h1>
+    <div class="top-sub">2026年8月（確定実績）／作成日：2026年8月31日</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="asof">
+    <b>目的：</b>8月の月次締めにあたり、計画対比・前年同月対比・四半期進捗と、各グループ週報からの主な動きを整理する棚卸資料です。<br>
+    <b>データソース：</b>(20260831)販管システム出力）2026年度売上・粗利計画表.pdf（8月度確定実績・4〜8月累計）を売上・粗利の正とする／各営業グループ週報（第1G:8月第4週＝8/30 20時台更新分、第2G:8月第4週＝8/28 19時台更新分、第3G:8月第4週＝8/29 12時台更新分）／クライアント別の増減要因・成長縮小一覧はダッシュボード掲載分（2026-08-26時点の台帳突き合わせ、8月の追加確定分は反映前）を参照。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>8月度サマリー</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="lbl">8月度・売上実績</div>
+      <div class="val">125,200<small>千円</small></div>
+      <div class="sub">計画比94.3%／前年同月比106.6%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">8月度・粗利実績</div>
+      <div class="val good">33,623<small>千円</small></div>
+      <div class="sub">計画比101.1%／前年同月比124.8%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">粗利率（8月／計画／前年同月）</div>
+      <div class="val">26.9%</div>
+      <div class="sub">計画25.1%／前年同月24.5%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">4〜8月累計・粗利達成率</div>
+      <div class="val good">97.9%</div>
+      <div class="sub">178,317／182,142千円（前年同月比109.5%）</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:12px;">
+    <div class="ct">📌 エグゼクティブサマリー</div>
+    8月度は粗利33,623千円で8月計画（33,256千円）を101.1%で達成。売上は125,200千円で計画比94.3%とやや届かなかったが、粗利ベースでは計画超過を確保した。前年同月（2025年8月・4グループ計111,170千円／27,285千円）との比較では、利益＋24.8%・売上＋6.6%（担当者異動を引き継ぎ先グループへ振り替えた調整後、第1〜3営業グループ3グループ基準）と大きく上回っている。<br><br>
+    グループ別では<b>第1G（前年同月比 利益131.4%）・第3G（同132.7%）が前年を大きく牽引し、コンテンツはちいかわショップの売上寄与で計画を大幅超過（利益118.6%・売上202.4%）</b>。一方、第2Gは前年比では伸びている（112.4%）ものの、売上計画に対しては84.6%とやや届かず、第3Gも売上計画達成率は71.4%にとどまるなど、<b>「粗利は前年超え・計画超え、売上は伸び悩み」</b>という構図が複数グループで共通して見られた月だった。<br><br>
+    なお、8月度の確定にあたり(20260831)出力では7月分の数値にも軽微な改定（第1G粗利▲73千円・第2G＋194千円・第3G▲249千円）があったことを確認しており、本資料の4〜8月累計はこの改定後の数値で統一している。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>グループ別実績（8月度）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※(20260831)販管システム出力より</div>
+
+  <h3 class="sub">粗利　達成率（対8月計画）</h3>
+  <div class="barwrap">
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g1)"></span>第1営業G</span><span class="num">10,533／9,898＝106.4%</span></div>
+      <div class="track"><div class="fill-actual" style="width:83.2%; background:var(--g1);"></div><div class="plan-marker" style="left:78.2%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g2)"></span>第2営業G</span><span class="num">10,234／11,391＝89.9%</span></div>
+      <div class="track"><div class="fill-actual" style="width:80.9%; background:var(--g2);"></div><div class="plan-marker" style="left:90.0%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g3)"></span>第3営業G</span><span class="num">10,072／9,619＝104.7%</span></div>
+      <div class="track"><div class="fill-actual" style="width:79.6%; background:var(--g3);"></div><div class="plan-marker" style="left:76.0%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--content)"></span>コンテンツ<span style="opacity:.6;">（計画大幅超過）</span></span><span class="num">2,784／2,348＝118.6%</span></div>
+      <div class="track"><div class="fill-actual" style="width:22.0%; background:var(--content);"></div><div class="plan-marker" style="left:18.6%;"></div></div>
+    </div>
+  </div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>グループ</th><th>売上計画</th><th>売上実績</th><th>達成率</th><th>粗利計画</th><th>粗利実績</th><th>達成率</th><th>前年同月比(利益)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--g1)"></span>第1営業G</td><td>36,807</td><td>38,597</td><td>104.9%</td><td>9,898</td><td>10,533</td><td>106.4%</td><td>131.4%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g2)"></span>第2営業G</td><td>45,619</td><td>38,568</td><td>84.6%</td><td>11,391</td><td>10,234</td><td>89.9%</td><td>112.4%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g3)"></span>第3営業G</td><td>41,075</td><td>29,329</td><td>71.4%</td><td>9,619</td><td>10,072</td><td>104.7%</td><td>132.7%</td></tr>
+        <tr><td><span class="dot" style="background:var(--content)"></span>コンテンツ</td><td>9,241</td><td>18,706</td><td>202.4%</td><td>2,348</td><td>2,784</td><td>118.6%</td><td>―</td></tr>
+        <tr class="tot"><td>4グループ合計</td><td>132,742</td><td>125,200</td><td>94.3%</td><td>33,256</td><td>33,623</td><td>101.1%</td><td>124.8%※</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="chartcap">※全社の前年同月比は、コンテンツの前年同月データが存在しないため、第1〜3営業グループ3グループ合計同士（調整後）の比較値。前年同月比が「―」のグループ・行は、担当者異動を引き継ぎ先へ振り替えた調整後の前年実績と比較。</div>
+
+  <h3 class="sub">8月度　粗利　構成比（33,623千円）</h3>
+  <div class="donut-wrap">
+    <div class="donut" style="background: conic-gradient(var(--g1) 0% 31.3%, var(--g2) 31.3% 61.8%, var(--g3) 61.8% 91.7%, var(--content) 91.7% 100%);"></div>
+    <div class="donut-legend">
+      <div><span class="dot" style="background:var(--g1)"></span>第1営業G　31.3%</div>
+      <div><span class="dot" style="background:var(--g2)"></span>第2営業G　30.4%</div>
+      <div><span class="dot" style="background:var(--g3)"></span>第3営業G　30.0%</div>
+      <div><span class="dot" style="background:var(--content)"></span>コンテンツ　8.3%</div>
+    </div>
+  </div>
+  <div class="chartcap">8月度は第1〜3営業グループがほぼ3等分（31.3%／30.4%／30.0%）で並ぶ珍しい月。コンテンツはちいかわショップ分の寄与で8.3%まで構成比を伸ばした。</div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>4〜8月累計（確定実績）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※コンテンツのみ対前年比較の制約により4〜7月累計</div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>グループ</th><th>売上計画</th><th>売上実績</th><th>達成率</th><th>粗利計画</th><th>粗利実績</th><th>達成率</th><th>前年比(利益)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--g1)"></span>第1営業G</td><td>201,918</td><td>182,147</td><td>90.2%</td><td>55,823</td><td>46,711</td><td>83.7%</td><td>92.8%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g2)"></span>第2営業G</td><td>327,222</td><td>315,174</td><td>96.3%</td><td>66,950</td><td>76,654</td><td>114.5%</td><td>141.8%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g3)"></span>第3営業G</td><td>268,414</td><td>226,032</td><td>84.2%</td><td>45,517</td><td>44,597</td><td>98.0%</td><td>93.8%</td></tr>
+        <tr><td><span class="dot" style="background:var(--content)"></span>コンテンツ（4〜7月）</td><td>54,307</td><td>51,143</td><td>94.2%</td><td>11,504</td><td>10,355</td><td>90.0%</td><td>95.6%</td></tr>
+        <tr class="tot"><td>合計（右基準※）</td><td>861,102</td><td>774,496</td><td>89.9%</td><td>182,142</td><td>178,317</td><td>97.9%</td><td>109.5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="chartcap">※合計行はコンテンツを4〜7月のみ含む基準（前年同月データの制約による）。コンテンツの8月実績を含めた4グループ・4〜8月の合計は、売上793,202千円・粗利181,101千円（達成率：売上92.1%・粗利99.4%）。</div>
+
+  <h3 class="sub">粗利　達成率（4〜8月累計・対計画）</h3>
+  <div class="barwrap">
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g1)"></span>第1営業G</span><span class="num">46,711／55,823＝83.7%</span></div>
+      <div class="track"><div class="fill-actual" style="width:54.8%; background:var(--g1);"></div><div class="plan-marker" style="left:65.5%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g2)"></span>第2営業G</span><span class="num">76,654／66,950＝114.5%</span></div>
+      <div class="track"><div class="fill-actual" style="width:90.0%; background:var(--g2);"></div><div class="plan-marker" style="left:78.6%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g3)"></span>第3営業G</span><span class="num">44,597／45,517＝98.0%</span></div>
+      <div class="track"><div class="fill-actual" style="width:52.4%; background:var(--g3);"></div><div class="plan-marker" style="left:53.5%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--content)"></span>コンテンツ（4〜7月）</span><span class="num">10,355／11,504＝90.0%</span></div>
+      <div class="track"><div class="fill-actual" style="width:12.2%; background:var(--content);"></div><div class="plan-marker" style="left:13.5%;"></div></div>
+    </div>
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>四半期進捗（コンテンツ除く3グループ合計）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：％（対計画達成率）　※Q2は7〜8月の確定実績のみ、9月分の計画は含まない2ヶ月同士の比較</div>
+
+  <div class="qcols">
+    <div class="refline" style="bottom:100px;"></div>
+    <div class="qgroup">
+      <div class="bars">
+        <div class="col" style="height:95.5px; background:var(--all);"><span class="v">95.5%</span></div>
+        <div class="col" style="height:100.3px; background:var(--good);"><span class="v">100.3%</span></div>
+      </div>
+      <div class="xlabel">Q1（4-6月・確定）</div>
+    </div>
+    <div class="qgroup">
+      <div class="bars">
+        <div class="col" style="height:85.3px; background:var(--all);"><span class="v">85.3%</span></div>
+        <div class="col" style="height:99.2px; background:var(--good);"><span class="v">99.2%</span></div>
+      </div>
+      <div class="xlabel">Q2（7-8月・進行中）</div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--all)"></span>売上達成率</span>
+    <span><span class="sw" style="background:var(--good)"></span>粗利達成率</span>
+  </div>
+
+  <div class="callout">
+    <div class="ct">🔍 Q1と同水準の粗利ペースを維持</div>
+    Q1（4〜6月・確定）は粗利100.3%で計画をほぼ完全に達成。Q2（7〜8月分のみ、9月未計上）も粗利99.2%とほぼ同水準を維持しており、Q2〜Q3にかけて失速した2025年度の反省を踏まえると、現時点では良いペース。ただしQ2の売上達成率は85.3%とQ1（95.5%）から低下しており、9月の着地次第でQ2全体の評価は変わる。第2G・第3Gとも8月度は「粗利は計画超え、売上は計画未達」の傾向が出ており、9月に売上をどこまで積み増せるかが焦点。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--g1)"><span class="bar"></span>第1営業G　8月のポイント</h2>
+
+  <div class="callout good">
+    <div class="ct">💡 積上げが乱高下しつつも、実績は堅調に着地</div>
+    8月末にかけて積上げ（パイプライン）が一時1,142千円→160千円→2,620千円台→0と大きく振れたが、実績（確定計上分）自体は月を通じてほぼ一定に推移し、最終的に粗利10,533千円（計画比106.4%）・売上38,597千円（同104.9%）で着地。前年同月比は利益131.4%・売上123.9%と4グループ中最も高い伸び率だった。
+  </div>
+  <div class="callout">
+    <div class="ct">🔍 週報より：大型提案・コンペが複数進行中</div>
+    <b>リウボウストア</b>（與座）：DAISO・THREEPPY・スタンダードプロダクトの3業態広告メニューを8/24に提案。2027年3月26日オープンが決定し、広報予算は500万円規模。9/11見積提出・9月末役員会承認見込みで、計上は2027年2〜4月頃の想定。<b>沖縄スマホサミット2026</b>（與座）は台風の影響なく8/28に開催・成功。<b>沖縄セルラー（Laifue）</b>（長谷川）は8月の公開記事数が多く今期最高売上（売上1,469千円・利益850千円）。<b>太陽石油</b>（臼井）は第2G・園田部長と合同でキングスパートナー契約の見直しMTGを実施。<b>りゅうせき石油販売部</b>の給油カードWeb申込み化はセキュリティ面の懸念で設計を継続検討中。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--g2)"><span class="bar"></span>第2営業G　8月のポイント</h2>
+
+  <div class="callout">
+    <div class="ct">🔍 粗利は前年超え・計画超えも、売上は伸び悩み</div>
+    粗利は10,234千円（計画比89.9%、前年同月比112.4%）と前年は上回ったが、8月計画（11,391千円）にはわずかに届かず。売上は38,568千円で計画比84.6%と4グループ中最も計画から乖離した。4〜8月累計では粗利76,654千円（計画比114.5%）と4グループ中唯一計画を大きく超過しており、単月の変動はあるものの通期では最も好調なグループ。
+  </div>
+  <div class="callout good">
+    <div class="ct">💡 週報より：カヌチャベイリゾートが過去最多級の協賛額</div>
+    <b>カヌチャベイリゾート</b>（棚原）：ジュニアゴルフカヌチャカップ（8/29・30開催）の協賛金額が230万円と、第20回記念大会を除けば過去最多（例年170万円）。<b>沖縄ホンダ</b>（宇根）：初売りDM（8〜16頁の冊子）を検討中で、16頁3万部の場合売上400万円程／利益100万円程の見込み（12月計上）。<b>琉球三菱自動車販売</b>（久田）：HPリニューアル制作コンペでヒアリングを実施、予算想定200万円規模。<b>沖縄ファミリーマート</b>（松永）：沖縄そばリニューアル（9/29発売）に向けOTV「いいあんべ～」等でパブを調整中。<b>太陽石油</b>（園田）は第1G・臼井氏と合同でMTGを実施。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--g3)"><span class="bar"></span>第3営業G　8月のポイント</h2>
+
+  <div class="callout good">
+    <div class="ct">💡 月を通じて確定伝票が段階的に積み増され、着地は大きく上振れ</div>
+    月初時点の着地見込みから、確定伝票の積み増しが8月末まで断続的に続き、最終的に粗利10,072千円（計画比104.7%、前年同月比132.7%）で着地。4グループ中もっとも前年同月比が高かった。一方で売上は29,329千円・計画比71.4%と3グループ中最も低く、粗利率の高い（低外注費率の）案件構成だったことがうかがえる。
+  </div>
+  <div class="callout warn">
+    <div class="ct">⚠️ 週報より：コザ信用金庫のCM考査で要注視事項</div>
+    <b>コザ信用金庫</b>（伊藝）：9月開始予定の「フリーローンキャンペーン」CM素材が考査で「個人向け無担保ローンCMに関する運用ルール」への抵触を指摘され、修正が必要に。放送を一旦停止するか前年素材を放送するか、先方で検討中。<b>沖縄美ら島財団</b>（金城）：首里城復興祭協賛は各グループリーダーとの調整が完了し営業スタート（リスト130件・全体目標300万円）。<b>沖縄県</b>（岸本）：首里城正殿供用開始のシティドレッシング企画を県が承認。<b>沖縄観光の未来を考える会</b>（新里）：観光マニフェスト発表会協賛は下地幹郎氏の不出馬報道があったが予定どおり掲載、売上1,600千円・利益380千円で確定。<b>沖縄県国保連合会</b>（金城）：介護CM企画コンペで北中城村・豊見城市への取材アポを取得、10月提出へ。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--content)"><span class="bar"></span>コンテンツビジネス　8月のポイント</h2>
+
+  <div class="callout good">
+    <div class="ct">💡「ちいかわショップ」の寄与で計画を大幅超過</div>
+    8月度確定実績は売上18,706千円・利益2,784千円で、8月計画（売上9,241千円・利益2,348千円）を大きく上回った（売上202.4%・利益118.6%）。管理台帳の計上分（稲嶺氏担当のみ、売上4,244千円・利益642千円）との差額14,462千円（売上）・2,142千円（利益）は「ちいかわショップ」の売上・利益分で、他部門とは異なる収益源が寄与した月。前年同月（2025年8月）は前年度台帳に該当月シートが存在せず、対前年比較はできない。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>特に注目すべき増減（クライアント別）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※ダッシュボード掲載のswingFactors（2026-08-26時点の台帳突き合わせ）より、8月に関連する主なもの</div>
+
+  <div class="callout bad">
+    <div class="ct">⚠️ 第3営業G・7月：花火大会が倍増も前年案件消失で相殺</div>
+    沖縄美ら島財団の花火大会協賛が前年5,000千円→今年10,000千円に倍増（+5,000）した一方、DMM.comの館内リニューアル・吊下げ広告等3件（前年のみ計上、▲5,753）、選挙管理委員会の参議院選挙啓発企画（前年のみの単年案件、▲2,281）が消失し、7月全体では前年比▲14%という逆転現象になった。
+  </div>
+  <div class="callout good">
+    <div class="ct">💡 第2営業G・6月：全グループ中最大の新規案件</div>
+    沖縄エンタテインメント振興協会の文化祭2026運営（前年になかった新規大型案件、+5,899千円）が、今年度のグループ別増減要因の中でも最大の単発プラス要因となった。
+  </div>
+  <div class="callout warn">
+    <div class="ct">⚠️ 第2営業G：契約消滅の可能性（要確認）</div>
+    ㈱RCワークスの「OTV提供」（月450千円の継続契約、前年4〜8月連続計上）が今年度は見当たらない。5ヶ月換算で概算▲2,250千円相当。契約終了の可能性があり要確認とされている。
+  </div>
+  <div class="callout warn">
+    <div class="ct">⚠️ 第3営業G・4〜6月：担当者離脱の可能性（要確認）</div>
+    外間・吉川両氏の担当クライアント（MSコーポレーション折込・電波の日・エールクリエイト等）が5〜6月に軒並み計上されなくなっている（概算▲1,830千円）。両氏の退職・異動の有無を含め確認が必要とされている。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>成長・縮小クライアント（8月度・実績確定分）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※ダッシュボード掲載のclientTrends（2026-08-26時点、受注伝票＝実績確定分ベース）より抜粋</div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>クライアント</th><th>担当G</th><th>8月度</th><th>前年同月</th><th>増減</th></tr></thead>
+      <tbody>
+        <tr><td>明治乳業</td><td><span class="dot" style="background:var(--g1)"></span>第1G</td><td>1,237</td><td>0</td><td>新規 +1,237</td></tr>
+        <tr><td>山城時計店</td><td><span class="dot" style="background:var(--g1)"></span>第1G</td><td>1,206</td><td>270</td><td>+936</td></tr>
+        <tr><td>ホンダセールスオペレーションジャパン</td><td><span class="dot" style="background:var(--g2)"></span>第2G</td><td>1,663</td><td>526</td><td>+1,137</td></tr>
+        <tr><td>沖縄観光の未来を考える会</td><td><span class="dot" style="background:var(--g3)"></span>第3G</td><td>380</td><td>0</td><td>新規 +380</td></tr>
+        <tr><td>沖縄トヨタ自動車</td><td><span class="dot" style="background:var(--g3)"></span>第3G</td><td>1,328</td><td>983</td><td>+345</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>クライアント</th><th>担当G</th><th>8月度</th><th>前年同月</th><th>増減</th></tr></thead>
+      <tbody>
+        <tr><td>沖縄セルラー電話（Laifue等）</td><td><span class="dot" style="background:var(--g1)"></span>第1G</td><td>1,080</td><td>2,199</td><td>▲1,119</td></tr>
+        <tr><td>合同会社DMM.com</td><td><span class="dot" style="background:var(--g3)"></span>第3G</td><td>0</td><td>1,094</td><td>▲1,094</td></tr>
+        <tr><td>㈱RCワークス</td><td><span class="dot" style="background:var(--g2)"></span>第2G</td><td>44</td><td>631</td><td>▲587</td></tr>
+        <tr><td>東豊</td><td><span class="dot" style="background:var(--g1)"></span>第1G</td><td>0</td><td>503</td><td>▲503</td></tr>
+        <tr><td>沖縄ホンダ</td><td><span class="dot" style="background:var(--g2)"></span>第2G</td><td>1,768</td><td>2,258</td><td>▲490</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>前年同月とのつながり</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円</div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>期間</th><th>売上実績</th><th>粗利実績</th><th>粗利率</th><th>売上前年比</th><th>粗利前年比</th></tr></thead>
+      <tbody>
+        <tr><td>2025年8月（前年同月・4G計）</td><td>111,170</td><td>27,285</td><td>24.5%</td><td>―</td><td>―</td></tr>
+        <tr><td>2026年8月（確定・4G計）</td><td>125,200</td><td>33,623</td><td>26.9%</td><td>+12.6%</td><td>+23.2%</td></tr>
+        <tr><td>2026年8月（3G基準・調整後）</td><td>106,494</td><td>30,839</td><td>29.0%</td><td>+6.6%</td><td>+24.8%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="ct">📈 8月度は前年を大きく上回る伸び</div>
+    2025年度実績分析報告で確認された「2025年度は前年並み・計画未達」「Q2〜Q3で失速」という課題に対し、2026年8月度は粗利ベースで計画・前年ともに上回る結果となった。担当者異動の影響を除いた3グループ調整後ベースでも利益＋24.8%と大きく伸びており、月次の勢いとしては良い着地。ただし2025年度もQ1は好調で年央に失速した経緯があるため、<b>9月・Q3以降も同じ観点（計画比・前年比・グループ別のばらつき）で継続的に確認することが重要</b>。特に第2G・第3Gの売上計画未達（84.6%／71.4%）が一過性か構造的かは、9月の動きで見極めたい。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>ポイント整理</h2>
+  <ol class="points">
+    <li><b>8月度は粗利で計画・前年をともに上回る好調な月。</b>粗利33,623千円（計画比101.1%、前年同月比124.8%＝3グループ調整後）、売上125,200千円（計画比94.3%、同106.6%）。売上はやや計画未達だったが、粗利面では着地が良かった。</li>
+    <li><b>第1G・第3Gが前年同月比を牽引。</b>利益で第1G131.4%・第3G132.7%と大きく前年を上回った一方、第2Gは112.4%と相対的には伸び率が低い（ただし絶対額・計画達成率では4グループ中唯一の計画超過）。</li>
+    <li><b>「粗利は計画超え、売上は計画未達」が複数グループで共通。</b>第2G（売上84.6%／利益89.9%）・第3G（売上71.4%／利益104.7%）とも、売上より利益の伸びが良く、粗利率の高い案件構成だったとみられる。9月にこの傾向が続くか、売上を伴った成長に転じるかを注視したい。</li>
+    <li><b>コンテンツは「ちいかわショップ」により計画を大幅超過。</b>利益118.6%・売上202.4%。管理台帳の稲嶺氏担当分（642千円・4,244千円）との差額（2,142千円・14,462千円）が寄与しており、他部門とは異なる成長要因である点は認識しておきたい。</li>
+    <li><b>四半期進捗はQ1と同水準のペースを維持。</b>粗利達成率はQ1（確定）100.3%、Q2（7〜8月分のみ）99.2%とほぼ横ばい。2025年度に見られたQ2〜Q3の失速が今期も起きるか、9月の着地が試金石になる。</li>
+    <li><b>要確認事項が複数残る。</b>第2Gの㈱RCワークス（月450千円の継続契約が消滅の可能性）、第3Gの外間・吉川両氏担当クライアント（5〜6月に軒並み計上されなくなった案件）、第3Gのコザ信用金庫CM考査問題（放送一時停止の可能性）は、いずれも次回以降の確認・フォローが必要。</li>
+    <li><b>週報からは複数グループ合同案件も見えた月。</b>太陽石油（第1G臼井氏・第2G園田部長が合同MTG）など、グループを横断した動きも出ている。リウボウストア3業態提案（第1G、500万円規模）やカヌチャベイリゾート協賛（第2G、過去最多級230万円）など、9月以降の計上が見込まれる大型案件も複数進行中。</li>
+  </ol>
+
+</main>
+
+<footer class="pagefoot">
+  本資料の8月度・4〜8月累計の売上/粗利数値は「(20260831)販管システム出力）2026年度売上・粗利計画表.pdf」を正としています。同PDFで7月分の数値にも軽微な改定（第1G粗利▲73千円・第2G＋194千円・第3G▲249千円等）が確認されたため、本資料の4〜8月累計はこの改定後の数値で統一しています。グループ別ハイライトは各営業グループ週報（第1G:8月第4週＝8/30 20時台更新分、第2G:8月第4週＝8/28 19時台更新分、第3G:8月第4週＝8/29 12時台更新分）より抜粋。クライアント別の増減要因・成長縮小クライアント一覧はダッシュボード掲載分（2026-08-26時点の台帳突き合わせ）を参照しており、8月分の追加確定は反映されていない点にご留意ください。前年同月実績は、久田氏・小串氏等の担当グループ変更を引き継ぎ先グループへ振り替えた調整後の数値（ダッシュボード「対前年」欄と同一の調整方法）です。<br><br>
+  株式会社宣伝　社内共有資料（機密）　／　作成日：2026年8月31日
+</footer>
