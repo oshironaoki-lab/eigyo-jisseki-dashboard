@@ -468,7 +468,7 @@ const DATA = {
     all: {
       name: "全社", color: "all",
       monthly: {
-        title: "9月度（実績＋見込み・月初、コンテンツ未記入の為除く）", note: "各営業グループ管理台帳（8/31時点、9月シートの先行計上分）より。コンテンツは9月シート未登録のため含みません。単位:千円。",
+        title: "9月度（実績＋見込み・月初）", note: "各営業グループ管理台帳（8/31時点、9月シートの先行計上分）より。コンテンツは9月シート未登録のため含みません。単位:千円。",
         profit: { actual: 15490, landing: 24048, plan: 39023, achievePct: 61.6, yoyPct: 72.5, yoyPrior: 33184 },
         sales:  { actual: 68377, landing: 91665, plan: 136016, achievePct: 67.4, yoyPct: 82.1, yoyPrior: 111666 },
         detail: "9月は始まったばかりで、第1〜3営業グループ合計の確定計上は利益15,490千円・積上げ込みの着地見込みは24,048千円（9月計画比61.6%）。積上げ（8,558千円）が実績の過半を占めており、月が進むにつれて実績側に確定・入れ替わっていく見込み。前年同月比（72.5%）は担当者異動の調整が未着手の生値のため参考値。コンテンツは9月分の台帳シートがまだ登録されていないため、この当月表示には含めていません（8月度の実績は「コンテンツ」タブでご確認いただけます）。"
@@ -591,6 +591,8 @@ const DATA = {
         detail: "9月は始まったばかりで、確定計上は利益5,260千円・積上げ込みの着地見込みは8,844千円（9月計画比74.3%）。積上げ（3,584千円）が着地見込みの4割を占め、月が進むにつれて実績側に確定していく見込み。前年同月比（88.8%）は8月までと同じ基準（久田氏・小串氏等の担当変更を引き継ぎ先グループへ振り替え）で調整済み。前年9月はBOATRACE分に「第70回全島エイサー」（売上7,632千円/利益2,727千円）という大型単発案件を含んでおり、これを第2Gへの引き継ぎ分として控除した後の9,963千円が比較対象。"
       },
       ytd: {
+        title: "4〜9月累計（9月は月初の見込み）",
+        forecastNote: "4〜8月は確定実績、9月は月初時点の見込みです。",
         profit: { actual: 55555, plan: 67728, achievePct: 82.0, yoyPct: 88.5, yoyPrior: 62808, planFull: 153491, marginPct: 26.0 },
         sales:  { actual: 213616, plan: 242911, achievePct: 87.9, planFull: 530836 },
         monthlyTrend: [
@@ -599,7 +601,7 @@ const DATA = {
           { m: "6月", actual: 7506,  plan: 10441, pct: 71.9, prior: 9506 },
           { m: "7月", actual: 10283, plan: 11816, pct: 87.0, prior: 11126 },
           { m: "8月", actual: 10533, plan: 9898, pct: 106.4, prior: 8015 },
-          { m: "9月", actual: 8844, plan: 11905, pct: 74.3, forecast: true, prior: 12452 }
+          { m: "9月", actual: 8844, plan: 11905, pct: 74.3, forecast: true, prior: 9963 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -693,6 +695,8 @@ const DATA = {
         detail: "9月は月初時点で確定計上が利益7,864千円、積上げ込みの着地見込みは10,764千円（9月計画比66.8%）。積上げが2,900千円と厚く、9月計画（16,122千円）は例年並みに大きいため、月初段階での達成率は低めに出やすい。前年同月比（81.3%）は8月までと同じ基準で調整済みだが、前年9月のBOATRACE分に「第70回全島エイサー」（売上7,632千円/利益2,727千円）という大型単発案件が含まれているため比較対象（13,245千円）が大きく、今年度の同案件（全島エイサー2026）がまだ台帳に本計上されていない月初時点では見劣りしやすい点に留意。"
       },
       ytd: {
+        title: "4〜9月累計（9月は月初の見込み）",
+        forecastNote: "4〜8月は確定実績、9月は月初時点の見込みです。",
         profit: { actual: 87418, plan: 83072, achievePct: 105.2, yoyPct: 136.2, yoyPrior: 64182, planFull: 189125, marginPct: 24.5 },
         sales:  { actual: 357017, plan: 388846, achievePct: 91.8, planFull: 836120 },
         monthlyTrend: [
@@ -701,7 +705,7 @@ const DATA = {
           { m: "6月", actual: 23222, plan: 12892, pct: 180.1, prior: 10610 },
           { m: "7月", actual: 16699, plan: 18321, pct: 91.2, prior: 15735 },
           { m: "8月", actual: 10234, plan: 11391, pct: 89.9, prior: 9107 },
-          { m: "9月", actual: 10764, plan: 16122, pct: 66.8, forecast: true, prior: 10131 }
+          { m: "9月", actual: 10764, plan: 16122, pct: 66.8, forecast: true, prior: 13245 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -794,6 +798,8 @@ const DATA = {
         detail: "9月は月初時点で確定計上が利益2,366千円、積上げ込みの着地見込みは4,440千円（9月計画比40.4%）。3グループ中もっとも月初の進捗が薄く、9月計画（10,996千円）に対して積上げ（2,074千円）を含めても4割にとどまる。前年同月比（44.5%）は8月までと同じ基準で調整済み。前年9月は三州観光開発グループ分（売上1,574千円/利益670千円、第1営業Gへの引き継ぎ分として控除済み）を除いても9,976千円と高水準だった。"
       },
       ytd: {
+        title: "4〜9月累計（9月は月初の見込み）",
+        forecastNote: "4〜8月は確定実績、9月は月初時点の見込みです。",
         profit: { actual: 49037, plan: 56513, achievePct: 86.8, yoyPct: 84.3, yoyPrior: 58166, planFull: 116696, marginPct: 20.1 },
         sales:  { actual: 244385, plan: 301813, achievePct: 81.0, planFull: 550329 },
         monthlyTrend: [
@@ -802,7 +808,7 @@ const DATA = {
           { m: "6月", actual: 6297, plan: 8939, pct: 70.4, prior: 7758 },
           { m: "7月", actual: 15756, plan: 13156, pct: 119.8, prior: 18628 },
           { m: "8月", actual: 10072, plan: 9619, pct: 104.7, prior: 7590 },
-          { m: "9月", actual: 4440, plan: 10996, pct: 40.4, forecast: true, prior: 10601 }
+          { m: "9月", actual: 4440, plan: 10996, pct: 40.4, forecast: true, prior: 9976 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -961,8 +967,10 @@ const DATA = {
   function heroSection(scope) {
     var m = scope.monthly; if (!m) return "";
     var t = toneAchieve(m.profit.achievePct);
-    // コンテンツの当月実績が台帳に反映され次第、この注記は自動的に表示されなくなる。
-    var landingNote = (scope === DATA.scopes.all && !DATA.scopes.content.monthly) ? "（コンテンツ未記載の為除く）" : "";
+    // コンテンツの当月実績が全社タブと同じ月まで台帳に反映され次第、この注記は自動的に表示されなくなる。
+    var contentMonthNum = DATA.scopes.content.monthly && (DATA.scopes.content.monthly.title || "").match(/^(\d+)月/);
+    var allMonthNum = (m.title || "").match(/^(\d+)月/);
+    var landingNote = (scope === DATA.scopes.all && (!contentMonthNum || !allMonthNum || contentMonthNum[1] !== allMonthNum[1])) ? "（コンテンツ未記入の為除く）" : "";
     var yoyChip = (m.profit.yoyPct != null)
       ? '<div class="chip-col"><span class="chip ' + toneYoy(m.profit.yoyPct) + '">対前年同月 ' + m.profit.yoyPct + '%</span><span class="chip-note">前年' + fmt(m.profit.yoyPrior) + '千円（<b class="' + toneYoy(m.profit.yoyPct) + '">' + fmtSigned(m.profit.landing - m.profit.yoyPrior) + '</b>千円）</span></div>'
       : '';
