@@ -109,6 +109,16 @@
   .past-item .sub { font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
   .past-item .sub.latest { color: var(--all); }
   .past-sep { height: 1px; background: var(--border); margin: 4px 6px; }
+  .lbl-short, .d-short { display: none; }
+  @media (max-width: 599px) {
+    .top-datebar { flex-wrap: nowrap; }
+    .top-date { font-size: 12px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .top-actions { gap: 6px; flex: none; }
+    .top-actions .refresh-btn { padding: 6px 11px; font-size: 12px; min-height: 32px; gap: 4px; }
+    .past-menu .lbl-full { display: none; }
+    .lbl-short, .d-short { display: inline; }
+    .d-long { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) { .refresh-btn.spinning .ic { animation: none; } }
 
   /* ---- Tabs (horizontal scroll, no cut-off) ---- */
@@ -506,8 +516,8 @@
       <div class="top-actions">
       <details class="past-menu" id="pastMenu">
         <summary class="refresh-btn" aria-label="過去のふり返りレポートを開く">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 3 3 9 9 9"/><path d="M12 7v5l3 2"/></svg>
-          <span>過去のふり返り</span>
+          <svg class="ic-past" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 3 3 9 9 9"/><path d="M12 7v5l3 2"/></svg>
+          <span class="lbl-full">過去のふり返り</span><span class="lbl-short">過去</span>
           <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </summary>
         <div class="past-pop" id="pastPop" role="menu"></div>
@@ -1870,7 +1880,9 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
   function formatAsOf(iso) {
     var d = new Date(iso + "T00:00:00+09:00");
     var days = ["日","月","火","水","木","金","土"];
-    return "本日時点：" + d.getFullYear() + "年" + (d.getMonth()+1) + "月" + d.getDate() + "日（" + days[d.getDay()] + "）";
+    var w = "（" + days[d.getDay()] + "）";
+    return '<span class="d-long">本日時点：' + d.getFullYear() + "年" + (d.getMonth()+1) + "月" + d.getDate() + "日" + w + '</span>' +
+      '<span class="d-short">本日時点 ' + d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate() + w + '</span>';
   }
 
   function init() {
@@ -1884,7 +1896,7 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
       app.appendChild(section);
     });
 
-    document.getElementById("asOfLabel").textContent = formatAsOf(DATA.asOf);
+    document.getElementById("asOfLabel").innerHTML = formatAsOf(DATA.asOf);
 
     var pastPop = document.getElementById("pastPop");
     var pastMenu = document.getElementById("pastMenu");
