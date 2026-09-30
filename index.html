@@ -84,6 +84,31 @@
   .refresh-btn .ic { display: inline-block; transition: transform .5s ease; }
   .refresh-btn.spinning .ic { animation: spin .6s linear; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---- 過去のふり返りメニュー（更新ボタンの左） ---- */
+  .top-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .past-menu { position: relative; }
+  .past-menu > summary { list-style: none; }
+  .past-menu > summary::-webkit-details-marker { display: none; }
+  .past-menu .chev { transition: transform .15s; }
+  .past-menu[open] .chev { transform: rotate(180deg); }
+  .past-menu[open] > summary { background: var(--surface-2); }
+  .past-pop {
+    position: absolute; right: 0; top: calc(100% + 6px); z-index: 60;
+    width: min(270px, calc(100vw - 32px));
+    background: var(--surface); border: 1px solid var(--border-strong); border-radius: 12px;
+    box-shadow: var(--shadow-hero); padding: 6px;
+  }
+  .past-grp { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: .04em; padding: 8px 10px 4px; }
+  .past-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 10px; border-radius: 8px; min-height: 40px;
+    color: var(--text); text-decoration: none; font-size: 13px; font-weight: 700;
+  }
+  .past-item:hover, .past-item:focus-visible { background: var(--surface-2); outline: none; }
+  .past-item .sub { font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+  .past-item .sub.latest { color: var(--all); }
+  .past-sep { height: 1px; background: var(--border); margin: 4px 6px; }
   @media (prefers-reduced-motion: reduce) { .refresh-btn.spinning .ic { animation: none; } }
 
   /* ---- Tabs (horizontal scroll, no cut-off) ---- */
@@ -478,10 +503,20 @@
     <div class="top-sub">2026年度（令和8年度）4月〜　通期進捗・計画対比・前年対比</div>
     <div class="top-datebar">
       <span class="top-date" id="asOfLabel"></span>
+      <div class="top-actions">
+      <details class="past-menu" id="pastMenu">
+        <summary class="refresh-btn" aria-label="過去のふり返りレポートを開く">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 3 3 9 9 9"/><path d="M12 7v5l3 2"/></svg>
+          <span>過去のふり返り</span>
+          <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="past-pop" id="pastPop" role="menu"></div>
+      </details>
       <button class="refresh-btn" id="refreshBtn" type="button" aria-label="最新の公開内容に更新">
         <svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
         <span>更新</span>
       </button>
+      </div>
     </div>
     <div class="nav-row">
       <div class="tabs" role="tablist" aria-label="表示グループ切替" id="tabRow">
@@ -1350,6 +1385,17 @@ const DATA = {
   }
 };
 /* DATA:END */
+
+/* 過去のふり返りメニューの一覧。月が締まって新しいレポートを作ったら、monthly の先頭に1行足す */
+const REPORTS = {
+  monthly: [
+    { label: "2026年9月度", note: "上期締め", href: "./report-2026-09.html" },
+    { label: "2026年8月度", href: "./report-2026-08.html" }
+  ],
+  annual: [
+    { label: "2025年度 実績分析報告", href: "./report-fy2025.html" }
+  ]
+};
 /* OUTLOOK: 先行き見通し（当月の翌月〜翌3月の受注済み・積上げ・計画・前年実績）。各G台帳の10〜3月シート上部の集計行＋計画表PDF＋2025年度台帳（担当者異動の付け替え反映済み）から作成。データ更新時はDATAと合わせて更新すること */
 const OUTLOOK_META = {"asOf":"2026-09-30","note":"11月以降の各月に、受注済み（伝票計上済）と積上げ（見込み）がいくら入っているかを、月ごとの計画と比べたものです。先の月ほど案件の登録が少ないため、確保率が低く見えるのはふつうです。単位:千円。","source":"受注済み・積上げ：各営業グループ管理台帳の11月〜翌3月シート上部の集計行（第1G:9/30 18:40、第2G:9/30 20:05、第3G:9/30 15:23保存時点）。計画：(20260930)販管システム出力)2026年度売上・粗利計画表（第3Gの12月〜3月は台帳の計画と差があるため、こちらを正としています）。4〜10月：4〜9月は9/30版の販管システム出力の確定実績、10月は台帳の着地見込み（このダッシュボードの月次推移と同じ数字）。コンテンツビジネスは10月以降の台帳シートが未登録のため含みません。前年実績：4〜10月はこのダッシュボードの月次推移と同じ数字（担当者異動の調整済み）。11月〜翌3月は2025年度の各営業グループ管理台帳の同月シート上部の実績行に、4〜9月と同じルールで付け替えを反映しています。第1G→第2G：BOATRACE振興会（久田氏計上分）・JAおきなわSS・佐久本工機・㈱ぐしけん／第1G→第3G：南都・沖縄長正薬草本社・イーアス沖縄／第3G→第1G：三州観光開発グループ（MS・RS・NPコーポレーション、エムズガーデン等の店舗名義を含む）。11月〜翌3月の付け替え額（利益、千円）は、第1G→第2G：11月1,444・12月302・1月92・2月149・3月397、第3G→第1G：11月1,027・12月650・1月399・2月388・3月671（第1G→第3Gの該当はなし）。抽出した明細の合計は、前年度台帳の各月「売上合計」行と一致することを確認済み。3グループ合計は付け替えの影響を受けません。前年は確定した最終の数字、今年の10月以降は途中までしか入っていない数字なので、「前年の最終実績に対して、今どこまで積み上がっているか」の目安として見てください。","doneLabel":"4〜10月（10月は見込み）","rangeLabel":"11〜3月"};
 const OUTLOOK = {"all":{"annual":{"done":226485,"booked":63261,"pipe":16787,"plan":459312,"landing":306533,"pct":66.7,"sales":{"done":962072,"booked":257187,"pipe":79465,"plan":1917285,"landing":1298724,"pct":67.7}},"months":[{"m":"11月","booked":13499,"pipe":5312,"plan":38564,"salesBooked":57126,"salesPipe":23497,"salesPlan":143679,"groups":[{"key":"g1","pct":48.5},{"key":"g2","pct":35.1},{"key":"g3","pct":74.9}]},{"m":"12月","booked":11815,"pipe":3312,"plan":35515,"salesBooked":47004,"salesPipe":15888,"salesPlan":124743,"groups":[{"key":"g1","pct":51},{"key":"g2","pct":30.7},{"key":"g3","pct":53.6}]},{"m":"1月","booked":14394,"pipe":2739,"plan":44817,"salesBooked":58084,"salesPipe":9113,"salesPlan":153866,"groups":[{"key":"g1","pct":12},{"key":"g2","pct":30.4},{"key":"g3","pct":87}]},{"m":"2月","booked":12236,"pipe":3065,"plan":31470,"salesBooked":52910,"salesPipe":10701,"salesPlan":113678,"groups":[{"key":"g1","pct":12.8},{"key":"g2","pct":48.7},{"key":"g3","pct":102.5}]},{"m":"3月","booked":11317,"pipe":2359,"plan":59326,"salesBooked":42063,"salesPipe":20266,"salesPlan":290916,"groups":[{"key":"g1","pct":13.5},{"key":"g2","pct":18},{"key":"g3","pct":47.8}]}]},"g1":{"annual":{"done":65460,"booked":13698,"pipe":4593,"plan":153491,"landing":83751,"pct":54.6,"sales":{"done":253783,"booked":60625,"pipe":16772,"plan":530836,"landing":331180,"pct":62.4}},"months":[{"m":"11月","booked":5978,"pipe":1131,"plan":14659,"salesBooked":21850,"salesPipe":4641,"salesPlan":49584},{"m":"12月","booked":3825,"pipe":1116,"plan":9686,"salesBooked":16685,"salesPipe":4205,"salesPlan":32576},{"m":"1月","booked":1066,"pipe":1032,"plan":17495,"salesBooked":7440,"salesPipe":3142,"salesPlan":57949},{"m":"2月","booked":934,"pipe":732,"plan":13042,"salesBooked":6553,"salesPipe":2692,"salesPlan":42614},{"m":"3月","booked":1895,"pipe":582,"plan":18411,"salesBooked":8097,"salesPipe":2092,"salesPlan":59864}]},"g2":{"annual":{"done":103905,"booked":22358,"pipe":2503,"plan":189125,"landing":128766,"pct":68.1,"sales":{"done":422360,"booked":86062,"pipe":9000,"plan":836120,"landing":517422,"pct":61.9}},"months":[{"m":"11月","booked":4281,"pipe":1185,"plan":15574,"salesBooked":18260,"salesPipe":3831,"salesPlan":52496},{"m":"12月","booked":4069,"pipe":823,"plan":15946,"salesBooked":17558,"salesPipe":2532,"salesPlan":55355},{"m":"1月","booked":4636,"pipe":65,"plan":15444,"salesBooked":16568,"salesPipe":379,"salesPlan":58020},{"m":"2月","booked":4686,"pipe":65,"plan":9766,"salesBooked":16838,"salesPipe":379,"salesPlan":36049},{"m":"3月","booked":4686,"pipe":365,"plan":28047,"salesBooked":16838,"salesPipe":1879,"salesPlan":169475}]},"g3":{"annual":{"done":57120,"booked":27202,"pipe":9690,"plan":116696,"landing":94012,"pct":80.6,"sales":{"done":285929,"booked":110499,"pipe":53693,"plan":550329,"landing":450121,"pct":81.8}},"months":[{"m":"11月","booked":3240,"pipe":2996,"plan":8331,"salesBooked":17016,"salesPipe":15025,"salesPlan":41599},{"m":"12月","booked":3921,"pipe":1373,"plan":9883,"salesBooked":12761,"salesPipe":9151,"salesPlan":36812},{"m":"1月","booked":8691,"pipe":1642,"plan":11878,"salesBooked":34076,"salesPipe":5592,"salesPlan":37897},{"m":"2月","booked":6615,"pipe":2268,"plan":8662,"salesBooked":29519,"salesPipe":7630,"salesPlan":35015},{"m":"3月","booked":4735,"pipe":1411,"plan":12868,"salesBooked":17127,"salesPipe":16295,"salesPlan":61577}]}};
@@ -1839,6 +1885,20 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
     });
 
     document.getElementById("asOfLabel").textContent = formatAsOf(DATA.asOf);
+
+    var pastPop = document.getElementById("pastPop");
+    var pastMenu = document.getElementById("pastMenu");
+    if (pastPop && pastMenu && typeof REPORTS !== "undefined") {
+      var item = function (r, i, isMonthly) {
+        var sub = isMonthly && i === 0 ? '<span class="sub latest">最新' + (r.note ? '・' + esc(r.note) : '') + '</span>' : (r.note ? '<span class="sub">' + esc(r.note) + '</span>' : '');
+        return '<a class="past-item" role="menuitem" href="' + r.href + '"><span>' + esc(r.label) + '</span>' + sub + '</a>';
+      };
+      pastPop.innerHTML =
+        '<div class="past-grp">月次の実績ふり返り</div>' + REPORTS.monthly.map(function (r, i) { return item(r, i, true); }).join("") +
+        (REPORTS.annual.length ? '<div class="past-sep"></div><div class="past-grp">年度の実績分析</div>' + REPORTS.annual.map(function (r, i) { return item(r, i, false); }).join("") : "");
+      document.addEventListener("click", function (e) { if (pastMenu.open && !pastMenu.contains(e.target)) pastMenu.open = false; });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && pastMenu.open) { pastMenu.open = false; pastMenu.querySelector("summary").focus(); } });
+    }
     document.getElementById("pageFoot").innerHTML =
       '㈱宣伝　社内共有資料（機密）<br>' + esc(DATA.footerSource) +
       '<br>本資料は各データを機械的に集計・要約したものです。最新の数字が反映され次第、本URLの内容を随時更新します。';
