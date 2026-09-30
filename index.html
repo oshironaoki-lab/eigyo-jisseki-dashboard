@@ -217,6 +217,59 @@
   .mbar-row.forecast .mbar-track { border: 1px dashed var(--border-strong); }
   .fc-tag { display: inline-block; font-size: 10.5px; font-weight: 800; padding: 1px 7px; border-radius: 999px; margin-left: 5px; background: var(--surface-2); color: var(--text-muted); vertical-align: middle; }
 
+
+  /* ---- Outlook (先行き見通し) ---- */
+  .ol-annual { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 16px 14px; box-shadow: var(--shadow-sm); margin-bottom: 20px; }
+  .ol-lbl { font-size: 12.5px; font-weight: 700; color: var(--text-muted); }
+  .ol-big { font-size: 30px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; margin-top: 4px; color: var(--mc); }
+  .ol-big .unit { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-left: 3px; }
+  .ol-sub { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; font-variant-numeric: tabular-nums; line-height: 1.6; }
+  .ol-sub b { color: var(--text); }
+  .ol-wrap { position: relative; }
+  .ol-track { position: relative; display: flex; height: 16px; background: var(--surface-2); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ol-track.thin { height: 12px; margin-top: 6px; }
+  .ol-seg { height: 100%; flex: none; }
+  .ol-seg.done { background: var(--mc); }
+  .ol-seg.booked { background: color-mix(in srgb, var(--mc) 55%, var(--surface)); }
+  .ol-seg.pipe { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--mc) 55%, var(--surface)) 0 3px, transparent 3px 7px); }
+  .ol-plan { position: absolute; bottom: -3px; height: calc(100% - 6px); width: 2px; background: var(--text); opacity: .55; }
+  .ol-track.thin + .ol-plan { height: 18px; }
+  .ol-annual .ol-plan { height: 22px; }
+  .ol-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-size: 11.5px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .ol-legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .ol-legend i { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
+  .ol-legend i.done { background: var(--mc); }
+  .ol-legend i.booked { background: color-mix(in srgb, var(--mc) 55%, var(--surface)); }
+  .ol-legend i.pipe { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--mc) 55%, var(--surface)) 0 2px, transparent 2px 4px); border: 1px solid color-mix(in srgb, var(--mc) 55%, var(--surface)); }
+  .ol-legend i.plan { width: 2px; height: 12px; background: var(--text); opacity: .55; border-radius: 0; }
+  .ol-legend i.gap { background: var(--surface-2); border: 1px solid var(--border); }
+  .ol-months-title { font-size: 13.5px; font-weight: 800; margin: 0 0 8px; }
+  .ol-months { display: flex; flex-direction: column; gap: 16px; }
+  .ol-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .ol-m { font-size: 14px; font-weight: 800; }
+  .ol-m .q { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-left: 6px; }
+  .ol-pct { font-size: 12px; color: var(--text-muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ol-pct b { font-size: 17px; font-weight: 800; color: var(--text); margin-left: 4px; }
+  .ol-note { font-size: 11.5px; color: var(--text-muted); margin-top: 6px; font-variant-numeric: tabular-nums; line-height: 1.6; }
+  .ol-note b { color: var(--text-secondary); font-weight: 700; }
+  .ol-groups { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 3px; font-size: 11.5px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .ol-groups span { display: inline-flex; align-items: center; gap: 4px; }
+  .ol-groups i { width: 8px; height: 8px; border-radius: 50%; background: var(--gc); display: inline-block; }
+  .ol-later { margin-top: 10px; }
+  .ol-later > .ol-months { margin-top: 8px; }
+  .spark-svg.ol-chart { height: 96px; }
+  .ol-prior { position: absolute; top: calc(100% + 1px); width: 0; height: 0; margin-left: -3px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 6px solid var(--text-muted); }
+  .ol-wrap + .ol-note { margin-top: 10px; }
+  .ol-legend i.prior { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 7px solid var(--text-muted); border-top: 0; border-radius: 0; background: none; }
+  .spark-legend .ol-priorl i { border-top: 2px dotted var(--text-muted); }
+  .spark-legend .ol-sec i { border-top: 2.5px dashed currentColor; }
+  .spark-legend .ol-zone i { width: 12px; height: 10px; border: 1px solid var(--border); border-radius: 2px; background: var(--surface-2); }
+  .spark-svg.ol-chart rect { vector-effect: non-scaling-stroke; }
+  @media (min-width: 1024px) { .spark-svg.ol-chart { height: 140px; } }
+  table.dt.ol-tbl { min-width: 0; }
+  table.dt.ol-tbl td, table.dt.ol-tbl th { text-align: right; font-variant-numeric: tabular-nums; }
+  table.dt.ol-tbl td:first-child, table.dt.ol-tbl th:first-child { text-align: left; }
+
   /* ---- Table (inside details) ---- */
   .tblwrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
   table.dt { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 460px; }
@@ -355,7 +408,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors, .blk-quarterly { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors, .blk-quarterly, .blk-outlook { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -510,8 +563,8 @@ const DATA = {
         note: "薄い帯＝2025年度実績（前年・同期間）、濃い帯＝2026年度実績（今年）。全社・第1〜3営業Gは4〜9月累計（9月は月初見込み）、コンテンツは対前年比較の制約により4〜7月累計。単位:千円。第1〜3営業Gの前年実績のうち4〜8月は、久田氏（BOATRACE振興会案件・JAおきなわSS・第1G→第2G）、小串氏（退職。南都・沖縄長正薬草本社・イーアス沖縄は第1G→第3G、佐久本工機は第1G→第2G）の担当変更、㈱ぐしけん（第1G→第2G）、および三州観光開発グループ（MSコーポレーション・RSコーポレーション・NPコーポレーション名義分含む、第3G→第1G）の異動をそれぞれの引き継ぎ先グループへ振り替えた調整後の数字。9月分のみ、この調整が未着手のため生値（未調整）を合算した暫定値。",
         rows: [
           { key: "all",     name: "全社",                thisYear: 206142, lastYear: 195991, pct: 105.2 },
-          { key: "g1", name: "第1営業G", note: "※調整後", thisYear: 56832,  lastYear: 60319,  pct: 94.2 },
-          { key: "g2", name: "第2営業G", note: "※調整後", thisYear: 88863,  lastYear: 67296,  pct: 132.0 },
+          { key: "g1", name: "第1営業G", note: "※調整後", thisYear: 56832,  lastYear: 60199,  pct: 94.4 },
+          { key: "g2", name: "第2営業G", note: "※調整後", thisYear: 88863,  lastYear: 67416,  pct: 131.8 },
           { key: "g3", name: "第3営業G", note: "※調整後", thisYear: 50092,  lastYear: 57541,  pct: 87.1 },
           { key: "content", name: "コンテンツ", note: "4〜7月実績", thisYear: 10355,  lastYear: 10835,   pct: 95.6 }
         ],
@@ -519,8 +572,8 @@ const DATA = {
           headers: ["区分", "今年度実績・利益", "前年実績・利益", "対前年", "今年度粗利率"],
           rows: [
             ["全社", "206,142", "195,991", "105.2%", "23.2%"],
-            ["第1営業G※", "56,832", "62,808", "90.5%", "26.0%"],
-            ["第2営業G※", "88,863", "64,182", "138.5%", "24.5%"],
+            ["第1営業G※", "56,832", "62,688", "90.7%", "26.0%"],
+            ["第2営業G※", "88,863", "64,302", "138.2%", "24.5%"],
             ["第3営業G※", "50,092", "58,166", "86.1%", "19.9%"],
             ["コンテンツ", "10,355", "10,835", "95.6%", "20.3%"]
           ]
@@ -586,14 +639,14 @@ const DATA = {
       name: "第1営業グループ", color: "g1", mainClients: "沖縄セルラー電話／リウボウストア／琉球リース／中部興産 ほか",
       monthly: {
         title: "9月度（実績＋見込み）", note: "第1営業グループ管理台帳（9/30 18時台更新分、18:29時点）より。単位:千円。",
-        profit: { actual: 10293, landing: 10293, plan: 11905, achievePct: 86.5, yoyPct: 103.3, yoyPrior: 9963 },
-        sales:  { actual: 40368, landing: 40368, plan: 40993, achievePct: 98.5, yoyPct: 116.1, yoyPrior: 34775 },
-        detail: "9月30日18時台（18:29時点）で残っていた積上げ（利益431千円）が全て確定計上に転換し、確定計上＝着地見込みは利益10,293千円・売上40,368千円（9月計画比 利益86.5%・売上98.5%）。同日15時台から着地見込みは利益187千円・売上410千円増加。前年同月比（103.3%）は8月までと同じ基準（久田氏・小串氏等の担当変更を引き継ぎ先グループへ振り替え）で調整済みで、前年を上回る水準。前年9月はBOATRACE分に「第70回全島エイサー」（売上7,632千円/利益2,727千円）という大型単発案件を含んでおり、これを第2Gへの引き継ぎ分として控除した後の9,963千円が比較対象。"
+        profit: { actual: 10293, landing: 10293, plan: 11905, achievePct: 86.5, yoyPct: 104.6, yoyPrior: 9843 },
+        sales:  { actual: 40368, landing: 40368, plan: 40993, achievePct: 98.5, yoyPct: 118.1, yoyPrior: 34175 },
+        detail: "9月30日18時台（18:29時点）で残っていた積上げ（利益431千円）が全て確定計上に転換し、確定計上＝着地見込みは利益10,293千円・売上40,368千円（9月計画比 利益86.5%・売上98.5%）。同日15時台から着地見込みは利益187千円・売上410千円増加。前年同月比（104.6%）は8月までと同じ基準（久田氏・小串氏等の担当変更を引き継ぎ先グループへ振り替え）で調整済みで、前年を上回る水準。前年9月はBOATRACE分に「第70回全島エイサー」（売上7,632千円/利益2,727千円）という大型単発案件を含んでおり、これを第2Gへの引き継ぎ分として控除した後の9,843千円が比較対象。"
       },
       ytd: {
         title: "4〜9月累計（9月は着地見込み）",
         forecastNote: "4〜8月は確定実績、9月は9/30 18時台（18:29時点）の見込みです。",
-        profit: { actual: 57004, plan: 67728, achievePct: 84.2, yoyPct: 90.8, yoyPrior: 62808, planFull: 153491, marginPct: 26.0 },
+        profit: { actual: 57004, plan: 67728, achievePct: 84.2, yoyPct: 90.9, yoyPrior: 62688, planFull: 153491, marginPct: 26.0 },
         sales:  { actual: 222515, plan: 242911, achievePct: 91.6, planFull: 530836 },
         monthlyTrend: [
           { m: "4月", actual: 11311, plan: 10813, pct: 104.6, prior: 8824 },
@@ -601,7 +654,7 @@ const DATA = {
           { m: "6月", actual: 7506,  plan: 10441, pct: 71.9, prior: 9506 },
           { m: "7月", actual: 10283, plan: 11816, pct: 87.0, prior: 11126 },
           { m: "8月", actual: 10533, plan: 9898, pct: 106.4, prior: 8015 },
-          { m: "9月", actual: 10293, plan: 11905, pct: 86.5, forecast: true, prior: 9963 }
+          { m: "9月", actual: 10293, plan: 11905, pct: 86.5, forecast: true, prior: 9843 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -622,16 +675,16 @@ const DATA = {
         note: "Q1（4〜6月）は確定実績。Q2（7〜9月）は7〜8月の確定実績＋9月の月初見込みです。9月は月内に大きく変動します。Q3・Q4は(20260831)販管システム出力の年間計画表より。",
         quarters: [
           { label: "Q1（4〜6月）", statusLabel: "確定", status: "done", profitActual: 25895, profitPlan: 34109, pct: 75.9, yoyPrior: 31215, yoyPct: 83.0, salesActual: 105679, salesPlan: 119798 },
-          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 31109, profitPlan: 33619, pct: 92.5, yoyPrior: 29104, yoyPct: 106.9, salesActual: 116836, salesPlan: 123113, subNote: "9月は9/30 18時台（18:29時点）の見込み。前年同月比は8月までと同じ基準で調整済み。" },
+          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 31109, profitPlan: 33619, pct: 92.5, yoyPrior: 28984, yoyPct: 107.3, salesActual: 116836, salesPlan: 123113, subNote: "9月は9/30 18時台（18:29時点）の見込み。前年同月比は8月までと同じ基準で調整済み。" },
           { label: "Q3（10〜12月）", statusLabel: "計画", status: "upcoming", profitPlan: 36815, salesPlan: 127498 },
           { label: "Q4（1〜3月）", statusLabel: "計画", status: "upcoming", profitPlan: 48948, salesPlan: 160427 }
         ]
       },
       yoy: {
         title: "対前年（4〜9月累計・9月は見込み）",
-        thisYear: 56832, lastYear: 60319, pct: 94.2,
-        thisYearSales: 222183, lastYearSales: 219607, pctSales: 101.2,
-        detail: "前年（2025年度）4〜7月累計の第1営業グループ自体の実績（販管システム出力）は売上189,736・粗利49,286。ここから、担当者異動で引き継ぎ先グループへ移った案件分を、2025年度管理台帳から月別に抽出して控除した：①<b>第2営業Gへ移管されたBOATRACE振興会案件分</b>（久田氏計上、4〜7月合計 売上31,010・粗利6,554）、②<b>第2営業Gへ移管されたJAおきなわSS</b>（久田氏の第2G異動に伴う移管、4〜7月合計 売上2,000・粗利400）、③<b>第2営業Gが引き継いだ佐久本工機</b>（小串氏の旧担当分、4〜7月合計 売上4,272・粗利1,116）、④<b>第2営業Gが引き継いだ㈱ぐしけん</b>（4〜7月合計 売上1,800・粗利360）、⑤<b>第3営業Gが引き継いだ南都・沖縄長正薬草本社・イーアス沖縄</b>（小串氏の旧担当分、4〜7月合計 売上2,305・粗利763）。逆に、⑥<b>第3営業Gから引き継いだ三州観光開発グループ</b>（4〜7月合計 売上5,323・粗利2,248。台帳上「三州観光開発」のほか「MSコーポレーション」「RSコーポレーション」「NPコーポレーション」「M'sガーデン」など店舗単位の名義で計上されており、いずれも同一グループ案件として合算）を加算した。差し引き後の前年実績は売上153,672・粗利42,341とした（4〜7月ベース、この調整後では前年同期比売上93.4%・粗利85.6%）。8月分はさらに月次の前年同月実績（BOATRACE・JAおきなわSS・沖縄長正薬草本社・佐久本工機・ぐしけんの引き継ぎ分を控除し、三州観光開発グループ分を加算した調整後8,015千円）を加算しており、8月単体では前年同月比131.4%と大きく上回っている（8月度は台帳ベースの着地見込みから(20260831)販管システム出力の確定実績に切り替え）。9月分もさらに月次の前年同月実績（BOATRACE・JAおきなわSS・沖縄長正薬草本社・佐久本工機・ぐしけんの引き継ぎ分を控除し、三州観光開発グループ分を加算した調整後9,963千円）を加算しており、9月単体（9/30 18時台・18:29時点）では前年同月比103.3%。小串氏は退職のため、上記以外の同氏クライアント分（りゅうせき都市ガス、沖縄県労働金庫、大米建設TVCM等）は第1営業Gの実績としてそのまま残している。※2026.8.18、月別データの集計ロジックに不具合（担当者ごとの月次小計行を個別クライアントの実績として誤って合算していた）が見つかったため修正し、BOATRACE・佐久本工機の数値を再計算しています。※2026.8.18、久田氏の異動に伴うJAおきなわSSの第1G→第2G移管が判明したため、既存の調整に追加して再計算しています。※2026.8.18、三州観光開発の付け替え額が「MSコーポレーション」「RSコーポレーション」名義分を含んでいなかった（同一グループの店舗別名義と判明）ため、これらを含めて再計算しています。"
+        thisYear: 56832, lastYear: 60199, pct: 94.4,
+        thisYearSales: 222183, lastYearSales: 219007, pctSales: 101.5,
+        detail: "前年（2025年度）4〜7月累計の第1営業グループ自体の実績（販管システム出力）は売上189,736・粗利49,286。ここから、担当者異動で引き継ぎ先グループへ移った案件分を、2025年度管理台帳から月別に抽出して控除した：①<b>第2営業Gへ移管されたBOATRACE振興会案件分</b>（久田氏計上、4〜7月合計 売上31,010・粗利6,554）、②<b>第2営業Gへ移管されたJAおきなわSS</b>（久田氏の第2G異動に伴う移管、4〜7月合計 売上2,000・粗利400）、③<b>第2営業Gが引き継いだ佐久本工機</b>（小串氏の旧担当分、4〜7月合計 売上4,272・粗利1,116）、④<b>第2営業Gが引き継いだ㈱ぐしけん</b>（4〜7月合計 売上1,800・粗利360）、⑤<b>第3営業Gが引き継いだ南都・沖縄長正薬草本社・イーアス沖縄</b>（小串氏の旧担当分、4〜7月合計 売上2,305・粗利763）。逆に、⑥<b>第3営業Gから引き継いだ三州観光開発グループ</b>（4〜7月合計 売上5,323・粗利2,248。台帳上「三州観光開発」のほか「MSコーポレーション」「RSコーポレーション」「NPコーポレーション」「M'sガーデン」など店舗単位の名義で計上されており、いずれも同一グループ案件として合算）を加算した。差し引き後の前年実績は売上153,672・粗利42,341とした（4〜7月ベース、この調整後では前年同期比売上93.4%・粗利85.6%）。8月分はさらに月次の前年同月実績（BOATRACE・JAおきなわSS・沖縄長正薬草本社・佐久本工機・ぐしけんの引き継ぎ分を控除し、三州観光開発グループ分を加算した調整後8,015千円）を加算しており、8月単体では前年同月比131.4%と大きく上回っている（8月度は台帳ベースの着地見込みから(20260831)販管システム出力の確定実績に切り替え）。9月分もさらに月次の前年同月実績（BOATRACE・JAおきなわSS・沖縄長正薬草本社・佐久本工機・ぐしけんの引き継ぎ分を控除し、三州観光開発グループ分を加算した調整後9,843千円）を加算しており、9月単体（9/30 18時台・18:29時点）では前年同月比104.6%。小串氏は退職のため、上記以外の同氏クライアント分（りゅうせき都市ガス、沖縄県労働金庫、大米建設TVCM等）は第1営業Gの実績としてそのまま残している。※2026.9.30、9月の前年同月実績で佐久本工機の9月TVCM分（売上600千円・利益120千円）の第2Gへの振り替えが漏れていたため修正しています（調整後9,963→9,843千円）。※2026.8.18、月別データの集計ロジックに不具合（担当者ごとの月次小計行を個別クライアントの実績として誤って合算していた）が見つかったため修正し、BOATRACE・佐久本工機の数値を再計算しています。※2026.8.18、久田氏の異動に伴うJAおきなわSSの第1G→第2G移管が判明したため、既存の調整に追加して再計算しています。※2026.8.18、三州観光開発の付け替え額が「MSコーポレーション」「RSコーポレーション」名義分を含んでいなかった（同一グループの店舗別名義と判明）ため、これらを含めて再計算しています。"
       },
       clientTrends: {
         note: "2025年度・2026年度の管理台帳の8月度（受注伝票＝実績確定分のみ、積上げは含まず）をクライアント単位で突き合わせ。担当者異動によるBOATRACE・佐久本工機・㈱ぐしけん・JAおきなわSS、三州観光開発グループ（MSコーポレーション・RSコーポレーション・NPコーポレーション・M'sガーデン名義分含む、第3G→第1G）等の付け替え分は対象外。利益ベース・単位:千円。表記ゆれ（「沖縄セルラー」⇔「沖縄セルラー電話」等）は名寄せ済み。2026-08-26に台帳の結合セル（クライアント名が2行目以降で空欄になる書式）で明細の一部を読み飛ばしていた抽出漏れを修正し、全項目を台帳の月次小計（実績合計）と1円単位で一致させて再集計しています。",
@@ -692,14 +745,14 @@ const DATA = {
       name: "第2営業グループ", color: "g2", mainClients: "沖縄ファミリーマート／BOATRACE振興会／リウボウインダストリー／沖縄ホンダ ほか",
       monthly: {
         title: "9月度（実績＋見込み）", note: "第2営業グループ管理台帳（9/30 11時台更新分、11:20時点）より。単位:千円。",
-        profit: { actual: 12209, landing: 12209, plan: 16122, achievePct: 75.7, yoyPct: 92.2, yoyPrior: 13245 },
-        sales:  { actual: 49222, landing: 49222, plan: 61624, achievePct: 79.9, yoyPct: 96.5, yoyPrior: 51021 },
-        detail: "9月30日11時台（11:20時点）で、確定計上＝着地見込みは利益12,209千円・売上49,222千円（9月計画比75.7%）。積上げは残っておらず、同日朝（10:37時点）から売上は4千円増えた一方、利益は74千円減少（確定済み案件の原価・利益の修正とみられる）。9月計画（16,122千円）は例年並みに大きいため、達成率は低めに出やすい。前年同月比（92.2%）は8月までと同じ基準で調整済みだが、前年9月のBOATRACE分に「第70回全島エイサー」（売上7,632千円/利益2,727千円）という大型単発案件が含まれているため比較対象（13,245千円）が大きく、今年度の同案件（全島エイサー2026）は台帳への本計上がまだ途上の9/30時点では見劣りしやすい点に留意。"
+        profit: { actual: 12209, landing: 12209, plan: 16122, achievePct: 75.7, yoyPct: 91.4, yoyPrior: 13365 },
+        sales:  { actual: 49222, landing: 49222, plan: 61624, achievePct: 79.9, yoyPct: 95.4, yoyPrior: 51621 },
+        detail: "9月30日11時台（11:20時点）で、確定計上＝着地見込みは利益12,209千円・売上49,222千円（9月計画比75.7%）。積上げは残っておらず、同日朝（10:37時点）から売上は4千円増えた一方、利益は74千円減少（確定済み案件の原価・利益の修正とみられる）。9月計画（16,122千円）は例年並みに大きいため、達成率は低めに出やすい。前年同月比（91.4%）は8月までと同じ基準で調整済みだが、前年9月のBOATRACE分に「第70回全島エイサー」（売上7,632千円/利益2,727千円）という大型単発案件が含まれているため比較対象（13,365千円）が大きく、今年度の同案件（全島エイサー2026）は台帳への本計上がまだ途上の9/30時点では見劣りしやすい点に留意。"
       },
       ytd: {
         title: "4〜9月累計（9月は着地見込み）",
         forecastNote: "4〜8月は確定実績、9月は9/30 11時台（11:20時点）の見込みです。",
-        profit: { actual: 88863, plan: 83072, achievePct: 107.0, yoyPct: 138.5, yoyPrior: 64182, planFull: 189125, marginPct: 24.5 },
+        profit: { actual: 88863, plan: 83072, achievePct: 107.0, yoyPct: 138.2, yoyPrior: 64302, planFull: 189125, marginPct: 24.5 },
         sales:  { actual: 364396, plan: 388846, achievePct: 93.7, planFull: 836120 },
         monthlyTrend: [
           { m: "4月", actual: 12841, plan: 12215, pct: 105.1, prior: 8798 },
@@ -707,7 +760,7 @@ const DATA = {
           { m: "6月", actual: 23222, plan: 12892, pct: 180.1, prior: 10610 },
           { m: "7月", actual: 16699, plan: 18321, pct: 91.2, prior: 15735 },
           { m: "8月", actual: 10234, plan: 11391, pct: 89.9, prior: 9107 },
-          { m: "9月", actual: 12209, plan: 16122, pct: 75.7, forecast: true, prior: 13245 }
+          { m: "9月", actual: 12209, plan: 16122, pct: 75.7, forecast: true, prior: 13365 }
         ],
         monthlyTable: {
           headers: ["月","売上実績","売上計画","達成率","粗利実績","粗利計画","達成率"],
@@ -728,16 +781,16 @@ const DATA = {
         note: "Q1（4〜6月）は確定実績。Q2（7〜9月）は7〜8月の確定実績＋9月の月初見込みです。9月は月内に大きく変動します。Q3・Q4は台帳に入力済みの計画値です。",
         quarters: [
           { label: "Q1（4〜6月）", statusLabel: "確定", status: "done", profitActual: 49721, profitPlan: 37238, pct: 133.5, yoyPrior: 29209, yoyPct: 170.2, salesActual: 215830, salesPlan: 198159 },
-          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 39142, profitPlan: 45834, pct: 85.4, yoyPrior: 38087, yoyPct: 102.8, salesActual: 148566, salesPlan: 190687, subNote: "9月は9/30 11時台（11:20時点）の見込み。前年同月比は8月までと同じ基準で調整済み。" },
+          { label: "Q2（7〜9月）", statusLabel: "進行中", status: "inprogress", profitActual: 39142, profitPlan: 45834, pct: 85.4, yoyPrior: 38207, yoyPct: 102.4, salesActual: 148566, salesPlan: 190687, subNote: "9月は9/30 11時台（11:20時点）の見込み。前年同月比は8月までと同じ基準で調整済み。" },
           { label: "Q3（10〜12月）", statusLabel: "計画", status: "upcoming", profitPlan: 52796, salesPlan: 183730 },
           { label: "Q4（1〜3月）", statusLabel: "計画", status: "upcoming", profitPlan: 53257, salesPlan: 263544 }
         ]
       },
       yoy: {
         title: "対前年（4〜9月累計・9月は見込み）",
-        thisYear: 88863, lastYear: 67296, pct: 132.0,
-        thisYearSales: 364396, lastYearSales: 310493, pctSales: 117.4,
-        detail: "前年（2025年度）4〜7月累計の第2営業グループ自体の実績（販管システム出力）は売上184,886・粗利36,514。ここに、担当者異動で引き継いだ案件分を2025年度管理台帳から月別に抽出して加算した：①<b>第1営業Gから移管されたBOATRACE振興会案件分</b>（前年は久田氏計上、4〜7月合計 売上31,010・粗利6,554）、②<b>第1営業Gから移管されたJAおきなわSS</b>（久田氏の第2G異動に伴う移管、4〜7月合計 売上2,000・粗利400）、③<b>第1営業Gが引き継いだ佐久本工機</b>（前年は小串氏計上、4〜7月合計 売上4,272・粗利1,116）、④<b>第1営業Gが引き継いだ㈱ぐしけん</b>（4〜7月合計 売上1,800・粗利360）。加算後の前年実績は売上223,968・粗利44,944とした（4〜7月ベース、この調整後では前年同期比売上121.6%・粗利147.0%）。8月分はさらに月次の前年同月実績（BOATRACE・JAおきなわSS・佐久本工機・ぐしけんの引き継ぎ分を加算した調整後9,107千円）を加算しており、8月単体では前年同月比112.4%と前年を上回って推移している（8月度は台帳ベースの着地見込みから(20260831)販管システム出力の確定実績に切り替え）。9月分もさらに月次の前年同月実績（BOATRACE・JAおきなわSS・佐久本工機・ぐしけんの引き継ぎ分を加算した調整後13,245千円、うちBOATRACE分に「第70回全島エイサー」売上7,632千円/利益2,727千円を含む）を加算しており、9月単体（9/30 11時台・11:20時点）では前年同月比92.2%とやや下回っている（前年の大型イベント計上時期に対し、今年度の同イベントがまだ台帳に本計上されていないため）。4〜9月累計では引き続き4グループの中で最も高い伸び率を維持しており、BOATRACE案件の受け皿としてだけでなく、既存事業も含めて成長している。※2026.8.18、月別データの集計ロジックに不具合（担当者ごとの月次小計行を個別クライアントの実績として誤って合算していた）が見つかったため修正し、BOATRACE・佐久本工機の数値を再計算しています（御菓子御殿のコンテンツ→第2G異動は、コンテンツ側の2025年度月別データが未確認のため今回は反映していません）。※2026.8.18、久田氏の異動に伴うJAおきなわSSの第1G→第2G移管が判明したため、既存の調整に追加して再計算しています。"
+        thisYear: 88863, lastYear: 67416, pct: 131.8,
+        thisYearSales: 364396, lastYearSales: 311093, pctSales: 117.1,
+        detail: "前年（2025年度）4〜7月累計の第2営業グループ自体の実績（販管システム出力）は売上184,886・粗利36,514。ここに、担当者異動で引き継いだ案件分を2025年度管理台帳から月別に抽出して加算した：①<b>第1営業Gから移管されたBOATRACE振興会案件分</b>（前年は久田氏計上、4〜7月合計 売上31,010・粗利6,554）、②<b>第1営業Gから移管されたJAおきなわSS</b>（久田氏の第2G異動に伴う移管、4〜7月合計 売上2,000・粗利400）、③<b>第1営業Gが引き継いだ佐久本工機</b>（前年は小串氏計上、4〜7月合計 売上4,272・粗利1,116）、④<b>第1営業Gが引き継いだ㈱ぐしけん</b>（4〜7月合計 売上1,800・粗利360）。加算後の前年実績は売上223,968・粗利44,944とした（4〜7月ベース、この調整後では前年同期比売上121.6%・粗利147.0%）。8月分はさらに月次の前年同月実績（BOATRACE・JAおきなわSS・佐久本工機・ぐしけんの引き継ぎ分を加算した調整後9,107千円）を加算しており、8月単体では前年同月比112.4%と前年を上回って推移している（8月度は台帳ベースの着地見込みから(20260831)販管システム出力の確定実績に切り替え）。9月分もさらに月次の前年同月実績（BOATRACE・JAおきなわSS・佐久本工機・ぐしけんの引き継ぎ分を加算した調整後13,365千円、うちBOATRACE分に「第70回全島エイサー」売上7,632千円/利益2,727千円を含む）を加算しており、9月単体（9/30 11時台・11:20時点）では前年同月比91.4%とやや下回っている（前年の大型イベント計上時期に対し、今年度の同イベントがまだ台帳に本計上されていないため）。※2026.9.30、9月の前年同月実績で佐久本工機の9月TVCM分（売上600千円・利益120千円）の第1Gからの振り替えが漏れていたため修正しています（調整後13,245→13,365千円）。4〜9月累計では引き続き4グループの中で最も高い伸び率を維持しており、BOATRACE案件の受け皿としてだけでなく、既存事業も含めて成長している。※2026.8.18、月別データの集計ロジックに不具合（担当者ごとの月次小計行を個別クライアントの実績として誤って合算していた）が見つかったため修正し、BOATRACE・佐久本工機の数値を再計算しています（御菓子御殿のコンテンツ→第2G異動は、コンテンツ側の2025年度月別データが未確認のため今回は反映していません）。※2026.8.18、久田氏の異動に伴うJAおきなわSSの第1G→第2G移管が判明したため、既存の調整に追加して再計算しています。"
       },
       clientTrends: {
         note: "2025年度・2026年度の管理台帳の8月度（受注伝票＝実績確定分のみ、積上げは含まず）をクライアント単位で突き合わせ。担当者異動によるBOATRACE・佐久本工機・㈱ぐしけん・JAおきなわSS・御菓子御殿（コンテンツ→第2G）等の付け替え分は対象外。利益ベース・単位:千円。表記ゆれ（「CBクラウド」⇔「CBcloud」、「㈱RCワークス」⇔「RCワークス」、「㈱沖縄ファミリーマート商品部」の表記重複等）は名寄せ済み。2026-08-26に台帳の結合セル（クライアント名が2行目以降で空欄になる書式）で明細の一部を読み飛ばしていた抽出漏れを修正し、全項目を台帳の月次小計（実績合計）と一致させて再集計しています。",
@@ -957,6 +1010,13 @@ const DATA = {
   }
 };
 /* DATA:END */
+/* OUTLOOK: 先行き見通し（10月〜翌3月の受注済み・積上げ・計画・前年実績）。各G台帳の10〜3月シート上部の集計行＋計画表PDF＋2025年度台帳（担当者異動の付け替え反映済み）から作成。データ更新時はDATAと合わせて更新すること */
+const OUTLOOK_META = {"asOf":"2026-09-30","note":"10月以降の各月に、受注済み（伝票計上済）と積上げ（見込み）がいくら入っているかを、月ごとの計画と比べたものです。先の月ほど案件の登録が少ないため、確保率が低く見えるのはふつうです。単位:千円。","source":"受注済み・積上げ：各営業グループ管理台帳の10月〜翌3月シート上部の集計行（第1G:9/30 18:29、第2G:9/30 13:14、第3G:9/30 15:23保存時点）。計画：(20260831)販管システム出力)2026年度売上・粗利計画表（第3Gの12月〜3月は台帳の計画と差があるため、こちらを正としています）。4〜9月の実績：このダッシュボードの四半期進捗と同じ数字（9月は着地見込み）。コンテンツビジネスは10月以降の台帳シートが未登録のため含みません。前年実績：4〜9月はこのダッシュボードの月次推移と同じ数字（担当者異動の調整済み）。10月〜翌3月は2025年度の各営業グループ管理台帳の同月シート上部の実績行に、4〜9月と同じルールで付け替えを反映しています。第1G→第2G：BOATRACE振興会（久田氏計上分）・JAおきなわSS・佐久本工機・㈱ぐしけん／第1G→第3G：南都・沖縄長正薬草本社・イーアス沖縄／第3G→第1G：三州観光開発グループ（MS・RS・NPコーポレーション、エムズガーデン等の店舗名義を含む）。10月〜翌3月の付け替え額（利益、千円）は、第1G→第2G：10月2,463・11月1,444・12月302・1月92・2月149・3月397、第3G→第1G：10月1,067・11月1,027・12月650・1月399・2月388・3月671（第1G→第3Gの該当はなし）。抽出した明細の合計は、前年度台帳の各月「売上合計」行と一致することを確認済み。3グループ合計は付け替えの影響を受けません。前年は確定した最終の数字、今年の10月以降は途中までしか入っていない数字なので、「前年の最終実績に対して、今どこまで積み上がっているか」の目安として見てください。"};
+const OUTLOOK = {"all":{"annual":{"done":196018,"booked":78662,"pipe":31914,"plan":459312,"landing":306594,"pct":66.8,"sales":{"done":836628,"booked":322694,"pipe":138903,"plan":1917285,"landing":1298225,"pct":67.7}},"months":[{"m":"10月","booked":15461,"pipe":15127,"plan":42307,"salesBooked":65807,"salesPipe":59438,"salesPlan":156833,"groups":[{"key":"g1","pct":67.7},{"key":"g2","pct":72.1},{"key":"g3","pct":79.6}]},{"m":"11月","booked":13439,"pipe":5312,"plan":38564,"salesBooked":56826,"salesPipe":23497,"salesPlan":143679,"groups":[{"key":"g1","pct":48.5},{"key":"g2","pct":34.7},{"key":"g3","pct":74.9}]},{"m":"12月","booked":11815,"pipe":3312,"plan":35515,"salesBooked":47004,"salesPipe":15888,"salesPlan":124743,"groups":[{"key":"g1","pct":51},{"key":"g2","pct":30.7},{"key":"g3","pct":53.6}]},{"m":"1月","booked":14394,"pipe":2739,"plan":44817,"salesBooked":58084,"salesPipe":9113,"salesPlan":153866,"groups":[{"key":"g1","pct":12},{"key":"g2","pct":30.4},{"key":"g3","pct":87}]},{"m":"2月","booked":12236,"pipe":3065,"plan":31470,"salesBooked":52910,"salesPipe":10701,"salesPlan":113678,"groups":[{"key":"g1","pct":12.8},{"key":"g2","pct":48.7},{"key":"g3","pct":102.5}]},{"m":"3月","booked":11317,"pipe":2359,"plan":59326,"salesBooked":42063,"salesPipe":20266,"salesPlan":290916,"groups":[{"key":"g1","pct":13.5},{"key":"g2","pct":18},{"key":"g3","pct":47.8}]}]},"g1":{"annual":{"done":57004,"booked":17939,"pipe":8790,"plan":153491,"landing":83733,"pct":54.6,"sales":{"done":222515,"booked":79618,"pipe":29048,"plan":530836,"landing":331181,"pct":62.4}},"months":[{"m":"10月","booked":4241,"pipe":4197,"plan":12470,"salesBooked":18993,"salesPipe":12276,"salesPlan":45338},{"m":"11月","booked":5978,"pipe":1131,"plan":14659,"salesBooked":21850,"salesPipe":4641,"salesPlan":49584},{"m":"12月","booked":3825,"pipe":1116,"plan":9686,"salesBooked":16685,"salesPipe":4205,"salesPlan":32576},{"m":"1月","booked":1066,"pipe":1032,"plan":17495,"salesBooked":7440,"salesPipe":3142,"salesPlan":57949},{"m":"2月","booked":934,"pipe":732,"plan":13042,"salesBooked":6553,"salesPipe":2692,"salesPlan":42614},{"m":"3月","booked":1895,"pipe":582,"plan":18411,"salesBooked":8097,"salesPipe":2092,"salesPlan":59864}]},"g2":{"annual":{"done":88863,"booked":29903,"pipe":10236,"plan":189125,"landing":129002,"pct":68.2,"sales":{"done":364396,"booked":114012,"pipe":38515,"plan":836120,"landing":516923,"pct":61.8}},"months":[{"m":"10月","booked":7605,"pipe":7733,"plan":21276,"salesBooked":28250,"salesPipe":29515,"salesPlan":75879},{"m":"11月","booked":4221,"pipe":1185,"plan":15574,"salesBooked":17960,"salesPipe":3831,"salesPlan":52496},{"m":"12月","booked":4069,"pipe":823,"plan":15946,"salesBooked":17558,"salesPipe":2532,"salesPlan":55355},{"m":"1月","booked":4636,"pipe":65,"plan":15444,"salesBooked":16568,"salesPipe":379,"salesPlan":58020},{"m":"2月","booked":4686,"pipe":65,"plan":9766,"salesBooked":16838,"salesPipe":379,"salesPlan":36049},{"m":"3月","booked":4686,"pipe":365,"plan":28047,"salesBooked":16838,"salesPipe":1879,"salesPlan":169475}]},"g3":{"annual":{"done":50151,"booked":30817,"pipe":12886,"plan":116696,"landing":93854,"pct":80.4,"sales":{"done":249717,"booked":129063,"pipe":71340,"plan":550329,"landing":450120,"pct":81.8}},"months":[{"m":"10月","booked":3615,"pipe":3196,"plan":8561,"salesBooked":18564,"salesPipe":17647,"salesPlan":35616},{"m":"11月","booked":3240,"pipe":2996,"plan":8331,"salesBooked":17016,"salesPipe":15025,"salesPlan":41599},{"m":"12月","booked":3921,"pipe":1373,"plan":9883,"salesBooked":12761,"salesPipe":9151,"salesPlan":36812},{"m":"1月","booked":8691,"pipe":1642,"plan":11878,"salesBooked":34076,"salesPipe":5592,"salesPlan":37897},{"m":"2月","booked":6615,"pipe":2268,"plan":8662,"salesBooked":29519,"salesPipe":7630,"salesPlan":35015},{"m":"3月","booked":4735,"pipe":1411,"plan":12868,"salesBooked":17127,"salesPipe":16295,"salesPlan":61577}]}};
+const OUTLOOK_PRIOR = {"all":[{"prior":37509,"salesPrior":140175},{"prior":32630,"salesPrior":123170},{"prior":27834,"salesPrior":106902},{"prior":40323,"salesPrior":141284},{"prior":27790,"salesPrior":92501},{"prior":60626,"salesPrior":269193}],"g1":[{"prior":12034,"salesPrior":43908},{"prior":13082,"salesPrior":44058},{"prior":7921,"salesPrior":30973},{"prior":17383,"salesPrior":60491},{"prior":10322,"salesPrior":30178},{"prior":18549,"salesPrior":60186}],"g2":[{"prior":18778,"salesPrior":67788},{"prior":13063,"salesPrior":44941},{"prior":12515,"salesPrior":47224},{"prior":13211,"salesPrior":50059},{"prior":8669,"salesPrior":30670},{"prior":30822,"salesPrior":158138}],"g3":[{"prior":6697,"salesPrior":28479},{"prior":6485,"salesPrior":34171},{"prior":7398,"salesPrior":28705},{"prior":9730,"salesPrior":30734},{"prior":8799,"salesPrior":31653},{"prior":11255,"salesPrior":50869}]};
+Object.keys(OUTLOOK_PRIOR).forEach(function (k) { OUTLOOK[k].months.forEach(function (r, i) { r.prior = OUTLOOK_PRIOR[k][i].prior; r.salesPrior = OUTLOOK_PRIOR[k][i].salesPrior; }); });
+Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].outlook = OUTLOOK[k]; });
+
 </script>
 <script>
 (function () {
@@ -1272,6 +1332,136 @@ const DATA = {
       '<div class="swf-grid">' + itemsHtml + '</div>';
   }
 
+
+  function outlookChart(series, color) {
+    var w = 300, h = 80, pad = 4, padBottom = 6, n = series.length;
+    var max = Math.max.apply(null, series.map(function (d) { return Math.max(d.v, d.plan, d.prior || 0); })) * 1.08;
+    function x(i) { return Number((pad + (i / (n - 1)) * (w - pad * 2)).toFixed(1)); }
+    function y(v) { return Number((pad + (1 - v / max) * (h - pad - padBottom)).toFixed(1)); }
+    var firstOut = -1;
+    series.forEach(function (d, i) { if (firstOut < 0 && d.kind === "outlook") firstOut = i; });
+    var zone = firstOut > 0
+      ? '<rect x="' + ((x(firstOut - 1) + x(firstOut)) / 2) + '" y="0" width="' + (w - (x(firstOut - 1) + x(firstOut)) / 2) + '" height="' + h + '" fill="var(--surface-2)"/>'
+      : "";
+    var planPts = series.map(function (d, i) { return x(i) + ',' + y(d.plan); }).join(" ");
+    var planLine = '<polyline points="' + planPts + '" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round"/>';
+    var priorLine = series.every(function (d) { return d.prior != null; })
+      ? '<polyline points="' + series.map(function (d, i) { return x(i) + ',' + y(d.prior); }).join(" ") + '" fill="none" stroke="var(--text-muted)" stroke-opacity="0.7" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round"/>'
+      : "";
+    var segs = [];
+    for (var i = 1; i < n; i++) {
+      var dashed = series[i].kind !== "actual";
+      var op = series[i].kind === "outlook" ? ' stroke-opacity="0.75"' : '';
+      segs.push('<line x1="' + x(i - 1) + '" y1="' + y(series[i - 1].v) + '" x2="' + x(i) + '" y2="' + y(series[i].v) + '" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round"' + (dashed ? ' stroke-dasharray="4 3"' : '') + op + '/>');
+    }
+    var dots = series.map(function (d, i) {
+      return d.kind === "actual"
+        ? '<circle cx="' + x(i) + '" cy="' + y(d.v) + '" r="3" fill="' + color + '"/>'
+        : '<circle cx="' + x(i) + '" cy="' + y(d.v) + '" r="3.5" fill="var(--surface)" stroke="' + color + '" stroke-width="2"/>';
+    }).join("");
+    return '<svg class="spark-svg ol-chart" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" role="img" aria-label="4月〜翌3月の粗利（実績・受注済み＋積上げ・計画）">' +
+      zone + planLine + priorLine + segs.join("") + dots + '</svg>';
+  }
+
+  function outlookSection(scope) {
+    var head = '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>先行き見通し（10月〜翌3月・利益）</h2>';
+    if (!scope.outlook) {
+      if (scope.color !== "content") return "";
+      return head + '<div class="guide">コンテンツビジネスは10月以降の管理台帳シートがまだ登録されていないため、先行き見通しは表示できません。シートが登録され次第、ほかのグループと同じ形で表示します。</div>';
+    }
+    var o = scope.outlook, a = o.annual, mc = "var(--" + scope.color + ")";
+    var w = function (v, max) { return (v / max * 100).toFixed(2) + "%"; };
+    var gName = { g1: "第1G", g2: "第2G", g3: "第3G" };
+
+    // 4〜9月（実績、9月は着地見込み）＋10〜3月（受注済み＋積上げ）の12カ月。全社は先行き見通しと同じく第1〜3G合計
+    var srcKeys = scope.color === "all" ? ["g1", "g2", "g3"] : [scope.color];
+    var past = DATA.scopes[srcKeys[0]].ytd.monthlyTrend.map(function (d, i) {
+      var act = 0, pl = 0, pr = 0;
+      srcKeys.forEach(function (k) { var t = DATA.scopes[k].ytd.monthlyTrend[i]; act += t.actual; pl += t.plan; pr += t.prior; });
+      return { m: d.m, v: act, plan: pl, prior: pr, kind: d.forecast ? "landing" : "actual" };
+    });
+    var series = past.concat(o.months.map(function (r) { return { m: r.m, v: r.booked + r.pipe, plan: r.plan, prior: r.prior, kind: "outlook" }; }));
+    var priorYear = series.reduce(function (t, d) { return t + d.prior; }, 0);
+    var priorNote = scope.color === "all" ? "" :
+      '<div class="guide" style="margin-top:-8px;">前年実績は、担当者異動に伴うクライアントの付け替え（久田氏・小串氏の担当分、㈱ぐしけん、三州観光開発グループ）を反映した調整後の数字です。付け替えの内訳は「数字の出どころ」をご覧ください。</div>';
+
+    var aMax = Math.max(a.plan, a.landing);
+    var gap = a.plan - a.landing;
+    var annual = '<div class="ol-annual" style="--mc:' + mc + '">' +
+      '<div class="ol-lbl">年間の着地見通し（いま見えている分の合計）</div>' +
+      '<div class="ol-big">' + fmt(a.landing) + '<span class="unit">千円</span></div>' +
+      '<div class="ol-sub">年間計画 ' + fmt(a.plan) + '千円の <b>' + a.pct + '%</b>' +
+        (gap > 0 ? '／計画まで残り <b>' + fmt(gap) + '</b>千円（これから受注を積み上げる分）' : '／計画を <b>' + fmt(-gap) + '</b>千円上回る') + '</div>' +
+      '<div class="ol-sub">前年度の年間実績 ' + fmt(priorYear) + '千円に対して <b>' + (a.landing / priorYear * 100).toFixed(1) + '%</b>（前年まで残り ' + fmt(Math.max(0, priorYear - a.landing)) + '千円）</div>' +
+      '<div class="ol-wrap"><div class="ol-track">' +
+        '<div class="ol-seg done" style="width:' + w(a.done, aMax) + '"></div>' +
+        '<div class="ol-seg booked" style="width:' + w(a.booked, aMax) + '"></div>' +
+        '<div class="ol-seg pipe" style="width:' + w(a.pipe, aMax) + '"></div>' +
+      '</div><div class="ol-plan" style="left:calc(' + w(a.plan, aMax) + ' - 2px)"></div>' +
+      (priorYear <= aMax ? '<div class="ol-prior" style="left:calc(' + w(priorYear, aMax) + ' - 1px)"></div>' : '') + '</div>' +
+      '<div class="ol-legend">' +
+        '<span><i class="done"></i>4〜9月実績 ' + fmt(a.done) + '</span>' +
+        '<span><i class="booked"></i>10〜3月 受注済み ' + fmt(a.booked) + '</span>' +
+        '<span><i class="pipe"></i>10〜3月 積上げ ' + fmt(a.pipe) + '</span>' +
+        (gap > 0 ? '<span><i class="gap"></i>未確保 ' + fmt(gap) + '</span>' : '') +
+        '<span><i class="plan"></i>年間計画</span>' +
+        '<span><i class="prior"></i>前年度実績</span>' +
+      '</div>' +
+    '</div>';
+
+    function monthRow(r) {
+      var secured = r.booked + r.pipe, max = Math.max(r.plan, secured, r.prior || 0);
+      var rest = r.plan - secured;
+      var q = /^(10|11|12)月$/.test(r.m) ? "Q3" : "Q4";
+      var grp = r.groups ? '<div class="ol-groups">' + r.groups.map(function (g) {
+        return '<span style="--gc:var(--' + g.key + ')"><i></i>' + gName[g.key] + ' ' + Math.round(g.pct) + '%</span>';
+      }).join("") + '</div>' : "";
+      return '<div class="ol-row" style="--mc:' + mc + '">' +
+        '<div class="ol-row-head"><span class="ol-m">' + esc(r.m) + '<span class="q">' + q + '</span></span><span class="ol-pct">確保率<b>' + (secured / r.plan * 100).toFixed(1) + '%</b></span></div>' +
+        '<div class="ol-wrap"><div class="ol-track thin">' +
+          '<div class="ol-seg booked" style="width:' + w(r.booked, max) + '"></div>' +
+          '<div class="ol-seg pipe" style="width:' + w(r.pipe, max) + '"></div>' +
+        '</div><div class="ol-plan" style="left:calc(' + w(r.plan, max) + ' - 2px)"></div>' +
+        (r.prior != null ? '<div class="ol-prior" style="left:calc(' + w(r.prior, max) + ' - 1px)"></div>' : '') + '</div>' +
+        '<div class="ol-note">受注済み <b>' + fmt(r.booked) + '</b>＋積上げ <b>' + fmt(r.pipe) + '</b>／計画 ' + fmt(r.plan) + '千円' +
+          (rest > 0 ? '（残り ' + fmt(rest) + '）' : '（計画超 ' + fmt(-rest) + '）') + '</div>' +
+        (r.prior != null ? '<div class="ol-note">前年同月の実績 <b>' + fmt(r.prior) + '</b>千円 → 今の確保分は前年の <b>' + (secured / r.prior * 100).toFixed(1) + '%</b></div>' : '') + grp +
+      '</div>';
+    }
+    var chart = '<div class="spark-wrap" style="--mc:' + mc + '">' +
+      '<div class="spark-top"><span class="t">4月〜翌3月の粗利の流れ</span><span class="v">年間着地見通し ' + fmt(a.landing) + '千円（計画比' + a.pct + '%）</span></div>' +
+      outlookChart(series, mc) +
+      '<div class="spark-ticks">' + series.map(function (d) { return '<span>' + d.m + '</span>'; }).join("") + '</div>' +
+      '<div class="spark-legend">' +
+        '<span style="color:' + mc + '"><i></i>実績（9月は着地見込み）</span>' +
+        '<span class="ol-sec" style="color:' + mc + '"><i></i>受注済み＋積上げ</span>' +
+        '<span class="plan"><i></i>計画</span>' +
+        '<span class="ol-priorl"><i></i>前年実績</span>' +
+        '<span class="ol-zone"><i></i>先行き（10月〜）</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="guide" style="margin-top:-8px;">10月以降の線は、現時点で台帳に入っている分だけを示しています。先の月ほど今後の受注で上がっていきます。前年実績の線は、前年度の最終的な実績です。</div>' + priorNote;
+
+    var near = o.months.slice(0, 3), later = o.months.slice(3);
+    var legend = '<div class="ol-legend" style="--mc:' + mc + ';margin:0 0 12px;"><span><i class="booked"></i>受注済み</span><span><i class="pipe"></i>積上げ</span><span><i class="plan"></i>その月の計画</span><span><i class="prior"></i>前年同月の実績</span></div>';
+    var monthsHtml = '<div class="ol-months-title">月別の確保状況（先3か月）</div>' + legend +
+      '<div class="ol-months">' + near.map(monthRow).join("") + '</div>' +
+      (later.length ? '<details class="more ol-later"><summary>' + esc(later[0].m) + '〜' + esc(later[later.length - 1].m) + '（Q4）も見る</summary><div class="ol-months">' + later.map(monthRow).join("") + '</div></details>' : "");
+
+    var salesRows = o.months.map(function (r) {
+      return [r.m, fmt(r.salesBooked), fmt(r.salesPipe), fmt(r.salesPlan), ((r.salesBooked + r.salesPipe) / r.salesPlan * 100).toFixed(1) + "%", fmt(r.salesPrior)];
+    });
+    var salesTbl = '<div style="overflow-x:auto"><table class="dt ol-tbl"><thead><tr><th>月</th><th>受注済み</th><th>積上げ</th><th>計画</th><th>確保率</th><th>前年同月</th></tr></thead><tbody>' +
+      salesRows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join("") + '</tr>'; }).join("") +
+      '</tbody></table></div><p style="margin-top:8px">年間の着地見通し（売上）：<b>' + fmt(a.sales.landing) + '</b>千円／年間計画 ' + fmt(a.sales.plan) + '千円（' + a.sales.pct + '%）。内訳は4〜9月実績 ' + fmt(a.sales.done) + '＋10〜3月 受注済み ' + fmt(a.sales.booked) + '＋積上げ ' + fmt(a.sales.pipe) + '。</p>';
+
+    return head +
+      '<div class="guide">' + esc(OUTLOOK_META.note) + '</div>' +
+      annual + chart + monthsHtml +
+      '<details class="more"><summary>参考：売上ベースの数字を見る</summary><div class="more-body">' + salesTbl + '</div></details>' +
+      '<details class="more"><summary>数字の出どころ</summary><div class="more-body"><p>' + esc(OUTLOOK_META.source) + '</p></div></details>';
+  }
+
   function blk(name, html) { return html ? '<div class="blk blk-' + name + '">' + html + '</div>' : ""; }
 
   function renderPanel(key) {
@@ -1283,6 +1473,7 @@ const DATA = {
     html += blk("quarterly", quarterlySection(scope));
     html += blk("trend", trendSection(scope));
     html += blk("groups", groupsSection(scope));
+    html += blk("outlook", outlookSection(scope));
     html += blk("crosstopics", crossTopicsSection(scope));
     html += blk("clienttrends", clientTrendsSection(scope));
     html += blk("topics", topicsSection(scope));
