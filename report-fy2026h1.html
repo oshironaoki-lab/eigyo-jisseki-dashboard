@@ -1,0 +1,918 @@
+<title>2026年度 上期 実績分析報告</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root {
+    --bg: #f5f5f2;
+    --surface: #ffffff;
+    --surface-2: #eeede6;
+    --text: #17160f;
+    --text-secondary: #57554c;
+    --text-muted: #8c897d;
+    --border: rgba(23,22,15,0.11);
+    --border-strong: rgba(23,22,15,0.22);
+    --shadow: 0 1px 2px rgba(23,22,15,0.04), 0 8px 20px -14px rgba(23,22,15,0.22);
+
+    --g1: #2a78d6; --g1-soft: #dde9fb;
+    --g2: #eb6834; --g2-soft: #fbe3d6;
+    --g3: #1baf7a; --g3-soft: #d7f3e7;
+    --all: #4a3aa7; --all-soft: #e6e0f7;
+    --content: #eda100; --content-soft: #fcecd0;
+
+    --good: #0ca30c; --good-soft: #dcefe0;
+    --warn: #c98500; --warn-soft: #faedc9;
+    --bad: #d03b3b;  --bad-soft: #fbe1dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16150f; --surface: #1f1e17; --surface-2: #28261d;
+      --text: #f1efe6; --text-secondary: #c2bfb2; --text-muted: #948f80;
+      --border: rgba(241,239,230,0.13); --border-strong: rgba(241,239,230,0.24);
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 20px -14px rgba(0,0,0,0.6);
+      --g1: #3987e5; --g1-soft: #23334a;
+      --g2: #d95926; --g2-soft: #452c1c;
+      --g3: #199e70; --g3-soft: #1c3d33;
+      --all: #9085e9; --all-soft: #332a4d;
+      --content: #c98500; --content-soft: #453a17;
+      --good: #1fbf3d; --good-soft: #1e3a26;
+      --warn: #e0ab4a; --warn-soft: #453a17;
+      --bad: #e66767;  --bad-soft: #45241e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16150f; --surface: #1f1e17; --surface-2: #28261d;
+    --text: #f1efe6; --text-secondary: #c2bfb2; --text-muted: #948f80;
+    --border: rgba(241,239,230,0.13); --border-strong: rgba(241,239,230,0.24);
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 20px -14px rgba(0,0,0,0.6);
+    --g1: #3987e5; --g1-soft: #23334a;
+    --g2: #d95926; --g2-soft: #452c1c;
+    --g3: #199e70; --g3-soft: #1c3d33;
+    --all: #9085e9; --all-soft: #332a4d;
+    --content: #c98500; --content-soft: #453a17;
+    --good: #1fbf3d; --good-soft: #1e3a26;
+    --warn: #e0ab4a; --warn-soft: #453a17;
+    --bad: #e66767;  --bad-soft: #45241e;
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f5f2; --surface: #ffffff; --surface-2: #eeede6;
+    --text: #17160f; --text-secondary: #57554c; --text-muted: #8c897d;
+    --border: rgba(23,22,15,0.11); --border-strong: rgba(23,22,15,0.22);
+    --shadow: 0 1px 2px rgba(23,22,15,0.04), 0 8px 20px -14px rgba(23,22,15,0.22);
+    --g1: #2a78d6; --g1-soft: #dde9fb;
+    --g2: #eb6834; --g2-soft: #fbe3d6;
+    --g3: #1baf7a; --g3-soft: #d7f3e7;
+    --all: #4a3aa7; --all-soft: #e6e0f7;
+    --content: #eda100; --content-soft: #fcecd0;
+    --good: #0ca30c; --good-soft: #dcefe0;
+    --warn: #c98500; --warn-soft: #faedc9;
+    --bad: #d03b3b;  --bad-soft: #fbe1dc;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6; font-feature-settings: "palt" 1;
+    padding-bottom: 48px;
+  }
+
+  header.top {
+    position: sticky; top: 0; z-index: 30;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-inner { max-width: 640px; margin: 0 auto; padding: 12px 16px; }
+  .top-title { font-size: 11px; letter-spacing: .1em; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+  .top-h1 { font-size: 17px; font-weight: 800; margin: 3px 0 2px; letter-spacing: -0.01em; }
+  .top-sub { font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px; }
+  .back-btn {
+    -webkit-appearance: none; appearance: none; border: none; background: var(--all);
+    color: #fff; font: inherit; font-size: 12.5px; font-weight: 800;
+    padding: 8px 16px 8px 12px; border-radius: 999px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    -webkit-tap-highlight-color: transparent; transition: transform .15s;
+  }
+  .back-btn:active { transform: scale(.96); }
+
+  main { max-width: 640px; margin: 0 auto; padding: 18px 16px 0; }
+
+  .asof {
+    font-size: 11px; color: var(--text-muted); background: var(--surface-2);
+    border-radius: 8px; padding: 8px 12px; margin-bottom: 16px; line-height: 1.7;
+  }
+
+  h2.sec { font-size: 13px; font-weight: 800; margin: 26px 0 10px; letter-spacing: .01em;
+    display: flex; align-items: center; gap: 7px; }
+  h2.sec .bar { width: 4px; height: 14px; border-radius: 2px; background: var(--sec-c, var(--text)); display: inline-block; }
+  h2.sec:first-child { margin-top: 0; }
+  h3.sub { font-size: 11.5px; font-weight: 800; margin: 16px 0 8px; color: var(--text-secondary); }
+
+  /* ---- KPI cards ---- */
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 13px;
+    padding: 13px 14px; box-shadow: var(--shadow);
+  }
+  .kpi .lbl { font-size: 10.5px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }
+  .kpi .val { font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .kpi .val small { font-size: 11.5px; font-weight: 700; }
+  .kpi .val.warn { color: var(--warn); } .kpi .val.bad { color: var(--bad); } .kpi .val.good { color: var(--good); }
+  .kpi .sub { font-size: 10.5px; color: var(--text-muted); margin-top: 5px; line-height: 1.6; }
+
+  /* ---- Callout ---- */
+  .callout {
+    border-radius: 13px; padding: 14px 15px; background: var(--surface-2); border: 1px solid var(--border);
+    font-size: 12.5px; line-height: 1.85; margin-bottom: 12px;
+  }
+  .callout .ct { font-weight: 800; font-size: 12.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .callout.good { background: var(--good-soft); border-color: color-mix(in srgb, var(--good) 35%, var(--border)); }
+  .callout.bad  { background: var(--bad-soft);  border-color: color-mix(in srgb, var(--bad) 35%, var(--border)); }
+  .callout.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 35%, var(--border)); }
+
+  /* ---- Table ---- */
+  .tblwrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); margin-bottom: 14px; }
+  table.dt { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 460px; }
+  table.dt th, table.dt td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.dt th:first-child, table.dt td:first-child { text-align: left; font-variant-numeric: normal; position: sticky; left: 0; background: var(--surface); }
+  table.dt thead th { color: var(--text-muted); font-weight: 700; font-size: 9.5px; background: var(--surface-2); }
+  table.dt tbody tr:last-child td { border-bottom: none; }
+  table.dt tr.tot td { font-weight: 800; background: var(--surface-2); }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; vertical-align: middle; }
+
+  /* ---- Bar rows (achievement rate) ---- */
+  .barwrap { margin: 4px 0 14px; }
+  .barrow { margin-bottom: 14px; }
+  .barrow .barlabel { font-size: 11.5px; font-weight: 700; margin-bottom: 4px; display:flex; flex-wrap:wrap; justify-content: space-between; row-gap:2px; column-gap:8px; }
+  .barrow .barlabel .num { font-weight: 600; color: var(--text-muted); font-size: 10px; }
+  .track { position: relative; height: 15px; background: var(--surface-2); border-radius: 4px; overflow: visible; }
+  .fill-actual { position:absolute; top:0; left:0; height:100%; border-radius: 4px; }
+  .plan-marker { position:absolute; top:-3px; bottom:-3px; width:2px; background: var(--text); opacity: .55; }
+  .plan-marker::after { content: '計画'; position: absolute; top: 100%; margin-top: 3px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--text-muted); font-weight: 700; white-space:nowrap; }
+
+  .legend { display:flex; gap:14px; font-size:10.5px; color: var(--text-muted); margin: 6px 0 2px; flex-wrap: wrap; }
+  .legend span { display:flex; align-items:center; gap:5px; }
+  .legend .sw { width:12px; height:8px; border-radius:2px; display:inline-block; }
+  .legend .sw.line { height:2px; width:16px; }
+  .legend .sw.dash { background: repeating-linear-gradient(to right, var(--text-muted) 0 4px, transparent 4px 7px); height:2px; width:16px; }
+
+  /* ---- Donut ---- */
+  .donut-wrap { display:flex; align-items:center; gap:16px; margin-bottom: 6px; }
+  .donut { width:96px; height:96px; border-radius:50%; position:relative; flex-shrink:0; }
+  .donut::after { content:''; position:absolute; inset:18px; background:var(--surface); border-radius:50%; }
+  .donut-legend { font-size:11px; line-height:2.0; }
+  .chartcap { font-size: 10.5px; color: var(--text-muted); margin: 2px 0 16px; }
+
+  /* ---- Quarterly bars ---- */
+  .qcols { display:flex; align-items:flex-end; gap:14px; height:170px; margin: 14px 0 8px; position:relative; }
+  .qcols .refline { position:absolute; left:0; right:0; border-top:2px dashed var(--border-strong); }
+  .qcols .refline::after { content:'計画100%'; position:absolute; right:0; top:-15px; font-size:9px; color:var(--text-muted); font-weight:700; }
+  .qgroup { display:flex; flex-direction:column; align-items:center; flex:1; height:100%; justify-content:flex-end; }
+  .qgroup .bars { display:flex; align-items:flex-end; gap:4px; height:130px; }
+  .qgroup .col { width:20px; border-radius: 3px 3px 0 0; position:relative; }
+  .qgroup .col .v { position:absolute; top:-15px; left:50%; transform:translateX(-50%); font-size:8px; font-weight:700; color:var(--text-secondary); white-space:nowrap; }
+  .qgroup .xlabel { margin-top:8px; height:14px; line-height:14px; font-size:10.5px; font-weight:700; color:var(--text); }
+
+  ol.points { margin: 4px 0 0; padding-left: 20px; font-size: 12.5px; line-height: 1.85; }
+  ol.points li { margin-bottom: 12px; }
+  ol.points b { font-weight: 800; }
+
+  footer.pagefoot { max-width: 640px; margin: 30px auto 0; padding: 16px; font-size: 10.5px; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border); }
+  .kpi .val.pending { color: var(--text-muted); font-size: 15px; }
+  .callout.pending { background: transparent; border: 1.5px dashed var(--border-strong); color: var(--text-secondary); }
+  table.dt.cl { min-width: 0; }
+  table.dt.cl td:first-child { position: static; }
+  @media print { .tblwrap { overflow: visible; } table.dt { min-width: 0 !important; } table.dt th, table.dt td { padding: 7px 6px; } }
+  table.dt.cl td { vertical-align: top; }
+  /* ---- 残業ヒートマップ ---- */
+  table.dt.hmt { min-width: 600px; }
+  table.dt.hmt td .role { font-size: 9px; color: var(--text-muted); margin-left: 5px; }
+  table.dt.hmt tr.gfirst td { border-top: 1.5px solid var(--border-strong); }
+  table.dt.hmt td.hm { text-align: center; font-weight: 700; }
+  .hm.h0, .hm.hz { color: var(--text-muted); font-weight: 500; }
+  .hm.h16 { background: color-mix(in srgb, var(--warn) 12%, var(--surface)); }
+  .hm.h32 { background: var(--warn-soft); color: var(--warn); }
+  .hm.h45 { background: var(--bad-soft); color: var(--bad); font-weight: 800; }
+  .sw.hm-sw { width: 14px; height: 10px; border: 1px solid var(--border); }
+  .sw.hm-sw.h16 { background: color-mix(in srgb, var(--warn) 12%, var(--surface)); }
+  .sw.hm-sw.h32 { background: var(--warn-soft); }
+  .sw.hm-sw.h45 { background: var(--bad-soft); }
+  td.avg32 { color: var(--warn); font-weight: 800; }
+  /* ---- 残業ランキング ---- */
+  .rkwrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px 22px; margin-bottom: 14px; position: relative; }
+  .rk { display: grid; grid-template-columns: 18px 118px 1fr 46px; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 11px; }
+  .rk-n { color: var(--text-muted); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .rk-name { font-weight: 700; line-height: 1.25; }
+  .rk-name span { display: block; font-size: 9px; color: var(--text-muted); font-weight: 500; }
+  .rk-track { position: relative; height: 11px; background: var(--surface-2); border-radius: 3px; }
+  .rk-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+  .rk-ref { position: absolute; top: -4px; bottom: -4px; border-left: 1.5px dashed var(--text-secondary); }
+  .rk-v { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .rk-v.over { color: var(--warn); }
+  .rk-axis { position: relative; margin-left: calc(18px + 118px + 16px); margin-right: 54px; height: 12px; }
+  .rk-axis span { position: absolute; transform: translateX(-50%); font-size: 9px; color: var(--text-muted); font-weight: 700; white-space: nowrap; }
+  @media print { header.top { position: static; } .kpi, .rkwrap, svg, tr { break-inside: avoid; } h2.sec, h3.sub { break-after: avoid; } }
+</style>
+
+
+<header class="top">
+  <div class="top-inner">
+    <a class="back-btn" href="./index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      <span>ダッシュボードに戻る</span>
+    </a>
+    <div class="top-title" style="margin-top:12px;">FY2026 1st Half Report</div>
+    <h1 class="top-h1">2026年度　上期 実績分析報告</h1>
+    <div class="top-sub">2026年4月〜9月（確定実績）／作成日：2026年10月23日</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="asof">
+    <b>目的：</b>2026年度上期（4〜9月）の全社実績を振り返り、計画対比・前年対比・四半期推移・クライアント別の増減から主なポイントを整理し、下期の課題を確認する資料です。<br>
+    <b>データソース：</b>(20260930)販管システム出力）2026年度売上・粗利計画表を売上・粗利の確定数値の正とする（全社の前年同期は同資料の「前期実績」。2025年度の通期・下期は(20260331)販管システム出力）2025年度売上・粗利計画表（2025年度最終）による）／グループ別の前年は、担当者異動に伴うクライアントの移動を引き継ぎ先へ振り替えた調整後の数値（ダッシュボードの「対前年」と同じ）／営業利益・経常利益・クライアント別の累計は㈱宣伝　月次報告会資料（R8.5〜9月度）、クライアント別の要因は2025・2026年度の第1〜3営業グループ管理台帳の4〜9月シート（受注伝票＝実績確定分）／営業メンバーの残業は★残業集計表／下期の確保状況はダッシュボードの「先行き見通し」（10/22夜の台帳時点）。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>上期サマリー</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="lbl">上期・売上実績</div>
+      <div class="val">919,596<small>千円</small></div>
+      <div class="sub">計画比91.6%／前年比100.5%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">上期・粗利実績</div>
+      <div class="val">212,226<small>千円</small></div>
+      <div class="sub">計画比95.3%／前年比105.7%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">粗利率（上期／計画／前年同期）</div>
+      <div class="val good">23.1%</div>
+      <div class="sub">計画22.2%／前年同期21.9%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">四半期別・粗利達成率</div>
+      <div class="val warn">Q2で低下</div>
+      <div class="sub">Q1 99.8% → Q2 91.5%</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:12px;">
+    <div class="ct">📌 エグゼクティブサマリー</div>
+    2026年度上期は、売上919,596千円（計画1,003,486千円比91.6%、前年同期914,862千円比+0.5%）、粗利212,226千円（計画222,778千円比95.3%、前年同期200,741千円比+5.7%）で着地。<b>売上は前年並みだったが、粗利率が23.1%（前年同期21.9%）に上がり、粗利は前年を11,485千円上回った</b>。一方で、計画には売上・粗利とも届いておらず、粗利の不足は10,552千円。<br><br>
+    四半期では、Q1（4〜6月）は粗利99.8%とほぼ計画どおりだったが、Q2（7〜9月）は91.5%に下がり、前年同期（112,448千円）も98.7%とわずかに下回った。<b>2025年度に見られた「年央の失速」と同じ形が今年も出ている</b>（2025年度はQ1 97.3%→Q2 89.8%）。<br><br>
+    グループ別では、第2G（計画比106.8%・前年比129.7%）とコンテンツ（計画比104.6%）が計画を超え、第1G（84.2%）・第3G（89.0%）は届かなかった。クライアント別では、前年の単発案件の反動と継続案件の終了・縮小（RCワークスのOTV提供、ネクシーズの懸垂幕、沖縄セルラー電話のタイム提供など）による減少を、新規・拡大したクライアント（沖縄エンタテインメント振興協会の文化祭運営、ボートレース大村、ヤシロなど）が補った。<br><br>
+    <b>利益段階では、粗利の増加（会計ベース+11,370千円）を販管費の増加（+12,144千円、うち人件費+11,712千円）が上回り</b>、営業利益は▲23,228千円・経常利益は▲25,879千円と、前年とほぼ同じ水準の赤字だった（経常は前年より1,153千円改善）。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>全社実績　月次推移</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※(20260930)販管システム出力（4グループ合計）。点にカーソルを合わせると、計画・前年の値も表示します</div>
+
+  <h3 class="sub">売上高　計画 vs 実績</h3>
+  <svg viewBox="0 0 640 190" width="100%" style="max-height:200px;" role="img">
+    <text x="52" y="14" font-size="9" fill="var(--text-muted)" text-anchor="end">（千円）</text>
+    <line x1="60" y1="110.7" x2="625" y2="110.7" stroke="var(--border)" stroke-width="1"/>
+    <text x="52" y="114.2" font-size="9" fill="var(--text-muted)" text-anchor="end">100,000</text>
+    <line x1="60" y1="71.3" x2="625" y2="71.3" stroke="var(--border)" stroke-width="1"/>
+    <text x="52" y="74.8" font-size="9" fill="var(--text-muted)" text-anchor="end">200,000</text>
+    <line x1="60" y1="32" x2="625" y2="32" stroke="var(--border)" stroke-width="1"/>
+    <text x="52" y="35.5" font-size="9" fill="var(--text-muted)" text-anchor="end">300,000</text>
+    <line x1="60" y1="150" x2="625" y2="150" stroke="var(--border-strong)" stroke-width="1"/>
+    <path d="M70,102.7 L178,91.5 L286,100.1 L394,37.1 L502,106.3 L610,102.4" fill="none" stroke="var(--text-muted)" stroke-width="1.5" opacity=".55"/>
+    <path d="M70,91.4 L178,86.2 L286,93.9 L394,42.1 L502,97.8 L610,94" fill="none" stroke="var(--border-strong)" stroke-width="2" stroke-dasharray="5,4"/>
+    <path d="M70,90.1 L178,104.8 L286,85.6 L394,56.8 L502,100.9 L610,100.2" fill="none" stroke="var(--all)" stroke-width="2.2"/>
+    <circle cx="70" cy="90.1" r="3" fill="var(--all)"><title>4月 実績 152,366／計画 149,040（102.2%）／前年 120,141</title></circle>
+    <circle cx="178" cy="104.8" r="4" fill="var(--all)"><title>5月 実績 114,817／計画 162,238（70.8%）／前年 148,796</title></circle>
+    <circle cx="286" cy="85.6" r="3" fill="var(--all)"><title>6月 実績 163,841／計画 142,658（114.8%）／前年 126,833</title></circle>
+    <circle cx="394" cy="56.8" r="4" fill="var(--all)"><title>7月 実績 236,978／計画 274,424（86.4%）／前年 286,975</title></circle>
+    <circle cx="502" cy="100.9" r="3" fill="var(--all)"><title>8月 実績 124,880／計画 132,742（94.1%）／前年 111,170</title></circle>
+    <circle cx="610" cy="100.2" r="4" fill="var(--all)"><title>9月 実績 126,714／計画 142,384（89.0%）／前年 120,947</title></circle>
+    <text x="178" y="120.8" font-size="9.5" font-weight="700" fill="var(--all)" text-anchor="middle">114,817</text>
+    <text x="394" y="72.8" font-size="9.5" font-weight="700" fill="var(--all)" text-anchor="middle">236,978</text>
+    <text x="610" y="116.2" font-size="9.5" font-weight="700" fill="var(--all)" text-anchor="middle">126,714</text>
+    <text x="70" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">4月</text>
+    <text x="178" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">5月</text>
+    <text x="286" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">6月</text>
+    <text x="394" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">7月</text>
+    <text x="502" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">8月</text>
+    <text x="610" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">9月</text>
+  </svg>
+  <div class="legend">
+    <span><span class="sw dash"></span>売上計画</span>
+    <span><span class="sw line" style="background:var(--all)"></span>売上実績</span>
+    <span><span class="sw line" style="background:var(--text-muted); opacity:.55;"></span>前年同月</span>
+  </div>
+
+  <h3 class="sub">売上総利益（粗利）　計画 vs 実績</h3>
+  <svg viewBox="0 0 640 190" width="100%" style="max-height:200px;" role="img">
+    <text x="52" y="14" font-size="9" fill="var(--text-muted)" text-anchor="end">（千円）</text>
+    <line x1="60" y1="110.7" x2="625" y2="110.7" stroke="var(--border)" stroke-width="1"/>
+    <text x="52" y="114.2" font-size="9" fill="var(--text-muted)" text-anchor="end">20,000</text>
+    <line x1="60" y1="71.3" x2="625" y2="71.3" stroke="var(--border)" stroke-width="1"/>
+    <text x="52" y="74.8" font-size="9" fill="var(--text-muted)" text-anchor="end">40,000</text>
+    <line x1="60" y1="32" x2="625" y2="32" stroke="var(--border)" stroke-width="1"/>
+    <text x="52" y="35.5" font-size="9" fill="var(--text-muted)" text-anchor="end">60,000</text>
+    <line x1="60" y1="150" x2="625" y2="150" stroke="var(--border-strong)" stroke-width="1"/>
+    <path d="M70,99 L178,87.6 L286,89.7 L394,52.1 L502,96.3 L610,80.5" fill="none" stroke="var(--text-muted)" stroke-width="1.5" opacity=".55"/>
+    <path d="M70,87.5 L178,81.4 L286,81.5 L394,56.8 L502,84.6 L610,70.1" fill="none" stroke="var(--border-strong)" stroke-width="2" stroke-dasharray="5,4"/>
+    <path d="M70,86.4 L178,94.3 L286,70.1 L394,59.1 L502,84 L610,88.7" fill="none" stroke="var(--good)" stroke-width="2.2"/>
+    <circle cx="70" cy="86.4" r="3" fill="var(--good)"><title>4月 実績 32,352／計画 31,795（101.8%）／前年 25,938</title></circle>
+    <circle cx="178" cy="94.3" r="4" fill="var(--good)"><title>5月 実績 28,307／計画 34,872（81.2%）／前年 31,709</title></circle>
+    <circle cx="286" cy="70.1" r="4" fill="var(--good)"><title>6月 実績 40,607／計画 34,810（116.7%）／前年 30,646</title></circle>
+    <circle cx="394" cy="59.1" r="4" fill="var(--good)"><title>7月 実績 46,212／計画 47,409（97.5%）／前年 49,802</title></circle>
+    <circle cx="502" cy="84" r="3" fill="var(--good)"><title>8月 実績 33,577／計画 33,256（101.0%）／前年 27,285</title></circle>
+    <circle cx="610" cy="88.7" r="4" fill="var(--good)"><title>9月 実績 31,171／計画 40,636（76.7%）／前年 35,361</title></circle>
+    <text x="178" y="110.3" font-size="9.5" font-weight="700" fill="var(--good)" text-anchor="middle">28,307</text>
+    <text x="286" y="61.1" font-size="9.5" font-weight="700" fill="var(--good)" text-anchor="middle">40,607</text>
+    <text x="394" y="75.1" font-size="9.5" font-weight="700" fill="var(--good)" text-anchor="middle">46,212</text>
+    <text x="610" y="104.7" font-size="9.5" font-weight="700" fill="var(--good)" text-anchor="middle">31,171</text>
+    <text x="70" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">4月</text>
+    <text x="178" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">5月</text>
+    <text x="286" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">6月</text>
+    <text x="394" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">7月</text>
+    <text x="502" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">8月</text>
+    <text x="610" y="170" font-size="9.5" fill="var(--text)" text-anchor="middle">9月</text>
+  </svg>
+  <div class="legend">
+    <span><span class="sw dash"></span>粗利計画</span>
+    <span><span class="sw line" style="background:var(--good)"></span>粗利実績</span>
+    <span><span class="sw line" style="background:var(--text-muted); opacity:.55;"></span>前年同月</span>
+  </div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>月</th><th>粗利計画</th><th>粗利実績</th><th>達成率</th><th>前年同月</th><th>前年比</th><th>粗利率</th></tr></thead>
+      <tbody>
+        <tr><td>4月</td><td>31,795</td><td>32,352</td><td>101.8%</td><td>25,938</td><td>124.7%</td><td>21.2%</td></tr>
+        <tr><td>5月</td><td>34,872</td><td>28,307</td><td>81.2%</td><td>31,709</td><td>89.3%</td><td>24.7%</td></tr>
+        <tr><td>6月</td><td>34,810</td><td>40,607</td><td>116.7%</td><td>30,646</td><td>132.5%</td><td>24.8%</td></tr>
+        <tr><td>7月</td><td>47,409</td><td>46,212</td><td>97.5%</td><td>49,802</td><td>92.8%</td><td>19.5%</td></tr>
+        <tr><td>8月</td><td>33,256</td><td>33,577</td><td>101.0%</td><td>27,285</td><td>123.1%</td><td>26.9%</td></tr>
+        <tr><td>9月</td><td>40,636</td><td>31,171</td><td>76.7%</td><td>35,361</td><td>88.2%</td><td>24.6%</td></tr>
+        <tr class="tot"><td>上期計</td><td>222,778</td><td>212,226</td><td>95.3%</td><td>200,741</td><td>105.7%</td><td>23.1%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="ct">🔍 数字の見方</div>
+    6か月のうち計画を超えたのは4月・6月・8月の3か月。<b>5月（計画比81.2%）と9月（同76.7%）の落ち込み</b>が上期の計画未達の大半を占める（2か月で計画との差16,030千円、上期の不足10,552千円を上回る）。5月は第1G（計画比55.1%、計画との差5,777千円）が大きく下回った（前年5月にあった沖縄セルラー電話の固定電話不利益告知DM〔利益2,264千円〕のような単発案件が今年はない）。9月は第3G（計画との差5,442千円）と第2G（同3,913千円）が下回り、第3Gは花火大会の計上時期の違い（前年は9月に原価戻し3,204千円を計上、今年は7〜8月に計上済み）の影響が大きい。<br><br>
+    売上は7月（236,978千円、計画274,424千円）が計画を37,446千円下回り、その約6割は第2G（計画83,444千円→実績60,776千円）。一方、7月の粗利は97.5%とほぼ計画どおりだった。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--bad)"><span class="bar"></span>営業利益・経常利益（上期）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※㈱宣伝　月次報告会資料（予算実績比較表／R8.9月度・2026年10月18日作成）の当期累計（令和8年4月1日〜9月30日）より。月次の値は各月度の資料の当月実績</div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="lbl">営業利益（上期累計）</div>
+      <div class="val bad">▲23,228<small>千円</small></div>
+      <div class="sub">計画▲12,165より11,063千円悪化／前年▲22,454より774千円悪化</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">経常利益（上期累計）</div>
+      <div class="val bad">▲25,879<small>千円</small></div>
+      <div class="sub">計画▲15,366より10,513千円悪化／前年▲27,032より1,153千円改善</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">経常黒字だった月</div>
+      <div class="val warn">1<small>／6ヶ月</small></div>
+      <div class="sub">黒字は7月のみ（6月は▲19千円でほぼ収支均衡）</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">販管費・前年比</div>
+      <div class="val warn">105.4%</div>
+      <div class="sub">235,573千円（前年比+12,144千円）。うち人件費+11,712千円</div>
+    </div>
+  </div>
+
+  <h3 class="sub">経常利益　月次推移（今年と前年同月）</h3>
+  <svg viewBox="0 0 640 190" width="100%" style="max-height:210px;" role="img">
+    <text x="54" y="14" font-size="9" fill="var(--text-muted)" text-anchor="end">（千円）</text>
+    <line x1="60" y1="95" x2="630" y2="95" stroke="var(--border-strong)" stroke-width="1.5"/>
+    <text x="54" y="98" font-size="9" fill="var(--text-muted)" text-anchor="end">0</text>
+    <line x1="60" y1="55" x2="630" y2="55" stroke="var(--border)" stroke-width="1"/>
+    <text x="54" y="58" font-size="9" fill="var(--text-muted)" text-anchor="end">+10,000</text>
+    <line x1="60" y1="135" x2="630" y2="135" stroke="var(--border)" stroke-width="1"/>
+    <text x="54" y="138" font-size="9" fill="var(--text-muted)" text-anchor="end">▲10,000</text>
+    <rect x="73" y="95.0" width="16" height="47.1" rx="2" fill="var(--text-muted)" opacity="0.45"><title>4月 前年同月 ▲11,770</title></rect>
+    <rect x="91" y="95.0" width="26" height="28.2" rx="2" fill="var(--bad)" opacity="1"><title>4月 今年 ▲7,049</title></rect>
+    <text x="104" y="135.2" font-size="9" font-weight="700" fill="var(--bad)" text-anchor="middle">▲7,049</text>
+    <text x="95" y="182" font-size="9.5" fill="var(--text)" text-anchor="middle">4月</text>
+    <rect x="173" y="95.0" width="16" height="25.1" rx="2" fill="var(--text-muted)" opacity="0.45"><title>5月 前年同月 ▲6,264</title></rect>
+    <rect x="191" y="95.0" width="26" height="29.1" rx="2" fill="var(--bad)" opacity="1"><title>5月 今年 ▲7,282</title></rect>
+    <text x="204" y="136.1" font-size="9" font-weight="700" fill="var(--bad)" text-anchor="middle">▲7,282</text>
+    <text x="195" y="182" font-size="9.5" fill="var(--text)" text-anchor="middle">5月</text>
+    <rect x="273" y="95.0" width="16" height="32.5" rx="2" fill="var(--text-muted)" opacity="0.45"><title>6月 前年同月 ▲8,124</title></rect>
+    <rect x="291" y="95.0" width="26" height="1.0" rx="2" fill="var(--bad)" opacity="1"><title>6月 今年 ▲19</title></rect>
+    <text x="304" y="107.1" font-size="9" font-weight="700" fill="var(--bad)" text-anchor="middle">▲19</text>
+    <text x="295" y="182" font-size="9.5" fill="var(--text)" text-anchor="middle">6月</text>
+    <rect x="373" y="48.6" width="16" height="46.4" rx="2" fill="var(--text-muted)" opacity="0.45"><title>7月 前年同月 +11,600</title></rect>
+    <rect x="391" y="68.7" width="26" height="26.3" rx="2" fill="var(--good)" opacity="1"><title>7月 今年 +6,574</title></rect>
+    <text x="404" y="63.7" font-size="9" font-weight="700" fill="var(--good)" text-anchor="middle">+6,574</text>
+    <text x="395" y="182" font-size="9.5" fill="var(--text)" text-anchor="middle">7月</text>
+    <rect x="473" y="95.0" width="16" height="40.9" rx="2" fill="var(--text-muted)" opacity="0.45"><title>8月 前年同月 ▲10,223</title></rect>
+    <rect x="491" y="95.0" width="26" height="24.2" rx="2" fill="var(--bad)" opacity="1"><title>8月 今年 ▲6,052</title></rect>
+    <text x="504" y="131.2" font-size="9" font-weight="700" fill="var(--bad)" text-anchor="middle">▲6,052</text>
+    <text x="495" y="182" font-size="9.5" fill="var(--text)" text-anchor="middle">8月</text>
+    <rect x="573" y="95.0" width="16" height="9.0" rx="2" fill="var(--text-muted)" opacity="0.45"><title>9月 前年同月 ▲2,251</title></rect>
+    <rect x="591" y="95.0" width="26" height="31.9" rx="2" fill="var(--bad)" opacity="1"><title>9月 今年 ▲7,976</title></rect>
+    <text x="604" y="138.9" font-size="9" font-weight="700" fill="var(--bad)" text-anchor="middle">▲7,976</text>
+    <text x="595" y="182" font-size="9.5" fill="var(--text)" text-anchor="middle">9月</text>
+  </svg>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--good)"></span>経常黒字の月</span>
+    <span><span class="sw" style="background:var(--bad)"></span>経常赤字の月</span>
+    <span><span class="sw" style="background:var(--text-muted); opacity:.45;"></span>前年同月</span>
+  </div>
+  <div class="chartcap">各月度の資料の当月実績（4月は5月度資料の累計から5月分を引いた値）。後の月度の資料で前月以前の数値が修正されているため、6か月の合計（▲21,804千円）は9月度資料の上期累計（▲25,879千円）と一致しません（差▲4,075千円。主に6月度の資料で4〜5月分が▲3,994千円修正されています）。</div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>項目（上期累計）</th><th>実績</th><th>計画</th><th>計画差</th><th>前年同期</th><th>前年差</th></tr></thead>
+      <tbody>
+        <tr><td>売上総利益（粗利）</td><td>212,345</td><td>222,779</td><td>▲10,434</td><td>200,975</td><td>+11,370</td></tr>
+        <tr><td>販売費・管理費計</td><td>235,573</td><td>234,944</td><td>+629</td><td>223,429</td><td>+12,144</td></tr>
+        <tr><td>　うち人件費</td><td>138,941</td><td>137,867</td><td>+1,074</td><td>127,229</td><td>+11,712</td></tr>
+        <tr><td>　うち一般管理費</td><td>76,615</td><td>77,383</td><td>▲768</td><td>75,627</td><td>+987</td></tr>
+        <tr class="tot"><td>営業利益</td><td>▲23,228</td><td>▲12,165</td><td>▲11,063</td><td>▲22,454</td><td>▲774</td></tr>
+        <tr><td>営業外収益</td><td>574</td><td>317</td><td>+257</td><td>206</td><td>+368</td></tr>
+        <tr><td>営業外費用</td><td>3,225</td><td>3,518</td><td>▲293</td><td>4,784</td><td>▲1,559</td></tr>
+        <tr class="tot"><td>経常利益</td><td>▲25,879</td><td>▲15,366</td><td>▲10,513</td><td>▲27,032</td><td>+1,153</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout bad">
+    <div class="ct">⚠️ 粗利の増加（+11,370千円）を、販管費の増加（+12,144千円）が上回った</div>
+    上期の粗利は前年を11,370千円上回ったが、販管費が12,144千円増え（うち人件費+11,712千円）、営業利益は▲23,228千円と前年（▲22,454千円）からわずかに悪化した。経常利益は営業外費用の減少（▲1,559千円）で前年より1,153千円改善したものの、▲25,879千円の赤字。上期の計画自体も経常▲15,366千円の赤字で組まれており、計画との差（▲10,513千円）は、粗利の計画未達（▲10,434千円）とほぼ同じ額になっている。<br><br>
+    月次では6か月中、経常黒字は7月（+6,574千円）だけで、6月（▲19千円）はほぼ収支均衡だった。前年も上期の黒字は7月のみで、2025年度は下期（10月・1月・3月）の黒字で通期の赤字を解消した。今年も年間で黒字を確保するには、下期に前年並み以上の粗利の積み上げが必要になる。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>四半期別　達成率の推移</h2>
+  <div class="asof" style="margin-top:-4px;">単位：％（対計画達成率、4グループ合計）　※100%ラインを基準に推移を確認</div>
+
+  <div class="qcols">
+    <div class="refline" style="bottom:122px;"></div>
+    <div class="qgroup">
+      <div class="bars">
+        <div class="col" style="height:95.0px; background:var(--all);"><span class="v">95.0%</span></div>
+        <div class="col" style="height:99.8px; background:var(--good);"><span class="v">99.8%</span></div>
+      </div>
+      <div class="xlabel">Q1（4-6月）</div>
+    </div>
+    <div class="qgroup">
+      <div class="bars">
+        <div class="col" style="height:88.9px; background:var(--all);"><span class="v">88.9%</span></div>
+        <div class="col" style="height:91.5px; background:var(--warn);"><span class="v">91.5%</span></div>
+      </div>
+      <div class="xlabel">Q2（7-9月）</div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--all)"></span>売上達成率</span>
+    <span><span class="sw" style="background:var(--good)"></span>粗利達成率（計画以上〜ほぼ計画）</span>
+    <span><span class="sw" style="background:var(--warn)"></span>粗利達成率（計画未達）</span>
+  </div>
+
+  <div class="tblwrap" style="margin-top:12px;">
+    <table class="dt">
+      <thead><tr><th>期間</th><th>粗利計画</th><th>粗利実績</th><th>達成率</th><th>前年同期</th><th>前年比</th><th>2025年度の達成率</th></tr></thead>
+      <tbody>
+        <tr><td>Q1（4〜6月）</td><td>101,477</td><td>101,266</td><td>99.8%</td><td>88,293</td><td>114.7%</td><td>97.3%</td></tr>
+        <tr><td>Q2（7〜9月）</td><td>121,301</td><td>110,960</td><td>91.5%</td><td>112,448</td><td>98.7%</td><td>89.8%</td></tr>
+        <tr class="tot"><td>上期</td><td>222,778</td><td>212,226</td><td>95.3%</td><td>200,741</td><td>105.7%</td><td>93.0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">グループ別の四半期達成率（粗利）</h3>
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>グループ</th><th>Q1（4〜6月）</th><th>Q2（7〜9月）</th><th>上期</th><th>上期・前年比</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--g1)"></span>第1営業G</td><td>75.9%</td><td>92.6%</td><td>84.2%</td><td>95.8%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g2)"></span>第2営業G</td><td>133.5%</td><td>85.1%</td><td>106.8%</td><td>129.7%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g3)"></span>第3営業G</td><td>82.5%</td><td>93.4%</td><td>89.0%</td><td>87.7%</td></tr>
+        <tr><td><span class="dot" style="background:var(--content)"></span>コンテンツ</td><td>93.1%</td><td>115.1%</td><td>104.6%</td><td>104.6%</td></tr>
+        <tr class="tot"><td>4グループ合計</td><td>99.8%</td><td>91.5%</td><td>95.3%</td><td>105.7%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout bad">
+    <div class="ct">⚠️ Q1→Q2で8ポイント低下。2025年度と同じ「年央の失速」の形</div>
+    Q1は粗利99.8%で計画をほぼ達成したが、Q2は91.5%に下がった。2025年度もQ1 97.3%→Q2 89.8%と同じ動きで、今年はいずれも2ポイント前後上回っているものの、形は変わっていない。<br><br>
+    グループ別に見ると動きは一様ではない。<b>第2GはQ1 133.5%→Q2 85.1%と大きく下がった</b>。6月に沖縄エンタテインメント振興協会の文化祭2026運営（利益5,900千円）と、前年は7月に計上していた琉球GKオフィシャルパートナー契約（BOATRACE振興会、5,940千円）が集中したためで、Q2の低下は計上時期の違いも含む。一方、第1G（75.9%→92.6%）・第3G（82.5%→93.4%）・コンテンツ（93.1%→115.1%）はQ2に持ち直している。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>グループ別実績（上期・確定）</h2>
+
+  <h3 class="sub">粗利　達成率（対上期計画）</h3>
+  <div class="barwrap">
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g1)"></span>第1営業G</span><span class="num">57,022／67,728＝84.2%</span></div>
+      <div class="track"><div class="fill-actual" style="width:73.2%; background:var(--g1);"></div><div class="plan-marker" style="left:87.0%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g2)"></span>第2営業G</span><span class="num">88,717／83,072＝106.8%</span></div>
+      <div class="track"><div class="fill-actual" style="width:92.9%; background:var(--g2);"></div><div class="plan-marker" style="left:87.0%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--g3)"></span>第3営業G</span><span class="num">50,309／56,513＝89.0%</span></div>
+      <div class="track"><div class="fill-actual" style="width:77.4%; background:var(--g3);"></div><div class="plan-marker" style="left:87.0%;"></div></div>
+    </div>
+    <div class="barrow">
+      <div class="barlabel"><span><span class="dot" style="background:var(--content)"></span>コンテンツ</span><span class="num">16,178／15,465＝104.6%</span></div>
+      <div class="track"><div class="fill-actual" style="width:91.0%; background:var(--content);"></div><div class="plan-marker" style="left:87.0%;"></div></div>
+    </div>
+  </div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>グループ</th><th>売上計画</th><th>売上実績</th><th>達成率</th><th>粗利計画</th><th>粗利実績</th><th>達成率</th><th>粗利率</th><th>前年比(粗利)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--g1)"></span>第1営業G</td><td>242,911</td><td>222,515</td><td>91.6%</td><td>67,728</td><td>57,022</td><td>84.2%</td><td>25.6%</td><td>95.8%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g2)"></span>第2営業G</td><td>388,846</td><td>363,996</td><td>93.6%</td><td>83,072</td><td>88,717</td><td>106.8%</td><td>24.4%</td><td>129.7%</td></tr>
+        <tr><td><span class="dot" style="background:var(--g3)"></span>第3営業G</td><td>301,813</td><td>249,717</td><td>82.7%</td><td>56,513</td><td>50,309</td><td>89.0%</td><td>20.1%</td><td>87.7%</td></tr>
+        <tr><td><span class="dot" style="background:var(--content)"></span>コンテンツ</td><td>69,916</td><td>83,368</td><td>119.2%</td><td>15,465</td><td>16,178</td><td>104.6%</td><td>19.4%</td><td>104.6%</td></tr>
+        <tr class="tot"><td>4グループ合計</td><td>1,003,486</td><td>919,596</td><td>91.6%</td><td>222,778</td><td>212,226</td><td>95.3%</td><td>23.1%</td><td>105.7%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="chartcap" style="margin-top:-6px;">単位：千円。前年比は、第1〜3営業Gが担当者異動に伴うクライアントの移動を反映した調整後の前年（第1G 59,525・第2G 68,401・第3G 57,346千円）、コンテンツは前年上期15,468千円、合計は(20260930)出力の前期実績（200,741千円）との比較。</div>
+
+  <h3 class="sub">粗利　構成比（上期・212,226千円）</h3>
+  <div class="donut-wrap">
+    <div class="donut" style="background: conic-gradient(var(--g1) 0% 26.9%, var(--g2) 26.9% 68.7%, var(--g3) 68.7% 92.4%, var(--content) 92.4% 100.0%);"></div>
+    <div class="donut-legend">
+      <div><span class="dot" style="background:var(--g1)"></span>第1営業G　26.9%</div>
+      <div><span class="dot" style="background:var(--g2)"></span>第2営業G　41.8%</div>
+      <div><span class="dot" style="background:var(--g3)"></span>第3営業G　23.7%</div>
+      <div><span class="dot" style="background:var(--content)"></span>コンテンツ　7.6%</div>
+    </div>
+  </div>
+  <h3 class="sub">参考：前年上期（調整後）の構成比</h3>
+  <div class="donut-wrap">
+    <div class="donut" style="width:72px;height:72px;background: conic-gradient(var(--g1) 0% 29.7%, var(--g2) 29.7% 63.7%, var(--g3) 63.7% 92.3%, var(--content) 92.3% 100.0%);"></div>
+    <div class="donut-legend" style="font-size:10px; line-height:1.8;">
+      <div><span class="dot" style="background:var(--g1)"></span>第1G 29.7%</div>
+      <div><span class="dot" style="background:var(--g2)"></span>第2G 34.1%</div>
+      <div><span class="dot" style="background:var(--g3)"></span>第3G 28.6%</div>
+      <div><span class="dot" style="background:var(--content)"></span>コンテンツ 7.7%</div>
+    </div>
+  </div>
+  <div class="chartcap">第2Gの構成比が前年上期の34.1%から41.8%に上がり、第1G（29.7%→26.9%）・第3G（28.6%→23.7%）が下がった。全社の前年比増（+11,485千円）を、第2G単独の増加（+20,316千円）が上回っている。</div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>グループ別ハイライト</h2>
+
+  <div class="callout warn">
+    <div class="ct">⚠️ 第1営業G：5月の落ち込みが響き、上期は計画の84.2%</div>
+    粗利57,022千円（計画比84.2%、前年比95.8%）・売上222,515千円（同91.6%）。5月が計画比55.1%と大きく落ち込み（前年5月にあった沖縄セルラー電話の固定電話不利益告知DM〔2,264千円〕のような単発案件がない）、Q1は75.9%にとどまったが、Q2は92.6%まで戻した。粗利率は25.6%で計画（27.9%）を下回る。<br><br>
+    クライアント別（粗利、前年上期比）では、沖縄セルラー電話（▲4,083千円）、穴吹興産（▲2,725千円、アルファステイツ北谷伊平の販促が終盤）、東豊（▲1,849千円）、ネクシーズ（▲1,350千円、パレット久茂地の懸垂幕が4月で終了）が減り、りゅうせき（+1,992千円）、ボートレース大村（台帳2,045千円、前年上期は取引なし）、託一（+1,358千円）、山城時計店（+1,114千円）、大米建設（+907千円）が補った。新しく伸びた取引先の多くは前年10月以降に始まった継続案件で、下期は前年比での押し上げ効果が小さくなる点に注意。
+  </div>
+
+  <div class="callout good">
+    <div class="ct">💡 第2営業G：上期の伸びをけん引。ただしQ2は計画の85.1%</div>
+    粗利88,717千円（計画比106.8%、前年比129.7%）で、4グループの中で計画を大きく上回った唯一のグループ。クライアント別（粗利、前年上期比）では、沖縄エンタテインメント振興協会の文化祭2026運営（+5,902千円）、沖縄ファミリーマート（+3,389千円）、BOATRACE振興会（琉球GKオフィシャルパートナー契約の増額など。前年は第1G担当）、ヤシロ（+1,660千円）、沖縄DFS（+1,501千円）、沖縄マツダ販売（+1,377千円）が伸びた。減少はRCワークス（▲3,009千円、OTV提供の終了）、ビッグワン（▲1,686千円）、リウボウインダストリー（▲1,483千円）。<br><br>
+    なお、コンテンツから移った御菓子御殿（台帳では上期の利益5,256千円）は前年の数字を付け替えていないため、第2Gの前年比はその分高めに、コンテンツの前年比は低めに出ている（会計集計では御菓子御殿全体で前年4,130→今年4,633千円）。
+  </div>
+
+  <div class="callout warn">
+    <div class="ct">⚠️ 第3営業G：前年の単発案件の反動を、花火大会の増額で埋めきれず</div>
+    粗利50,309千円（計画比89.0%、前年比87.7%）・売上249,717千円（同82.7%）。Q1は82.5%だったが、Q2は7月の海洋博美ら海花火大会（利益10,000千円）で93.4%まで戻した。粗利率20.1%は計画（18.7%）を上回る。<br><br>
+    クライアント別（粗利、前年上期比）では、DMM.com（▲7,704千円。前年7月の館内リニューアル一式などの単発案件を含む）、選挙管理委員会（▲2,396千円、前年の参議院選挙啓発）、エールクリエイト（▲1,726千円）、イオンモール沖縄ライカム（▲1,583千円、前年の10周年祭）が減った。沖縄美ら島財団は花火大会の増額で+5,346千円と伸びたが、これらの減少を埋めきれていない。なお、三州観光開発グループは今年から第1Gの担当で、前年の数字も第1Gに付け替えて比べている。
+  </div>
+
+  <div class="callout">
+    <div class="ct">🔍 コンテンツ：Q2で大きく上振れ、上期も計画超え</div>
+    粗利16,178千円（計画比104.6%、前年比104.6%）。Q1は93.1%と計画に届かなかったが、Q2は115.1%と大きく上回った。売上は計画比119.2%と伸びた一方、粗利率は19.4%で計画（22.1%）を下回る。2025年度も売上は計画を35%上回りながら粗利率が計画18.5%→実績15.8%に下がっており、「量は伸びるが率が下がる」傾向は続いている。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>クライアント別ハイライト（上期累計）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円（粗利）　※㈱宣伝　月次報告会資料（R8.9月度）5ページ「売上粗利集計表（累計）」の2026年4〜9月・2025年4〜9月。クライアントはグループコード（統一コード）集計で、コンテンツの取引も含みます。「主な要因」は第1〜3営業グループ管理台帳の受注伝票で確認した内容です</div>
+
+  <h3 class="sub">粗利　増加・新規クライアント（上位12）</h3>
+  <div class="tblwrap">
+    <table class="dt cl">
+      <thead><tr><th>クライアント（担当）</th><th>今年上期</th><th>前年上期</th><th>増減</th><th style="text-align:left;">主な要因</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:normal; min-width:118px;">沖縄エンタテインメント振興協会<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>5,904</td><td>2</td><td style="color:var(--good); font-weight:800;">+5,902</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">文化祭2026の運営を受託（6月）。前年は応援団のぼり程度</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">沖縄美ら島財団<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第3G中心</div></td><td>13,796</td><td>8,450</td><td style="color:var(--good); font-weight:800;">+5,346</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">海洋博美ら海花火大会が増額（台帳では前年8,201→今年12,369千円）。前年5月のジンベエザメバルーンなどはない</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">シーサーのお土産屋さん出張所（首里城）㈱宣伝<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1〜3Gの台帳外</div></td><td>10,418</td><td>6,164</td><td style="color:var(--good); font-weight:800;">+4,254</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">第1〜3Gの管理台帳には載っていない取引のため、内訳は未確認</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">BOATRACE振興会<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G（前年は第1G）</div></td><td>13,321</td><td>9,106</td><td style="color:var(--good); font-weight:800;">+4,215</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">琉球GKオフィシャルパートナー契約の増額（台帳では4,508→5,940千円）など。会計集計では第1Gのボートレース大村（台帳2,045千円、前年10月から取引開始）も同じグループコードに含まれるとみられる</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">沖縄ファミリーマート<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>15,452</td><td>12,063</td><td style="color:var(--good); font-weight:800;">+3,389</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">地域ド密着プロジェクト（前年うるま市篇→今年名護市篇）の拡大、広報向けの案件など</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">協賛<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">担当：資料に記載なし</div></td><td>8,756</td><td>6,394</td><td style="color:var(--good); font-weight:800;">+2,362</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">会計上「協賛」としてまとめられた取引（資料に内訳の記載なし）</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">ACジャパン<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1〜3Gの台帳外</div></td><td>2,000</td><td>0</td><td style="color:var(--good); font-weight:800;">+2,000</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年は取引なし。第1〜3Gの管理台帳には載っていない取引のため、内訳は未確認</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">りゅうせき<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G</div></td><td>4,067</td><td>2,075</td><td style="color:var(--good); font-weight:800;">+1,992</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">7月のプロモーション制作（台帳1,398千円）、8月からのweb広告運用</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">霊園・墓石のヤシロ<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>1,660</td><td>0</td><td style="color:var(--good); font-weight:800;">+1,660</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">5月から折込チラシ・新聞掲載などを継続受注（前年は取引なし）</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">沖縄DFS<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>1,624</td><td>123</td><td style="color:var(--good); font-weight:800;">+1,501</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">GWキッチンカー企画（台帳621千円）、チームラボデジタル、Okinawa Living（毎月）</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">沖縄マツダ販売<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>2,845</td><td>1,468</td><td style="color:var(--good); font-weight:800;">+1,377</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">新型CX-5の発表会、SUMMER FESTA、アウトレットフェア（台帳計2,084千円）</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">託一<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G</div></td><td>1,358</td><td>0</td><td style="color:var(--good); font-weight:800;">+1,358</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年10月から取引開始。テレビ・ラジオのタイム提供など</td></tr>
+        <tr class="tot"><td>上位12社　合計</td><td>―</td><td>―</td><td style="color:var(--good);">+35,356</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">粗利　減少クライアント（上位12）</h3>
+  <div class="tblwrap">
+    <table class="dt cl">
+      <thead><tr><th>クライアント（担当）</th><th>今年上期</th><th>前年上期</th><th>増減</th><th style="text-align:left;">主な要因</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:normal; min-width:118px;">DMM.com<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第3G</div></td><td>5,778</td><td>13,482</td><td style="color:var(--bad); font-weight:800;">▲7,704</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年7月の館内リニューアル一式（台帳ではフジアール経由で2,919千円）、アドビラー・吊下げ広告、空港媒体、TVCMなどが縮小。公式SNS運用は継続</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">沖縄セルラー電話<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G</div></td><td>11,128</td><td>15,211</td><td style="color:var(--bad); font-weight:800;">▲4,083</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年5月の固定電話不利益告知DM（台帳2,264千円）がない。テレビのタイム提供（月639千円）がスポット（月200〜380千円）に縮小</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">RCワークス<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>998</td><td>4,007</td><td style="color:var(--bad); font-weight:800;">▲3,009</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">OTV提供（月450千円、前年は4〜9月に毎月）が今年はない</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">三州観光開発<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G（前年は第3G）</div></td><td>1,652</td><td>4,531</td><td style="color:var(--bad); font-weight:800;">▲2,879</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">エムズ店舗の新台入替折込などが減少（前年の台帳では「MSコーポレーション」「MS・NPコーポレーション」名義を含む）</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">穴吹興産<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G</div></td><td>381＊</td><td>3,106</td><td style="color:var(--bad); font-weight:800;">▲2,725</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">アルファステイツ北谷伊平の販促が終盤に入り、前年のパンフレット・TVCM制作などがない</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">選挙管理委員会<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第3G</div></td><td>0＊</td><td>2,396</td><td style="color:var(--bad); font-weight:800;">▲2,396</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年7月の参議院選挙の啓発企画（今年は該当選挙なし）</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">東豊<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G</div></td><td>61＊</td><td>1,910</td><td style="color:var(--bad); font-weight:800;">▲1,849</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">コンフォート那覇松川の販促（チラシ・TVCM）が終了。今年は宇栄原の現場看板のみ</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">エールクリエイト<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第3G</div></td><td>0＊</td><td>1,726</td><td style="color:var(--bad); font-weight:800;">▲1,726</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年の首里石嶺チラシなど。担当者の出向後、今年は計上なし</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">ビッグワン<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>0＊</td><td>1,686</td><td style="color:var(--bad); font-weight:800;">▲1,686</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年5〜8月の新聞60段広告。今年は計上なし</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">イオンモール／沖縄ライカム<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第3G</div></td><td>184＊</td><td>1,767</td><td style="color:var(--bad); font-weight:800;">▲1,583</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年4月の開業10周年祭（台帳1,583千円）がない</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">リウボウインダストリー<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第2G</div></td><td>8,027</td><td>9,510</td><td style="color:var(--bad); font-weight:800;">▲1,483</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">前年9月のブルーロック展・北海道物産展のTVCM制作などがない</td></tr>
+        <tr><td style="white-space:normal; min-width:118px;">リウボウストア<div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">第1G</div></td><td>13,683</td><td>15,165</td><td style="color:var(--bad); font-weight:800;">▲1,482</td><td style="white-space:normal; text-align:left; min-width:170px; font-size:10px; line-height:1.55;">全店合同チラシは継続。前年並みの水準から、やや縮小</td></tr>
+        <tr class="tot"><td>上位12社　合計</td><td>―</td><td>―</td><td style="color:var(--bad);">▲32,605</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="chartcap" style="margin-top:-6px;">＊今年上期が同資料の上位50社（粗利725千円以上）に入っていないため、第1〜3Gの管理台帳の確定実績の値（台帳外の取引があれば含みません）。太陽石油（+1,417千円）は、琉球GKオフィシャルパートナー契約の計上月が前年10月→今年9月に変わっただけのため一覧から外しています。全体の粗利は今年上期212,345千円・前年上期200,975千円（会計システムベースのため、販管システム出力の212,226千円・200,741千円とわずかに異なります）。</div>
+
+  <div class="callout bad">
+    <div class="ct">⚠️ 減少の中身は「単発案件の反動」と「継続案件の終了・縮小」</div>
+    減少上位12社（計▲32,605千円）のうち、DMM.comの館内リニューアル、選挙管理委員会、イオンモール沖縄ライカムの10周年、穴吹興産・東豊の分譲販促などは、前年の単発・期間限定の案件。注意が必要なのは<b>継続案件の終了・縮小</b>で、RCワークスのOTV提供（月450千円）、ネクシーズの懸垂幕（月476千円、5月以降。上期で前年1,826→今年476千円）、沖縄セルラー電話のタイム提供→スポットへの切り替え（月639千円→200〜380千円）は、下期も毎月前年を下回る要因になる。
+  </div>
+
+  <div class="callout good">
+    <div class="ct">💡 前年になかった取引先が育っている</div>
+    ボートレース大村・託一（いずれも前年10月から取引開始）、ヤシロ（今年5月から継続受注）、沖縄DFS（Okinawa Livingなどを毎月計上）、りゅうせき（web広告運用）など、毎月計上が続く取引先が増えた。沖縄エンタテインメント振興協会の文化祭運営（5,904千円）は単発だが、運営受託という新しい形の受注。ただし、ボートレース大村・託一は前年10月から取引があるため、下期は前年比での上積み効果が小さくなる。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>下期に向けて</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※年間計画は(20260930)販管システム出力、前年下期は2025年度最終の確定実績、10月以降の確保状況はダッシュボード「先行き見通し」（第1〜3営業G、10/22夜の台帳時点・コンテンツを除く）</div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="lbl">年間計画の達成に必要な下期粗利</div>
+      <div class="val">287,771<small>千円</small></div>
+      <div class="sub">下期計画277,219の103.8%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">前年下期の粗利（2025年度）</div>
+      <div class="val">254,857<small>千円</small></div>
+      <div class="sub">必要額は前年下期の112.9%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">10月の着地見込み（第1〜3G）</div>
+      <div class="val warn">84.5%</div>
+      <div class="sub">35,745／計画42,307（前年比95.4%）</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">11〜3月の確保状況（第1〜3G）</div>
+      <div class="val">51.4%</div>
+      <div class="sub">受注済み63,288＋積上げ44,478／計画209,692</div>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:12px;">
+    <div class="ct">⚠️ 年間計画の達成には、下期に前年を32,914千円上回る必要がある</div>
+    上期の不足（10,552千円）を取り戻して年間計画（499,997千円）に届くには、下期に粗利287,771千円（下期計画の103.8%）が必要で、前年下期（254,857千円）の112.9%にあたる水準になる。2025年度はQ3（10〜12月）が計画比84.5%と最も弱く、Q4、特に3月の大型案件で巻き返した。今年もQ3が最初の山場になる。<br><br>
+    10月は第1〜3Gの着地見込みが計画の84.5%（10/22夜時点）。11〜12月の確保率は67.5%・51.8%で、この先の受注の積み上げが必要。また、第3Gの週報では、10月に積上げ（利益1,000千円）があったランクルフェス2026が台風の影響で中止と報告されており、精算額しだいで10月の着地が下がる可能性がある。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>前年度とのつながり</h2>
+  <div class="asof" style="margin-top:-4px;">単位：千円　※4グループ合計</div>
+
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>期間</th><th>売上実績</th><th>粗利実績</th><th>粗利率</th><th>売上前年比</th><th>粗利前年比</th></tr></thead>
+      <tbody>
+        <tr><td>2025年度 上期（4〜9月）</td><td>914,862</td><td>200,741</td><td>21.9%</td><td>―</td><td>―</td></tr>
+        <tr><td>2025年度 下期（10〜3月）</td><td>1,078,132</td><td>254,857</td><td>23.6%</td><td>―</td><td>―</td></tr>
+        <tr><td>2025年度 通期（確定）</td><td>1,992,994</td><td>455,598</td><td>22.9%</td><td>+0.8%</td><td>▲0.4%</td></tr>
+        <tr class="tot"><td>2026年度 上期（確定）</td><td>919,596</td><td>212,226</td><td>23.1%</td><td>+0.5%</td><td>+5.7%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="chartcap" style="margin-top:-6px;">2025年度の下期・通期は2025年度最終の販管システム出力による。(20260930)出力の「前期実績」は2025年度の1〜3月が最終版と異なる（粗利で6,430千円多い）ため、ここでは最終版にそろえています。</div>
+
+  <div class="callout">
+    <div class="ct">📈 粗利は前年を上回るペース。課題は「年央の失速」と継続案件の目減り</div>
+    2025年度は売上・粗利とも前年並みで成長が止まった年度だった。2026年度上期は、売上は前年並み（+0.5%）ながら粗利が+5.7%と、粗利率の改善によって前年を上回っている。一方で、2025年度実績分析報告で挙げた「Q2〜Q3で失速」の課題は、今年もQ2の達成率低下として表れた。下期は、①Q3（特に11〜12月）の受注の積み上げ、②終了・縮小した継続案件（RCワークス・ネクシーズ・沖縄セルラー電話のタイム提供など）の穴埋め、③コンテンツの粗利率、の3点を毎月確認したい。
+  </div>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>ポイント整理</h2>
+  <ol class="points">
+    <li><b>上期は「粗利は前年超え・計画は未達」。</b>粗利212,226千円（計画比95.3%、前年比+5.7%）、売上919,596千円（計画比91.6%、前年比+0.5%）。粗利率23.1%（前年同期21.9%）への改善で、売上が前年並みでも粗利は前年を11,485千円上回った。</li>
+    <li><b>Q2で失速する形は2025年度と同じ。</b>粗利達成率はQ1 99.8%→Q2 91.5%。2025年度（97.3%→89.8%）より2ポイント前後高いが、年央に下がる形は変わらない。Q2は前年同期も98.7%とわずかに下回った。</li>
+    <li><b>計画未達は5月と9月の2か月でほぼ説明できる。</b>5月（計画比81.2%）は第1G（計画との差5,777千円）、9月（76.7%）は第3G（同5,442千円、花火大会の計上時期の違いを含む）と第2G（同3,913千円）が下回った。</li>
+    <li><b>第2Gが全社の伸びをけん引。</b>第2Gは計画比106.8%・前年比129.7%で、全社の前年比増（+11,485千円）を第2G単独（+20,316千円）で上回る。ただし6月に大型案件が集中し、Q2は85.1%に下がった。御菓子御殿のコンテンツからの移管分（5,256千円）も前年比を押し上げている。</li>
+    <li><b>第1G・第3Gは計画に届かず。</b>第1G（84.2%）は5月の落ち込みと沖縄セルラー電話・穴吹興産・東豊などの減少、第3G（89.0%）は前年の単発案件（DMMかりゆし水族館の館内リニューアル・参院選啓発・ライカム10周年）の反動とDMM.comの縮小が響いた。両グループともQ2は持ち直している。</li>
+    <li><b>継続案件の終了・縮小が下期にも響く。</b>RCワークスのOTV提供（月450千円）、ネクシーズの懸垂幕（月476千円）、沖縄セルラー電話のタイム提供→スポットへの切り替えは、下期も毎月前年を下回る要因になる。</li>
+    <li><b>新しい取引先は育っているが、下期の上積みは小さくなる。</b>ボートレース大村・託一・ヤシロ・沖縄DFS・りゅうせきなどが毎月の計上を積み上げている。ただしボートレース大村・託一は前年10月から取引があり、下期は前年比での上積みが小さい。</li>
+    <li><b>粗利の増加を販管費の増加が上回り、利益段階は前年並みの赤字。</b>粗利は前年比+11,370千円（会計ベース）だったが、販管費が+12,144千円（うち人件費+11,712千円）増え、営業利益は▲23,228千円（前年▲22,454千円）、経常利益は▲25,879千円（前年▲27,032千円）。経常黒字の月は7月だけだった。</li>
+    <li><b>年間計画には、下期に前年を12.9%上回る粗利が必要。</b>下期の必要額は287,771千円で、前年下期（254,857千円）の112.9%。11〜3月の確保率は現時点で51.4%（第1〜3G）。2025年度に最も弱かったQ3（10〜12月）が最初の山場になる。</li>
+  </ol>
+
+  <h2 class="sec" style="--sec-c:var(--all)"><span class="bar"></span>参考：営業メンバーの残業時間（上期）</h2>
+  <div class="asof" style="margin-top:-4px;">単位：時間（H）　※★残業集計表の残業時間管理表（4〜5月度は4/21〜5/20版、6〜9月度は8/21〜9/20版。最新版は4〜5月度の一部の行がずれているため）。4月度＝3/21〜4/20 … 9月度＝8/21〜9/20。営業メンバー20名（部長・第1〜3営業G）</div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="lbl">月平均32H超のメンバー</div>
+      <div class="val warn">5<small>名／20名</small></div>
+      <div class="sub">岸本・金城（第3G）、外間・大城・知花（第1G）</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">20名の月平均</div>
+      <div class="val">19.4<small>H</small></div>
+      <div class="sub">会社の目安：1か月の見込み残業時間32H</div>
+    </div>
+  </div>
+
+  <h3 class="sub">メンバー別・月別の残業時間（ヒートマップ）</h3>
+  <div class="tblwrap">
+    <table class="dt hmt">
+      <thead><tr><th>所属</th><th>氏名</th><th>4月度</th><th>5月度</th><th>6月度</th><th>7月度</th><th>8月度</th><th>9月度</th><th>上期計</th><th>月平均</th><th>32H超</th></tr></thead>
+      <tbody>
+        <tr class="gfirst"><td><span class="dot" style="background:var(--all)"></span>部長</td><td>園田 進<span class="role">部長</span></td><td class="hm h45">56.3</td><td class="hm h16">28.0</td><td class="hm h16">21.5</td><td class="hm h0">15.0</td><td class="hm h0">13.3</td><td class="hm h16">26.8</td><td>160.8</td><td class="">26.8</td><td>1回</td></tr>
+        <tr class="gfirst"><td><span class="dot" style="background:var(--g1)"></span>第1営業G</td><td>大城 直樹<span class="role">次長・GL</span></td><td class="hm h32">40.3</td><td class="hm h32">44.8</td><td class="hm h16">30.3</td><td class="hm h45">45.3</td><td class="hm h16">30.5</td><td class="hm h16">23.0</td><td>214.0</td><td class="avg32">35.7</td><td>3回</td></tr>
+        <tr><td></td><td>外間 祐樹<span class="role">課長</span></td><td class="hm h45">60.3</td><td class="hm h32">35.5</td><td class="hm h32">38.5</td><td class="hm h16">25.3</td><td class="hm h16">28.0</td><td class="hm h32">39.3</td><td>226.8</td><td class="avg32">37.8</td><td>4回</td></tr>
+        <tr><td></td><td>與那覇 千智<span class="role">主任</span></td><td class="hm h0">15.5</td><td class="hm h0">14.3</td><td class="hm h16">16.0</td><td class="hm h0">8.8</td><td class="hm h16">28.8</td><td class="hm h16">18.8</td><td>102.0</td><td class="">17.0</td><td>—</td></tr>
+        <tr><td></td><td>知花 葵空</td><td class="hm h45">50.5</td><td class="hm h16">29.8</td><td class="hm h32">35.3</td><td class="hm h16">31.8</td><td class="hm h16">26.5</td><td class="hm h32">32.8</td><td>206.5</td><td class="avg32">34.4</td><td>3回</td></tr>
+        <tr><td></td><td>長谷川 由二</td><td class="hm h0">13.0</td><td class="hm h0">10.5</td><td class="hm h0">7.0</td><td class="hm h0">14.3</td><td class="hm h0">15.5</td><td class="hm h16">24.0</td><td>84.3</td><td class="">14.0</td><td>—</td></tr>
+        <tr><td></td><td>臼井 駿</td><td class="hm h0">9.8</td><td class="hm h0">5.5</td><td class="hm h0">14.3</td><td class="hm h0">12.8</td><td class="hm h0">14.3</td><td class="hm h0">10.3</td><td>66.8</td><td class="">11.1</td><td>—</td></tr>
+        <tr><td></td><td>與座 菜々美</td><td class="hm h0">1.3</td><td class="hm h0">0.8</td><td class="hm hz">—</td><td class="hm h0">5.8</td><td class="hm h0">0.3</td><td class="hm h0">6.5</td><td>14.5</td><td class="">2.4</td><td>—</td></tr>
+        <tr class="gfirst"><td><span class="dot" style="background:var(--g2)"></span>第2営業G</td><td>松永 衣生里<span class="role">次長・GL</span></td><td class="hm h0">0.5</td><td class="hm h0">8.5</td><td class="hm h0">4.8</td><td class="hm h0">3.3</td><td class="hm h0">1.0</td><td class="hm h0">7.3</td><td>25.3</td><td class="">4.2</td><td>—</td></tr>
+        <tr><td></td><td>宇根 由梨子<span class="role">課長</span></td><td class="hm h0">6.3</td><td class="hm h0">7.0</td><td class="hm h0">7.8</td><td class="hm h0">7.8</td><td class="hm h0">2.8</td><td class="hm h0">13.8</td><td>45.3</td><td class="">7.5</td><td>—</td></tr>
+        <tr><td></td><td>諸喜田 香絵<span class="role">主任</span></td><td class="hm h16">22.3</td><td class="hm h16">20.3</td><td class="hm h0">6.8</td><td class="hm h0">5.3</td><td class="hm h0">7.0</td><td class="hm h16">19.3</td><td>80.8</td><td class="">13.5</td><td>—</td></tr>
+        <tr><td></td><td>久田 純那<span class="role">主任</span></td><td class="hm h16">22.8</td><td class="hm h0">9.8</td><td class="hm h16">25.5</td><td class="hm h32">32.8</td><td class="hm h0">15.8</td><td class="hm h0">13.5</td><td>120.0</td><td class="">20.0</td><td>1回</td></tr>
+        <tr><td></td><td>棚原 尚之</td><td class="hm h16">19.5</td><td class="hm h0">12.8</td><td class="hm h0">5.0</td><td class="hm h0">2.0</td><td class="hm h0">8.8</td><td class="hm h0">10.0</td><td>58.0</td><td class="">9.7</td><td>—</td></tr>
+        <tr><td></td><td>譜久村 好誠</td><td class="hm h16">18.3</td><td class="hm h16">18.8</td><td class="hm h0">6.3</td><td class="hm h0">7.0</td><td class="hm h0">9.0</td><td class="hm h0">7.5</td><td>66.8</td><td class="">11.1</td><td>—</td></tr>
+        <tr><td></td><td>謝花 美琴</td><td class="hm h0">1.3</td><td class="hm h0">0.8</td><td class="hm h0">0.5</td><td class="hm h0">3.8</td><td class="hm h0">9.0</td><td class="hm h0">5.5</td><td>20.8</td><td class="">3.5</td><td>—</td></tr>
+        <tr class="gfirst"><td><span class="dot" style="background:var(--g3)"></span>第3営業G</td><td>金城 学<span class="role">次長・GL</span></td><td class="hm h32">37.3</td><td class="hm h45">51.3</td><td class="hm h45">45.5</td><td class="hm h45">47.0</td><td class="hm h32">34.8</td><td class="hm h16">24.8</td><td>240.5</td><td class="avg32">40.1</td><td>5回</td></tr>
+        <tr><td></td><td>岸本 成泰<span class="role">課長</span></td><td class="hm h45">61.0</td><td class="hm h32">42.8</td><td class="hm h16">30.3</td><td class="hm h45">55.3</td><td class="hm h45">53.8</td><td class="hm h45">61.3</td><td>304.3</td><td class="avg32">50.7</td><td>5回</td></tr>
+        <tr><td></td><td>伊藝 陸</td><td class="hm h16">27.8</td><td class="hm h16">29.5</td><td class="hm h16">31.8</td><td class="hm h32">42.3</td><td class="hm h16">29.8</td><td class="hm h0">14.8</td><td>175.8</td><td class="">29.3</td><td>1回</td></tr>
+        <tr><td></td><td>新里 弘美</td><td class="hm h16">19.0</td><td class="hm h16">21.3</td><td class="hm h0">5.3</td><td class="hm h0">15.3</td><td class="hm h16">16.3</td><td class="hm h0">4.8</td><td>81.8</td><td class="">13.6</td><td>—</td></tr>
+        <tr><td></td><td>安室 涼</td><td class="hm h0">1.3</td><td class="hm h0">0.3</td><td class="hm h0">7.0</td><td class="hm h0">9.5</td><td class="hm h0">4.8</td><td class="hm h0">8.0</td><td>30.8</td><td class="">5.1</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span><span class="sw hm-sw h16"></span>16〜32H</span>
+    <span><span class="sw hm-sw h32"></span>32H超</span>
+    <span><span class="sw hm-sw h45"></span>45H以上</span>
+    <span>月45Hを超えられるのは年6回まで</span>
+  </div>
+
+  <h3 class="sub">月平均の残業時間　ランキング</h3>
+  <div class="rkwrap">
+    <div class="rk">
+      <div class="rk-n">1</div>
+      <div class="rk-name">岸本 成泰<span>第3営業G・課長</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:92.2%; background:var(--g3);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v over">50.7H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">2</div>
+      <div class="rk-name">金城 学<span>第3営業G・次長・GL</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:72.9%; background:var(--g3);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v over">40.1H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">3</div>
+      <div class="rk-name">外間 祐樹<span>第1営業G・課長</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:68.7%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v over">37.8H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">4</div>
+      <div class="rk-name">大城 直樹<span>第1営業G・次長・GL</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:64.9%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v over">35.7H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">5</div>
+      <div class="rk-name">知花 葵空<span>第1営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:62.5%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v over">34.4H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">6</div>
+      <div class="rk-name">伊藝 陸<span>第3営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:53.3%; background:var(--g3);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">29.3H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">7</div>
+      <div class="rk-name">園田 進<span>部長</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:48.7%; background:var(--all);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">26.8H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">8</div>
+      <div class="rk-name">久田 純那<span>第2営業G・主任</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:36.4%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">20.0H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">9</div>
+      <div class="rk-name">與那覇 千智<span>第1営業G・主任</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:30.9%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">17.0H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">10</div>
+      <div class="rk-name">長谷川 由二<span>第1営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:25.5%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">14.0H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">11</div>
+      <div class="rk-name">新里 弘美<span>第3営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:24.7%; background:var(--g3);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">13.6H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">12</div>
+      <div class="rk-name">諸喜田 香絵<span>第2営業G・主任</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:24.5%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">13.5H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">13</div>
+      <div class="rk-name">臼井 駿<span>第1営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:20.2%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">11.1H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">14</div>
+      <div class="rk-name">譜久村 好誠<span>第2営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:20.2%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">11.1H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">15</div>
+      <div class="rk-name">棚原 尚之<span>第2営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:17.6%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">9.7H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">16</div>
+      <div class="rk-name">宇根 由梨子<span>第2営業G・課長</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:13.6%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">7.5H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">17</div>
+      <div class="rk-name">安室 涼<span>第3営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:9.3%; background:var(--g3);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">5.1H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">18</div>
+      <div class="rk-name">松永 衣生里<span>第2営業G・次長・GL</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:7.6%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">4.2H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">19</div>
+      <div class="rk-name">謝花 美琴<span>第2営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:6.4%; background:var(--g2);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">3.5H</div>
+    </div>
+    <div class="rk">
+      <div class="rk-n">20</div>
+      <div class="rk-name">與座 菜々美<span>第1営業G</span></div>
+      <div class="rk-track"><div class="rk-fill" style="width:4.4%; background:var(--g1);"></div><div class="rk-ref" style="left:58.2%;"></div></div>
+      <div class="rk-v">2.4H</div>
+    </div>
+    <div class="rk-axis"><span style="left:58.2%;">目安 32H</span></div>
+  </div>
+
+  <h3 class="sub">グループ別の月平均</h3>
+  <div class="tblwrap">
+    <table class="dt">
+      <thead><tr><th>区分</th><th>人数</th><th>月平均</th><th>32H超のメンバー</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--g3)"></span>第3営業G</td><td>5名</td><td>27.8H</td><td>金城・岸本</td></tr>
+        <tr><td><span class="dot" style="background:var(--all)"></span>部長</td><td>1名</td><td>26.8H</td><td>—</td></tr>
+        <tr><td><span class="dot" style="background:var(--g1)"></span>第1営業G</td><td>7名</td><td>21.8H</td><td>大城・外間・知花</td></tr>
+        <tr><td><span class="dot" style="background:var(--g2)"></span>第2営業G</td><td>7名</td><td>9.9H</td><td>—</td></tr>
+        <tr class="tot"><td>営業メンバー計</td><td>20名</td><td>19.4H</td><td>5名</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="ct">🔍 残業は第3G・課長以上に集中、第2Gは月10H前後</div>
+    月平均32Hを超えるのは5名で、うち4名が課長以上（岸本 50.7H・金城 40.1H・外間 37.8H・大城 35.7H）、一般は知花（34.4H）の1名。岸本・金城は6か月中5回、32Hを超えた。グループ別の月平均は第3営業G 27.8H、第1営業G 21.8H、第2営業G 9.9Hで、上期の粗利を最も伸ばした第2Gが最も少ない。残業の多さと計上利益は必ずしも一致しないため、業務の中身（統括・制作進行・計上前の案件など）は各グループで確認したい。
+  </div>
+
+</main>
+
+<footer class="pagefoot">
+  本資料の2026年度上期の売上/粗利の数値は「(20260930)販管システム出力）2026年度売上・粗利計画表」を正としています。全社の前年同期は同資料の「前期実績」、2025年度の下期・通期は「(20260331)販管システム出力）2025年度売上・粗利計画表（2025年度最終）」によります。グループ別の前年は、担当者異動（久田氏・小串氏等）と三州観光開発グループの移管に伴うクライアントの移動を、引き継ぎ先グループへ振り替えた調整後の数値です（御菓子御殿のコンテンツ→第2Gの移管は未反映）。クライアント別の増減は、2025・2026年度の第1〜3営業グループ管理台帳の4〜9月シート（受注伝票＝実績確定分）を突き合わせたもので、抽出した明細の合計は各台帳の「売上合計」行と一致することを確認しています（例外：2025年4月の第3G 外間氏の欄は「売上合計」の利益が明細合計より30千円少ない値で直接入力されていたため、明細の合計を使用）。クライアント別の金額は㈱宣伝　月次報告会資料（R8.9月度）の売上粗利集計表（累計・グループコード集計）、営業利益・経常利益・販管費は同資料の予算実績比較表によります。同資料は会計システムベースのため、粗利の絶対値が販管システム出力とわずかに異なります（上期粗利：会計212,345千円／販管212,226千円）。営業メンバーの残業時間は、★残業集計表の残業時間管理表（4〜5月度は4/21〜5/20版、6〜9月度は8/21〜9/20版）によります（ビジネスソリューション部_上期ボリュームカレンダー_営業残業（2026/10/20）と同じ数値）。<br><br>
+  株式会社宣伝　社内共有資料（機密）　／　作成日：2026年10月23日
+</footer>
