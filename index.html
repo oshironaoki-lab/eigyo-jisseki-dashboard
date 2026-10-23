@@ -152,6 +152,9 @@
     padding: 10px; border-radius: 10px; text-decoration: none; min-height: 40px;
   }
   .report-link:active { background: var(--surface-2); }
+  /* 新しく追加した資料の目印。data-until の日付を過ぎると自動で消える */
+  .new-badge { color: var(--bad); font-weight: 800; letter-spacing: .04em; }
+  .new-badge[hidden] { display: none; }
 
   main { max-width: 480px; margin: 0 auto; padding: 16px 16px 0; }
   .panel { display: none; }
@@ -543,6 +546,7 @@
         </a>
         <a class="report-link" href="./report-fy2026h1.html">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span class="new-badge" data-until="2026-11-06">NEW</span>
           <span>2026年度　上期 実績分析報告を見る</span>
         </a>
       </div>
@@ -1958,6 +1962,9 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
     });
 
     document.getElementById("asOfLabel").innerHTML = formatAsOf(DATA.asOf);
+
+    var today = new Date().toISOString().slice(0, 10);
+    document.querySelectorAll(".new-badge[data-until]").forEach(function (b) { if (today > b.getAttribute("data-until")) b.hidden = true; });
 
     var pastPop = document.getElementById("pastPop");
     var pastMenu = document.getElementById("pastMenu");
