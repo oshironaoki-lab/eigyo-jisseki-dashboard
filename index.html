@@ -362,6 +362,33 @@
   .ctr-amt.muted { color: var(--text-muted); font-weight: 700; }
   .ctr-note { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
   .ctr-desc { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+  .cs-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 9px; background: var(--surface-2); margin: 0 0 10px; }
+  .cs-seg button { appearance: none; border: 0; background: transparent; color: var(--text-secondary); font: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; min-height: 34px; border-radius: 7px; cursor: pointer; }
+  .cs-seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--border); }
+  .cs-seg button:focus-visible { outline: 2px solid var(--gc); outline-offset: 1px; }
+  .cs-body { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .cs-pie { position: relative; width: 200px; max-width: 100%; aspect-ratio: 1; flex: none; }
+  .cs-pie svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .cs-pie path { stroke: var(--page); stroke-width: 2; transition: opacity .15s; }
+  .cs-pie text { font-size: 10px; font-weight: 800; pointer-events: none; font-variant-numeric: tabular-nums; }
+  .cs-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center; }
+  .cs-center .l { font-size: 11px; color: var(--text-muted); }
+  .cs-center .v { font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .cs-center .u { font-size: 10.5px; color: var(--text-muted); }
+  .cs-side { flex: 1; min-width: 0; width: 100%; }
+  .cs-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; width: 100%; min-width: 0; }
+  .cs-row { display: grid; grid-template-columns: 12px 18px minmax(0, 1fr) auto; column-gap: 7px; align-items: center; padding: 5px 6px; border-radius: 6px; }
+  .cs-row.hl { background: var(--surface-2); }
+  .cs-sw { width: 12px; height: 12px; border-radius: 3px; }
+  .cs-rank { font-size: 11.5px; font-weight: 800; color: var(--text-muted); font-variant-numeric: tabular-nums; text-align: right; }
+  .cs-name { font-size: 13px; font-weight: 700; min-width: 0; overflow-wrap: anywhere; }
+  .cs-row.other .cs-name { color: var(--text-secondary); font-weight: 600; }
+  .cs-val { font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--text-secondary); }
+  .cs-val b { display: inline-block; min-width: 3.4em; text-align: right; color: var(--text); font-weight: 800; margin-left: 6px; }
+  .cs-conc { font-size: 12px; color: var(--text-secondary); margin-top: 8px; padding-left: 6px; }
+  .cs-conc b { color: var(--text); }
+  .cs-view.dim path:not(.on) { opacity: .3; }
+  @media (min-width: 640px) { .cs-body { flex-direction: row; align-items: flex-start; gap: 26px; } .cs-pie { width: 210px; } }
 
   /* ---- Quarterly progress (Q1-Q4) ---- */
   .qtr-grid { display: flex; flex-direction: column; gap: 16px; }
@@ -1473,6 +1500,8 @@ const REPORTS = {
   ]
 };
 /* OUTLOOK: 先行き見通し（当月の翌月〜翌3月の受注済み・積上げ・計画・前年実績）。各G台帳の10〜3月シート上部の集計行＋計画表PDF＋2025年度台帳（担当者異動の付け替え反映済み）から作成。データ更新時はDATAと合わせて更新すること */
+const CLIENT_SHARE = {"g1":{"cur":{"total":7322,"count":21,"items":[{"name":"リウボウストア","profit":2119,"pct":28.9},{"name":"明治乳業","profit":1109,"pct":15.1},{"name":"沖縄セルラー電話","profit":830,"pct":11.3},{"name":"山城時計店","profit":703,"pct":9.6},{"name":"ボートレース大村","profit":321,"pct":4.4},{"name":"大米建設","profit":300,"pct":4.1},{"name":"三州観光開発グループ","profit":236,"pct":3.2},{"name":"沖縄県労働金庫","profit":235,"pct":3.2},{"name":"託一","profit":230,"pct":3.1},{"name":"中部興産","profit":226,"pct":3.1}],"other":{"count":11,"profit":1013,"pct":14}},"ytd":{"total":64216,"count":47,"items":[{"name":"リウボウストア","profit":15987,"pct":24.9},{"name":"沖縄セルラー電話","profit":11554,"pct":18},{"name":"山城時計店","profit":5501,"pct":8.6},{"name":"明治乳業","profit":4307,"pct":6.7},{"name":"りゅうせきライフサポート","profit":3232,"pct":5},{"name":"ボートレース大村","profit":2366,"pct":3.7},{"name":"大米建設","profit":2157,"pct":3.4},{"name":"琉球銀行","profit":1996,"pct":3.1},{"name":"三州観光開発グループ","profit":1875,"pct":2.9},{"name":"太陽石油","profit":1722,"pct":2.7}],"other":{"count":37,"profit":13519,"pct":21}}},"g2":{"cur":{"total":18447,"count":34,"items":[{"name":"リウボウインダストリー","profit":5765,"pct":31.3},{"name":"沖縄ファミリーマート","profit":4349,"pct":23.6},{"name":"BOATRACE振興会","profit":2530,"pct":13.7},{"name":"沖縄ホンダ","profit":1715,"pct":9.3},{"name":"御菓子御殿","profit":853,"pct":4.6},{"name":"カヌチャベイリゾート","profit":566,"pct":3.1},{"name":"ホンダセールスオペレーションジャパン","profit":552,"pct":3},{"name":"沖縄ファミリーマート（商品部）","profit":367,"pct":2},{"name":"シンバホールディングス(マキシカーニバル)","profit":200,"pct":1.1},{"name":"笑顔あふれる那覇を創る市民の会","profit":141,"pct":0.8}],"other":{"count":24,"profit":1409,"pct":7.5}},"ytd":{"total":106840,"count":92,"items":[{"name":"BOATRACE振興会","profit":13933,"pct":13},{"name":"リウボウインダストリー","profit":13713,"pct":12.8},{"name":"沖縄ホンダ","profit":12827,"pct":12},{"name":"沖縄ファミリーマート","profit":7856,"pct":7.4},{"name":"沖縄ファミリーマート（商品部）","profit":7385,"pct":6.9},{"name":"御菓子御殿","profit":6108,"pct":5.7},{"name":"沖縄エンタテインメント振興協会","profit":5900,"pct":5.5},{"name":"ホンダセールスオペレーションジャパン","profit":5427,"pct":5.1},{"name":"沖縄ファミリーマート（広報）","profit":4936,"pct":4.6},{"name":"沖縄マツダ販売","profit":3013,"pct":2.8}],"other":{"count":82,"profit":25742,"pct":24.2}}},"g3":{"cur":{"total":5974,"count":36,"items":[{"name":"DMM.com（リゾート事業部・かりゆし水族館）","profit":1250,"pct":20.9},{"name":"沖縄県工業連合会","profit":930,"pct":15.6},{"name":"沖縄県国保連合会","profit":682,"pct":11.4},{"name":"沖縄協同ガス","profit":508,"pct":8.5},{"name":"沖縄トヨタ自動車","profit":460,"pct":7.7},{"name":"記事タイアップ（具志堅用高50周年特集）","profit":337,"pct":5.6},{"name":"徳里産業","profit":219,"pct":3.7},{"name":"沖縄県知事公室広報課","profit":211,"pct":3.5},{"name":"コザ信用金庫","profit":177,"pct":3},{"name":"読売新聞","profit":147,"pct":2.5}],"other":{"count":26,"profit":1053,"pct":17.6}},"ytd":{"total":56003,"count":96,"items":[{"name":"沖縄美ら島財団","profit":12767,"pct":22.8},{"name":"DMM.com（リゾート事業部・かりゆし水族館）","profit":6878,"pct":12.3},{"name":"沖縄トヨタ自動車","profit":4714,"pct":8.4},{"name":"沖縄協同ガス","profit":2272,"pct":4.1},{"name":"沖縄県国保連合会","profit":1667,"pct":3},{"name":"沖縄県知事公室広報課","profit":1607,"pct":2.9},{"name":"コザ信用金庫","profit":1418,"pct":2.5},{"name":"国頭村","profit":1358,"pct":2.4},{"name":"金武町長就任特集（自主企画）","profit":1019,"pct":1.8},{"name":"サウスゲートホテルオキナワ","profit":1000,"pct":1.8}],"other":{"count":86,"profit":21303,"pct":38}}},"all":{"cur":{"total":31743,"count":91,"items":[{"name":"リウボウインダストリー","profit":5765,"pct":18.2},{"name":"沖縄ファミリーマート","profit":4349,"pct":13.7},{"name":"BOATRACE振興会","profit":2530,"pct":8},{"name":"リウボウストア","profit":2119,"pct":6.7},{"name":"沖縄ホンダ","profit":1715,"pct":5.4},{"name":"DMM.com（リゾート事業部・かりゆし水族館）","profit":1250,"pct":3.9},{"name":"明治乳業","profit":1109,"pct":3.5},{"name":"沖縄県工業連合会","profit":930,"pct":2.9},{"name":"御菓子御殿","profit":853,"pct":2.7},{"name":"沖縄セルラー電話","profit":830,"pct":2.6}],"other":{"count":81,"profit":10293,"pct":32.4}},"ytd":{"total":227059,"count":233,"items":[{"name":"リウボウストア","profit":15987,"pct":7},{"name":"BOATRACE振興会","profit":13933,"pct":6.1},{"name":"リウボウインダストリー","profit":13713,"pct":6},{"name":"沖縄美ら島財団","profit":13534,"pct":6},{"name":"沖縄ホンダ","profit":12827,"pct":5.6},{"name":"沖縄セルラー電話","profit":11554,"pct":5.1},{"name":"沖縄ファミリーマート","profit":7856,"pct":3.5},{"name":"沖縄ファミリーマート（商品部）","profit":7385,"pct":3.3},{"name":"DMM.com（リゾート事業部・かりゆし水族館）","profit":6878,"pct":3},{"name":"御菓子御殿","profit":6108,"pct":2.7}],"other":{"count":223,"profit":117284,"pct":51.7}}}};
+const CLIENT_SHARE_META = {"title":"クライアント別の利益構成比","modes":{"cur":{"label":"10月（当月）","note":"10月の確定計上の利益（10/27時点）に占める、クライアントごとの割合です。積上げ（見込み）は含みません。上位10社を社名で表示し、残りは「その他」にまとめています。単位:千円。","centerLabel":"10月の確定利益"},"ytd":{"label":"4〜10月累計","note":"4〜10月の確定計上の利益（10月は10/27時点の確定分）に占める、クライアントごとの割合です。上位10社を社名で表示し、残りは「その他」にまとめています。単位:千円。","centerLabel":"4〜10月の確定利益"}},"source":"各営業グループ管理台帳の確定計上（受注伝票）を、クライアント単位で合計しています（第1G:10/27 18:00、第2G:10/27 17:50、第3G:10/27 16:02保存時点）。各月の合計は、台帳上部の実績利益と1円単位で一致することを確認済みです。累計の4〜9月も台帳の数字のため、上の累計（4〜9月は販管システム出力）とは合計が少しずれます。表記ゆれは同じクライアントにまとめています（例：沖縄美ら島財団の各表記、DMMのリゾート事業部とかりゆし水族館、三州観光開発とエムズガーデン等の店舗名義、沖縄トヨタ自動車と営業企画課）。沖縄ファミリーマートは、台帳どおり本体・商品部・広報を別の予算枠として表示しています。自主企画（記事タイアップ・特集）は、台帳のクライアント欄の名称で表示しています。全社は第1〜3営業Gの合計で、同じクライアントは合算しています（コンテンツビジネスは含みません）。"};
 const OUTLOOK_META = {"asOf":"2026-10-27","note":"11月以降の各月に、受注済み（伝票計上済）と積上げ（見込み）がいくら入っているかを、月ごとの計画と比べたものです。先の月ほど案件の登録が少ないため、確保率が低く見えるのはふつうです。単位:千円。","source":"受注済み・積上げ：各営業グループ管理台帳の11月〜翌3月シート上部の集計行（第1G:10/27 18:00、第2G:10/27 17:50、第3G:10/27 16:02保存時点）。ただし、台帳の小計の式が明細を拾えていない次の箇所は、明細を合計し直した値を使っています（2026.10.8確認）：第1G 臼井氏の11月（売上合計の範囲外の約260千円）と12〜3月（売上合計の行が空欄のため、毎月の受注済み 約400〜640千円が集計されていない）、第2G 宇根氏の1月（積上げ合計の範囲外の沖縄ホンダ賀正スポット 約204千円）（第3G 伊藝氏の12月の不備は2026.10.15の台帳で修正済み）。台帳側が修正されれば、その値に置き換えます。計画：(20260930)販管システム出力)2026年度売上・粗利計画表（第3Gの12月〜3月は台帳の計画と差があるため、こちらを正としています）。4〜10月：4〜9月は9/30版の販管システム出力の確定実績、10月は台帳の着地見込み（このダッシュボードの月次推移と同じ数字）。コンテンツビジネスは10月以降の台帳シートが未登録のため含みません。前年実績：4〜10月はこのダッシュボードの月次推移と同じ数字（担当者異動の調整済み）。11月〜翌3月は(20260331)販管システム出力（2025年度最終）の各グループ実績に、4〜10月と同じルールで付け替えを反映しています。第1G→第2G：BOATRACE振興会（久田氏計上分）・JAおきなわSS・佐久本工機・㈱ぐしけん・沖縄プリンスホテル・メディカルフロンティア（TCB）・タイミー・ホームトレードセンター／第1G→第3G：南都・沖縄長正薬草本社・イーアス沖縄／第3G→第1G：三州観光開発グループ（MS・RS・NPコーポレーション、エムズガーデン等の店舗名義を含む）。11月〜翌3月の付け替え額（利益、千円）は、第1G→第2G：11月1,728・12月686・1月280・2月220・3月656、第3G→第1G：11月1,027・12月650・1月399・2月388・3月671（第1G→第3Gの該当はなし）。抽出した明細の合計は、前年度台帳の各月「売上合計」行と一致することを確認済み。3グループ合計は付け替えの影響を受けません。前年は確定した最終の数字、今年の10月以降は途中までしか入っていない数字なので、「前年の最終実績に対して、今どこまで積み上がっているか」の目安として見てください。","doneLabel":"4〜10月（10月は見込み）","rangeLabel":"11〜3月"};
 const OUTLOOK = {"all":{"annual":{"done":232232,"booked":64119,"pipe":50149,"plan":459312,"landing":346500,"pct":75.4,"sales":{"done":975355,"booked":285463,"pipe":196540,"plan":1917285,"landing":1457358,"pct":76}},"months":[{"m":"11月","booked":16290,"pipe":15184,"plan":38564,"salesBooked":70011,"salesPipe":57668,"salesPlan":143679,"groups":[{"key":"g1","pct":102.6},{"key":"g2","pct":53.6},{"key":"g3","pct":97}]},{"m":"12月","booked":11003,"pipe":7697,"plan":35515,"salesBooked":51639,"salesPipe":29635,"salesPlan":124743,"groups":[{"key":"g1","pct":59},{"key":"g2","pct":44.8},{"key":"g3","pct":59}]},{"m":"1月","booked":13217,"pipe":10003,"plan":44817,"salesBooked":63392,"salesPipe":34486,"salesPlan":153866,"groups":[{"key":"g1","pct":25.8},{"key":"g2","pct":56},{"key":"g3","pct":84.7}]},{"m":"2月","booked":11519,"pipe":7511,"plan":31470,"salesBooked":51125,"salesPipe":26153,"salesPlan":113678,"groups":[{"key":"g1","pct":31.4},{"key":"g2","pct":73.9},{"key":"g3","pct":89}]},{"m":"3月","booked":12089,"pipe":9754,"plan":59326,"salesBooked":49296,"salesPipe":48599,"salesPlan":290916,"groups":[{"key":"g1","pct":40.5},{"key":"g2","pct":39.2},{"key":"g3","pct":26.3}]}]},"g1":{"annual":{"done":66889,"booked":23151,"pipe":13686,"plan":153491,"landing":103726,"pct":67.6,"sales":{"done":259997,"booked":95393,"pipe":46963,"plan":530836,"landing":402353,"pct":75.8}},"months":[{"m":"11月","booked":7609,"pipe":7437,"plan":14659,"salesBooked":28489,"salesPipe":25466,"salesPlan":49584},{"m":"12月","booked":4151,"pipe":1565,"plan":9686,"salesBooked":18701,"salesPipe":6120,"salesPlan":32576},{"m":"1月","booked":3200,"pipe":1318,"plan":17495,"salesBooked":14917,"salesPipe":5610,"salesPlan":57949},{"m":"2月","booked":3302,"pipe":796,"plan":13042,"salesBooked":14862,"salesPipe":3110,"salesPlan":42614},{"m":"3月","booked":4889,"pipe":2570,"plan":18411,"salesBooked":18424,"salesPipe":6657,"salesPlan":59864}]},"g2":{"annual":{"done":107477,"booked":25413,"pipe":16947,"plan":189125,"landing":149837,"pct":79.2,"sales":{"done":429506,"booked":101743,"pipe":69158,"plan":836120,"landing":600407,"pct":71.8}},"months":[{"m":"11月","booked":5098,"pipe":3251,"plan":15574,"salesBooked":21594,"salesPipe":10603,"salesPlan":52496},{"m":"12月","booked":4507,"pipe":2644,"plan":15946,"salesBooked":19955,"salesPipe":9568,"salesPlan":55355},{"m":"1月","booked":5288,"pipe":3354,"plan":15444,"salesBooked":20144,"salesPipe":15831,"salesPlan":58020},{"m":"2月","booked":5265,"pipe":1955,"plan":9766,"salesBooked":20050,"salesPipe":7659,"salesPlan":36049},{"m":"3月","booked":5255,"pipe":5743,"plan":28047,"salesBooked":20000,"salesPipe":25497,"salesPlan":169475}]},"g3":{"annual":{"done":57866,"booked":15554,"pipe":19514,"plan":116696,"landing":92934,"pct":79.6,"sales":{"done":285852,"booked":88323,"pipe":80418,"plan":550329,"landing":454593,"pct":82.6}},"months":[{"m":"11月","booked":3583,"pipe":4495,"plan":8331,"salesBooked":19928,"salesPipe":21599,"salesPlan":41599},{"m":"12月","booked":2345,"pipe":3488,"plan":9883,"salesBooked":12982,"salesPipe":13947,"salesPlan":36812},{"m":"1月","booked":4729,"pipe":5330,"plan":11878,"salesBooked":28330,"salesPipe":13044,"salesPlan":37897},{"m":"2月","booked":2952,"pipe":4760,"plan":8662,"salesBooked":16212,"salesPipe":15383,"salesPlan":35015},{"m":"3月","booked":1945,"pipe":1441,"plan":12868,"salesBooked":10871,"salesPipe":16445,"salesPlan":61577}]}};
 const OUTLOOK_PRIOR = {"all":[{"prior":32874,"salesPrior":124784},{"prior":28154,"salesPrior":107042},{"prior":39954,"salesPrior":141162},{"prior":27210,"salesPrior":92632},{"prior":61355,"salesPrior":271371}],"g1":[{"prior":13185,"salesPrior":43682},{"prior":7662,"salesPrior":29737},{"prior":16778,"salesPrior":59811},{"prior":9818,"salesPrior":29949},{"prior":18290,"salesPrior":58729}],"g2":[{"prior":13259,"salesPrior":46866},{"prior":12814,"salesPrior":48524},{"prior":13333,"salesPrior":50757},{"prior":8740,"salesPrior":31030},{"prior":31397,"salesPrior":159912}],"g3":[{"prior":6430,"salesPrior":34236},{"prior":7678,"salesPrior":28781},{"prior":9843,"salesPrior":30594},{"prior":8652,"salesPrior":31653},{"prior":11668,"salesPrior":52730}]};
@@ -1924,6 +1953,75 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
       '<details class="more"><summary>数字の出どころ</summary><div class="more-body"><p>' + esc(OUTLOOK_META.source) + '</p></div></details>';
   }
 
+  function clientShareSection(key, scope) {
+    var cs = typeof CLIENT_SHARE !== "undefined" && CLIENT_SHARE[key]; if (!cs) return "";
+    var M = CLIENT_SHARE_META, c = "var(--" + scope.color + ")";
+    // 上位ほど濃く（同じ色相の濃淡）、その他はグレー
+    function shade(i) { return "color-mix(in oklab, " + c + " " + (100 - i * 7.5) + "%, var(--page))"; }
+    var OTHER = "color-mix(in oklab, var(--text-muted) 45%, var(--page))";
+    function pt(a, r) { return [100 + r * Math.cos(a), 100 + r * Math.sin(a)]; }
+    function arc(a0, a1) {
+      var R = 92, r = 56, big = a1 - a0 > Math.PI ? 1 : 0;
+      var p0 = pt(a0, R), p1 = pt(a1, R), p2 = pt(a1, r), p3 = pt(a0, r);
+      return "M" + p0[0].toFixed(2) + " " + p0[1].toFixed(2) + "A" + R + " " + R + " 0 " + big + " 1 " + p1[0].toFixed(2) + " " + p1[1].toFixed(2) +
+        "L" + p2[0].toFixed(2) + " " + p2[1].toFixed(2) + "A" + r + " " + r + " 0 " + big + " 0 " + p3[0].toFixed(2) + " " + p3[1].toFixed(2) + "Z";
+    }
+    function view(mode) {
+      var d = cs[mode], md = M.modes[mode];
+      var parts = d.items.map(function (it, i) { return { i: i, rank: i + 1, name: it.name, profit: it.profit, pct: it.pct, color: shade(i), dark: i < 5 }; });
+      parts.push({ i: parts.length, rank: "", name: "その他（" + fmt(d.other.count) + "社）", profit: d.other.profit, pct: d.other.pct, color: OTHER, dark: false, other: true });
+      var sum = parts.reduce(function (s, p) { return s + Math.max(0, p.profit); }, 0), a = -Math.PI / 2, svg = "";
+      parts.forEach(function (p) {
+        var v = Math.max(0, p.profit); if (!v) return;
+        var a1 = a + v / sum * Math.PI * 2, tip = esc(p.name) + "：利益" + fmt(p.profit) + "千円（" + p.pct.toFixed(1) + "%）";
+        svg += '<path data-cs-i="' + p.i + '" d="' + arc(a, Math.min(a1, a + Math.PI * 2 - 0.0001)) + '" style="fill:' + p.color + '"><title>' + tip + '</title></path>';
+        if (p.rank && v / sum >= 0.045) { var m = pt((a + a1) / 2, 74); svg += '<text x="' + m[0].toFixed(1) + '" y="' + m[1].toFixed(1) + '" text-anchor="middle" dominant-baseline="central" style="fill:' + (p.dark ? "var(--page)" : "var(--text)") + '">' + p.rank + '</text>'; }
+        a = a1;
+      });
+      var topPct = Math.round((100 - d.other.pct) * 10) / 10;
+      var rows = parts.map(function (p) {
+        return '<li class="cs-row' + (p.other ? ' other' : '') + '" data-cs-i="' + p.i + '">' +
+          '<span class="cs-sw" style="background:' + p.color + '"></span><span class="cs-rank">' + p.rank + '</span>' +
+          '<span class="cs-name">' + esc(p.name) + '</span><span class="cs-val">' + fmt(p.profit) + '<b>' + p.pct.toFixed(1) + '%</b></span></li>';
+      }).join("");
+      return '<div class="cs-view" data-cs-view="' + mode + '"' + (mode === "cur" ? "" : " hidden") + '>' +
+        '<div class="guide">' + esc(md.note) + '</div>' +
+        '<div class="cs-body"><div class="cs-pie"><svg viewBox="0 0 200 200" role="img" aria-label="' + esc(md.label) + 'のクライアント別利益構成比">' + svg + '</svg>' +
+          '<div class="cs-center"><span class="l">' + esc(md.centerLabel) + '</span><span class="v">' + fmt(d.total) + '</span><span class="u">千円・' + fmt(d.count) + '社</span></div></div>' +
+          '<div class="cs-side"><ol class="cs-list">' + rows + '</ol>' +
+          '<div class="cs-conc">上位10社で <b>' + topPct.toFixed(1) + '%</b>、その他' + fmt(d.other.count) + '社で ' + d.other.pct.toFixed(1) + '%</div></div></div></div>';
+    }
+    return '' +
+      '<h2 class="sec" style="--sec-c:' + c + '"><span class="bar"></span>' + esc(M.title) + '</h2>' +
+      '<div class="cs-wrap" style="--gc:' + c + '">' +
+        '<div class="cs-seg" role="group" aria-label="集計期間">' +
+          '<button type="button" data-cs-mode="cur" aria-pressed="true">' + esc(M.modes.cur.label) + '</button>' +
+          '<button type="button" data-cs-mode="ytd" aria-pressed="false">' + esc(M.modes.ytd.label) + '</button></div>' +
+        view("cur") + view("ytd") +
+      '</div>' +
+      '<details class="more"><summary>集計の方法</summary><div class="more-body">' + esc(M.source) + '</div></details>';
+  }
+  if (typeof document !== "undefined" && document.addEventListener) {
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-cs-mode]"); if (!b) return;
+      var w = b.closest(".cs-wrap"), mode = b.getAttribute("data-cs-mode");
+      w.querySelectorAll("[data-cs-mode]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      w.querySelectorAll("[data-cs-view]").forEach(function (v) { v.hidden = v.getAttribute("data-cs-view") !== mode; });
+    });
+    var csHover = function (e) {
+      var t = e.target.closest && e.target.closest("[data-cs-i]"), v = e.target.closest && e.target.closest(".cs-view");
+      document.querySelectorAll(".cs-view.dim").forEach(function (x) {
+        if (x !== v || !t) { x.classList.remove("dim"); x.querySelectorAll(".on, .hl").forEach(function (y) { y.classList.remove("on"); y.classList.remove("hl"); }); }
+      });
+      if (!t || !v) return;
+      var i = t.getAttribute("data-cs-i");
+      v.classList.add("dim");
+      v.querySelectorAll("[data-cs-i]").forEach(function (y) { y.classList.toggle(y.tagName.toLowerCase() === "path" ? "on" : "hl", y.getAttribute("data-cs-i") === i); });
+    };
+    document.addEventListener("mouseover", csHover);
+    document.addEventListener("touchstart", csHover, { passive: true });
+  }
+
   function blk(name, html) { return html ? '<div class="blk blk-' + name + '">' + html + '</div>' : ""; }
 
   function renderPanel(key) {
@@ -1937,6 +2035,7 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
     html += blk("groups", groupsSection(scope));
     html += blk("outlook", outlookSection(scope));
     html += blk("crosstopics", crossTopicsSection(scope));
+    html += blk("clientshare", clientShareSection(key, scope));
     html += blk("clienttrends", clientTrendsSection(scope));
     html += blk("topics", topicsSection(scope));
     html += blk("swingfactors", swingFactorsSection(scope));
