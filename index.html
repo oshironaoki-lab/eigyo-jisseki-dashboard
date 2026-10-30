@@ -1928,10 +1928,10 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
     html += blk("groups", groupsSection(scope));
     html += blk("outlook", outlookSection(scope));
     html += blk("clientshare", clientShareSection(key, scope));
-    html += blk("crosstopics", crossTopicsSection(scope));
     html += blk("clienttrends", clientTrendsSection(scope));
     html += blk("topics", topicsSection(scope));
     html += blk("swingfactors", swingFactorsSection(scope));
+    html += blk("crosstopics", crossTopicsSection(scope));
     return html;
   }
 
