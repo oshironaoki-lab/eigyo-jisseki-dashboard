@@ -478,7 +478,7 @@
     .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; align-items: stretch; }
     .blk-hero  { grid-column: 1; }
     .blk-ytd   { grid-column: 2; }
-    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors, .blk-quarterly, .blk-outlook { grid-column: 1 / -1; }
+    .blk-trend, .blk-groups, .blk-crosstopics, .blk-clienttrends, .blk-topics, .blk-swingfactors, .blk-quarterly, .blk-outlook, .blk-clientshare { grid-column: 1 / -1; }
 
     /* Hero: a compact horizontal stat banner instead of a tall, mostly-empty card.
        Number+caption anchor left, the plan/YoY chips anchor right, so the band reads as
@@ -1738,7 +1738,7 @@ Object.keys(OUTLOOK).forEach(function (k) { if (DATA.scopes[k]) DATA.scopes[k].o
   }
 
   function outlookSection(scope) {
-    var head = '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>先行き見通し（' + esc((scope.outlook ? scope.outlook.months[0].m : "11月")) + '〜翌3月・利益）</h2>';
+    var head = '<h2 class="sec" style="--sec-c:var(--' + scope.color + ')"><span class="bar"></span>先行き見通し（' + esc((scope.outlook ? scope.outlook.months[0].m : "12月")) + '〜翌3月・利益）</h2>';
     if (!scope.outlook) {
       if (scope.color !== "content") return "";
       return head + '<div class="guide">コンテンツビジネスは11月以降の管理台帳シートがまだ登録されていないため、先行き見通しは表示できません。シートが登録され次第、ほかのグループと同じ形で表示します。</div>';
